@@ -52,6 +52,30 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Cajero\InicioCajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\InicioCajero.Designer.cs">
+      <DependentUpon>InicioCajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\InicioSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\InicioSupervisor.Designer.cs">
+      <DependentUpon>InicioSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\PerfilSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\PerfilSupervisor.Designer.cs">
+      <DependentUpon>PerfilSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\InicioVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\InicioVendedor.Designer.cs">
+      <DependentUpon>InicioVendedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
