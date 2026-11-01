@@ -16,5 +16,10 @@ namespace ElectroHogar.Modulo_Supervisor
         {
             InitializeComponent();
         }
+
+        private void PerfilSupervisor_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
