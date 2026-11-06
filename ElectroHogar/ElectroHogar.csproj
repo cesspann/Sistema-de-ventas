@@ -54,11 +54,47 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Cajero\FrmConsultarDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmConsultarDatos.Designer.cs">
+      <DependentUpon>FrmConsultarDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmDatosCajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmDatosCajero.Designer.cs">
+      <DependentUpon>FrmDatosCajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmEliminarFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmEliminarFactura.Designer.cs">
+      <DependentUpon>FrmEliminarFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmNuevaVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmNuevaVenta.Designer.cs">
+      <DependentUpon>FrmNuevaVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmPagoCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmPagoCredito.Designer.cs">
+      <DependentUpon>FrmPagoCredito.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Cajero\InicioCajero.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modulo_Cajero\InicioCajero.Designer.cs">
       <DependentUpon>InicioCajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmModificarDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmModificarDatos.Designer.cs">
+      <DependentUpon>FrmModificarDatos.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\InicioSupervisor.cs">
       <SubType>Form</SubType>
@@ -82,6 +118,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\FrmConsultarDatos.resx">
+      <DependentUpon>FrmConsultarDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\FrmNuevaVenta.resx">
+      <DependentUpon>FrmNuevaVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\InicioCajero.resx">
+      <DependentUpon>InicioCajero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\InicioSupervisor.resx">
       <DependentUpon>InicioSupervisor.cs</DependentUpon>
