@@ -57,5 +57,10 @@ namespace ElectroHogar.Modulo_Cajero
         {
             AbrirSubVentana(new FrmDatosCajero());
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

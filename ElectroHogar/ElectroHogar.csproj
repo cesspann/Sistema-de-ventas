@@ -122,8 +122,17 @@
     <EmbeddedResource Include="Modulo_Cajero\FrmConsultarDatos.resx">
       <DependentUpon>FrmConsultarDatos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\FrmDatosCajero.resx">
+      <DependentUpon>FrmDatosCajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\FrmEliminarFactura.resx">
+      <DependentUpon>FrmEliminarFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\FrmNuevaVenta.resx">
       <DependentUpon>FrmNuevaVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\FrmPagoCredito.resx">
+      <DependentUpon>FrmPagoCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\InicioCajero.resx">
       <DependentUpon>InicioCajero.cs</DependentUpon>

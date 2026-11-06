@@ -6,7 +6,7 @@ namespace ElectroHogar
 {
     public partial class InicioSupervisor : Form
     {
-        private const string PlaceholderText = "Buscar herramientas...";
+        private const string PlaceholderText = "Buscar herramientas o registros...";
 
         public InicioSupervisor()
         {
@@ -92,11 +92,6 @@ namespace ElectroHogar
             Form1 loginForm = new Form1();
             loginForm.Show();
             this.Close();
-        }
-
-        private void menuReportes_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
         }
     }
 }

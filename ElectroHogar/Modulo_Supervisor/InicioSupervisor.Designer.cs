@@ -28,10 +28,12 @@
             this.btnVerReportes = new System.Windows.Forms.Button();
             this.btnGestionarUsuarios = new System.Windows.Forms.Button();
             this.btnOtrasSucursales = new System.Windows.Forms.Button();
+
+            // Componentes de los Menús Flotantes (Ventanillas de opciones)
             this.menuAgregar = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuReportes = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuUsuarios = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Perfil = new System.Windows.Forms.Label();
+
             this.pnlLateral.SuspendLayout();
             this.pnlContenido.SuspendLayout();
             this.SuspendLayout();
@@ -39,13 +41,12 @@
             // pnlLateral
             // 
             this.pnlLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.pnlLateral.Controls.Add(this.Perfil);
             this.pnlLateral.Controls.Add(this.btnRegresar);
             this.pnlLateral.Controls.Add(this.btnPerfil);
             this.pnlLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLateral.Location = new System.Drawing.Point(0, 0);
             this.pnlLateral.Name = "pnlLateral";
-            this.pnlLateral.Size = new System.Drawing.Size(220, 686);
+            this.pnlLateral.Size = new System.Drawing.Size(220, 600);
             this.pnlLateral.TabIndex = 0;
             // 
             // btnRegresar
@@ -70,9 +71,9 @@
             this.btnPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPerfil.Font = new System.Drawing.Font("Segoe UI", 24F);
             this.btnPerfil.ForeColor = System.Drawing.Color.White;
-            this.btnPerfil.Location = new System.Drawing.Point(20, 510);
+            this.btnPerfil.Location = new System.Drawing.Point(20, 500);
             this.btnPerfil.Name = "btnPerfil";
-            this.btnPerfil.Size = new System.Drawing.Size(167, 151);
+            this.btnPerfil.Size = new System.Drawing.Size(60, 60);
             this.btnPerfil.TabIndex = 1;
             this.btnPerfil.Text = "👤";
             this.btnPerfil.UseVisualStyleBackColor = false;
@@ -89,7 +90,7 @@
             this.pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenido.Location = new System.Drawing.Point(220, 0);
             this.pnlContenido.Name = "pnlContenido";
-            this.pnlContenido.Size = new System.Drawing.Size(752, 686);
+            this.pnlContenido.Size = new System.Drawing.Size(680, 600);
             this.pnlContenido.TabIndex = 1;
             // 
             // txtBuscar
@@ -98,17 +99,16 @@
             this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
             this.txtBuscar.Location = new System.Drawing.Point(50, 40);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(497, 34);
+            this.txtBuscar.Size = new System.Drawing.Size(420, 34);
             this.txtBuscar.TabIndex = 0;
             // 
             // lblBuscarIcono
             // 
             this.lblBuscarIcono.AutoSize = true;
             this.lblBuscarIcono.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.lblBuscarIcono.ForeColor = System.Drawing.Color.Teal;
-            this.lblBuscarIcono.Location = new System.Drawing.Point(553, 40);
+            this.lblBuscarIcono.Location = new System.Drawing.Point(480, 40);
             this.lblBuscarIcono.Name = "lblBuscarIcono";
-            this.lblBuscarIcono.Size = new System.Drawing.Size(47, 32);
+            this.lblBuscarIcono.Size = new System.Drawing.Size(38, 32);
             this.lblBuscarIcono.TabIndex = 1;
             this.lblBuscarIcono.Text = "🔍";
             // 
@@ -118,7 +118,7 @@
             this.btnAgregarRegistro.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnAgregarRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarRegistro.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAgregarRegistro.ForeColor = System.Drawing.Color.Teal;
+            this.btnAgregarRegistro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.btnAgregarRegistro.Location = new System.Drawing.Point(50, 140);
             this.btnAgregarRegistro.Name = "btnAgregarRegistro";
             this.btnAgregarRegistro.Size = new System.Drawing.Size(250, 160);
@@ -133,7 +133,7 @@
             this.btnVerReportes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnVerReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerReportes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnVerReportes.ForeColor = System.Drawing.Color.Teal;
+            this.btnVerReportes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.btnVerReportes.Location = new System.Drawing.Point(350, 140);
             this.btnVerReportes.Name = "btnVerReportes";
             this.btnVerReportes.Size = new System.Drawing.Size(250, 160);
@@ -148,7 +148,7 @@
             this.btnGestionarUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnGestionarUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGestionarUsuarios.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnGestionarUsuarios.ForeColor = System.Drawing.Color.Teal;
+            this.btnGestionarUsuarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.btnGestionarUsuarios.Location = new System.Drawing.Point(50, 350);
             this.btnGestionarUsuarios.Name = "btnGestionarUsuarios";
             this.btnGestionarUsuarios.Size = new System.Drawing.Size(250, 160);
@@ -162,53 +162,27 @@
             this.btnOtrasSucursales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnOtrasSucursales.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnOtrasSucursales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+
             this.btnOtrasSucursales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnOtrasSucursales.ForeColor = System.Drawing.Color.Teal;
+            this.btnOtrasSucursales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.btnOtrasSucursales.Location = new System.Drawing.Point(350, 350);
             this.btnOtrasSucursales.Name = "btnOtrasSucursales";
             this.btnOtrasSucursales.Size = new System.Drawing.Size(250, 160);
             this.btnOtrasSucursales.TabIndex = 5;
             this.btnOtrasSucursales.Text = "🏢\n\nOtras Sucursales";
             this.btnOtrasSucursales.UseVisualStyleBackColor = false;
-            // 
-            // menuAgregar
-            // 
+            //
+            // Configuración de fuentes de los menús
+            //
             this.menuAgregar.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.menuAgregar.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuAgregar.Name = "menuAgregar";
-            this.menuAgregar.Size = new System.Drawing.Size(61, 4);
-            // 
-            // menuReportes
-            // 
             this.menuReportes.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.menuReportes.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuReportes.Name = "menuReportes";
-            this.menuReportes.Size = new System.Drawing.Size(61, 4);
-            this.menuReportes.Opening += new System.ComponentModel.CancelEventHandler(this.menuReportes_Opening);
-            // 
-            // menuUsuarios
-            // 
             this.menuUsuarios.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.menuUsuarios.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuUsuarios.Name = "menuUsuarios";
-            this.menuUsuarios.Size = new System.Drawing.Size(61, 4);
-            // 
-            // Perfil
-            // 
-            this.Perfil.AutoSize = true;
-            this.Perfil.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Perfil.Location = new System.Drawing.Point(81, 618);
-            this.Perfil.Name = "Perfil";
-            this.Perfil.Size = new System.Drawing.Size(37, 16);
-            this.Perfil.TabIndex = 2;
-            this.Perfil.Text = "Perfil";
-            this.Perfil.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
+            //
             // InicioSupervisor
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 686);
+            this.ClientSize = new System.Drawing.Size(900, 600);
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlLateral);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -217,11 +191,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ElectroHogar - Inicio Supervisor";
             this.pnlLateral.ResumeLayout(false);
-            this.pnlLateral.PerformLayout();
             this.pnlContenido.ResumeLayout(false);
             this.pnlContenido.PerformLayout();
             this.ResumeLayout(false);
-
         }
         #endregion
         private System.Windows.Forms.Panel pnlLateral;
@@ -238,6 +210,5 @@
         private System.Windows.Forms.ContextMenuStrip menuAgregar;
         private System.Windows.Forms.ContextMenuStrip menuReportes;
         private System.Windows.Forms.ContextMenuStrip menuUsuarios;
-        private System.Windows.Forms.Label Perfil;
     }
 }
