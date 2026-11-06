@@ -167,11 +167,10 @@
             this.btnGestionarUsuarios.TabIndex = 4;
             this.btnGestionarUsuarios.Text = "👥\n\nGestionar Usuarios";
             this.btnGestionarUsuarios.UseVisualStyleBackColor = false;
-
             this.btnGestionarUsuarios.Click += new System.EventHandler(this.btnGestionarUsuarios_Click);
-            //
+            // 
             // btnOtrasSucursales
-            //
+            // 
             this.btnOtrasSucursales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnOtrasSucursales.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnOtrasSucursales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -184,27 +183,27 @@
             this.btnOtrasSucursales.Text = "🏢\n\nOtras Sucursales";
             this.btnOtrasSucursales.UseVisualStyleBackColor = false;
             this.btnOtrasSucursales.Click += new System.EventHandler(this.btnOtrasSucursales_Click);
-            //
+            // 
             // menuAgregar
-            //
+            // 
             this.menuAgregar.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuAgregar.Name = "menuAgregar";
             this.menuAgregar.Size = new System.Drawing.Size(61, 4);
-            //
+            // 
             // menuReportes
-            //
+            // 
             this.menuReportes.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuReportes.Name = "menuReportes";
             this.menuReportes.Size = new System.Drawing.Size(61, 4);
-            //
+            // 
             // menuUsuarios
-            //
+            // 
             this.menuUsuarios.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuUsuarios.Name = "menuUsuarios";
             this.menuUsuarios.Size = new System.Drawing.Size(61, 4);
-            //
+            // 
             // InicioSupervisor
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 686);
@@ -217,6 +216,7 @@
             this.pnlContenido.ResumeLayout(false);
             this.pnlContenido.PerformLayout();
             this.ResumeLayout(false);
+
         }
         #endregion
         private System.Windows.Forms.Panel pnlLateral;

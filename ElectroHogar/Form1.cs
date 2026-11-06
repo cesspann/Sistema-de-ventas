@@ -24,16 +24,28 @@ namespace ElectroHogar
             path.AddEllipse(0, 0, picLogo.Width, picLogo.Height);
             picLogo.Region = new Region(path);
 
-            string folderPath = @"C:\Users\Saa Vasquez\Desktop\Proyecto-BAD215\ElectroHogar";
-            string imagePath = Path.Combine(folderPath, "logo.jpg");
+            // CORRECCIÓN RUTA DINÁMICA: 
+            // Intenta buscar el logo en la carpeta de ejecución para que no falle en las PC de tus compañeros.
+            string imagePath = Path.Combine(Application.StartupPath, "logo.jpg");
 
             if (File.Exists(imagePath))
             {
                 picLogo.Image = Image.FromFile(imagePath);
             }
+            else
+            {
+                // Ruta local de respaldo en tu escritorio si aún no se ha copiado a la carpeta Debug/Release
+                string folderPath = @"C:\Users\Saa Vasquez\Desktop\Proyecto-BAD215\ElectroHogar";
+                string fallbackPath = Path.Combine(folderPath, "logo.jpg");
+
+                if (File.Exists(fallbackPath))
+                {
+                    picLogo.Image = Image.FromFile(fallbackPath);
+                }
+            }
         }
 
-        // --- AQUÍ SE REALIZA LA CONEXIÓN CON LA PANTALLA INICIO SUPERVISOR ---
+        // --- ENTRADA DIRECTA A INICIO SUPERVISOR ---
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             // 1. Validamos que el usuario no deje los campos vacíos
@@ -44,15 +56,14 @@ namespace ElectroHogar
                 return;
             }
 
-            // 2. Instanciamos la nueva pantalla del Supervisor
+            // 2. Instanciamos la pantalla de Inicio del Supervisor directamente
             InicioSupervisor pantallaSupervisor = new InicioSupervisor();
 
-            // 3. Mostramos la pantalla de inicio del supervisor
+            // 3. Mostramos la pantalla del supervisor
             pantallaSupervisor.Show();
 
-            // 4. Ocultamos el login para que no interfiera visualmente
+            // 4. Ocultamos el login de inmediato
             this.Hide();
         }
     }
 }
-

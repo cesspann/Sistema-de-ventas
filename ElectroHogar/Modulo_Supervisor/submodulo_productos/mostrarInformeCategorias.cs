@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ElectroHogar.Modulo_Supervisor
+namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
-    public partial class PerfilSupervisor : Form
+    public partial class mostrarInformeCategorias : Form
     {
-        public PerfilSupervisor()
+        public mostrarInformeCategorias()
         {
             InitializeComponent();
-        }
-
-        private void PerfilSupervisor_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
