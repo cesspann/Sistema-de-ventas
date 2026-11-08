@@ -1,0 +1,208 @@
+DELIMITER %%
+
+DROP PROCEDURE SP_PAGAR_CUOTA%%
+CREATE PROCEDURE SP_PAGAR_CUOTA(
+    IN P_ID_CREDITO INT,
+    IN P_NUMERO_CUOTA INT,
+    IN P_MONTO_PAGO DECIMAL(10,2)
+)
+BEGIN
+    DECLARE V_ESTADO_CUOTA VARCHAR(50);
+    DECLARE V_ESTADO_CREDITO VARCHAR(50);
+    DECLARE V_ESTADO_FACTURA VARCHAR(50);
+    DECLARE V_MONTO_ESPERADO DECIMAL(10,2);
+    DECLARE V_MONTO_ABONADO DECIMAL(10,2);
+    DECLARE V_SALDO_CUOTA DECIMAL(10,2);
+    DECLARE V_SALDO_CREDITO DECIMAL(10,2);
+    DECLARE V_NUEVO_SALDO_CREDITO DECIMAL(10,2);
+    DECLARE V_NUEVO_ESTADO_CREDITO VARCHAR(50);
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    -- Se valida el monto que se esta pagando
+    IF P_MONTO_PAGO IS NULL OR P_MONTO_PAGO <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El monto de pago debe ser mayor que cero.';
+    END IF;
+
+    -- Se validan los datos de entrada básicos
+    IF P_ID_CREDITO IS NULL OR P_ID_CREDITO <= 0 OR P_NUMERO_CUOTA IS NULL OR P_NUMERO_CUOTA <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Debe indicar un crédito y una cuota válidos.';
+    END IF;
+
+    -- Comprobar que el crédito exista.
+    IF NOT EXISTS (SELECT 1 FROM CREDITO WHERE ID_CREDITO = P_ID_CREDITO) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El crédito indicado no existe.';
+    END IF;
+
+    -- Comprobar que la cuota pertenezca al crédito.
+    IF NOT EXISTS (SELECT 1 FROM CUOTA WHERE ID_CREDITO = P_ID_CREDITO AND NUMERO_CUOTA = P_NUMERO_CUOTA) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La cuota no existe para el crédito indicado.';
+    END IF;
+
+    -- Se consultan los estados actuales antes de iniciar la transacción
+    SELECT ESTADO_CREDITO, SALDO_PENDIENTE INTO V_ESTADO_CREDITO, V_SALDO_CREDITO
+    FROM CREDITO
+    WHERE ID_CREDITO = P_ID_CREDITO;
+
+    SELECT C.ESTADO_CUOTA, C.MONTO_ESPERADO, C.MONTO_ABONADO, F.ESTADO_FACTURA
+    INTO V_ESTADO_CUOTA, V_MONTO_ESPERADO, V_MONTO_ABONADO, V_ESTADO_FACTURA
+    FROM CUOTA C
+    INNER JOIN CREDITO CR ON CR.ID_CREDITO = C.ID_CREDITO
+    INNER JOIN FACTURA F ON F.ID_FACTURA = CR.ID_FACTURA
+    WHERE C.ID_CREDITO = P_ID_CREDITO AND C.NUMERO_CUOTA = P_NUMERO_CUOTA;
+
+    -- No permitir pagar créditos cancelados o ya pagados.
+    IF V_ESTADO_CREDITO IN ('Cancelado', 'Pagado') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El crédito está cancelado o ya fue pagado.';
+    END IF;
+
+    -- No permitir pagos de facturas anuladas.
+    IF V_ESTADO_FACTURA <> 'Activa' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede pagar una cuota de una factura anulada.';
+    END IF;
+
+    -- se valida que la cuota no se encuentre pagada
+    IF V_ESTADO_CUOTA = 'Pagada' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Esta cuota ya ha sido pagada en su totalidad.';
+    END IF;
+
+    -- se valida que la cuota no se encuntre cancelada
+    IF V_ESTADO_CUOTA = 'Cancelada' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede pagar una cuota que ha sido cancelada.';
+    END IF;
+
+    -- Calcula el saldo completo de la cuota
+    SET V_SALDO_CUOTA = V_MONTO_ESPERADO - V_MONTO_ABONADO;
+
+    IF V_SALDO_CUOTA <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La cuota no tiene saldo pendiente.';
+    END IF;
+
+    -- Se valida que el pago sea exacto al monto esperado de la cuota
+    IF P_MONTO_PAGO <> V_SALDO_CUOTA THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El monto debe coincidir exactamente con el saldo completo de la cuota.';
+    END IF;
+
+    -- Verificar que el crédito tenga saldo suficiente.
+    IF V_SALDO_CREDITO < V_SALDO_CUOTA THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El saldo del crédito es insuficiente para pagar esta cuota.';
+    END IF;
+
+    START TRANSACTION;
+
+    -- Bloquear los registros implicados para evitar acceder a datos incorrectos
+    SELECT ESTADO_CREDITO, SALDO_PENDIENTE INTO V_ESTADO_CREDITO, V_SALDO_CREDITO
+    FROM CREDITO
+    WHERE ID_CREDITO = P_ID_CREDITO
+    FOR UPDATE;
+
+    SELECT ESTADO_CUOTA, MONTO_ABONADO, MONTO_ESPERADO INTO V_ESTADO_CUOTA, V_MONTO_ABONADO, V_MONTO_ESPERADO
+    FROM CUOTA
+    WHERE ID_CREDITO = P_ID_CREDITO AND NUMERO_CUOTA = P_NUMERO_CUOTA
+    FOR UPDATE;
+
+    -- Se vuelven a comprobar los valores después de bloquear los registros
+    IF V_ESTADO_CREDITO IN ('Cancelado', 'Pagado') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El crédito está cancelado o ya fue pagado.';
+    END IF;
+
+    IF V_ESTADO_CUOTA IN ('Pagada', 'Cancelada') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La cuota ya fue pagada o está cancelada.';
+    END IF;
+
+    SET V_SALDO_CUOTA = V_MONTO_ESPERADO - V_MONTO_ABONADO;
+
+    IF V_SALDO_CUOTA <= 0 OR P_MONTO_PAGO <> V_SALDO_CUOTA THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El monto debe coincidir exactamente con el saldo completo de la cuota.';
+    END IF;
+
+    IF V_SALDO_CREDITO < V_SALDO_CUOTA THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El saldo del crédito es insuficiente para pagar esta cuota.';
+    END IF;
+
+    -- Marca la Cuota como Pagada por el monto completo
+    UPDATE CUOTA
+    SET MONTO_ABONADO = MONTO_ESPERADO,
+        FECHA_PAGO = NOW(),
+        ESTADO_CUOTA = 'Pagada'
+    WHERE ID_CREDITO = P_ID_CREDITO
+      AND NUMERO_CUOTA = P_NUMERO_CUOTA;
+
+    -- Descuenta el pago del saldo total del crédito.
+    SET V_NUEVO_SALDO_CREDITO = V_SALDO_CREDITO - V_SALDO_CUOTA;
+
+    IF V_NUEVO_SALDO_CREDITO < 0 THEN
+        SET V_NUEVO_SALDO_CREDITO = 0.00;
+    END IF;
+
+    -- Determina el nuevo estado general del crédito.
+    IF V_NUEVO_SALDO_CREDITO = 0 THEN
+        SET V_NUEVO_ESTADO_CREDITO = 'Pagado';
+    ELSEIF EXISTS (SELECT 1 FROM CUOTA WHERE ID_CREDITO = P_ID_CREDITO AND ESTADO_CUOTA = 'Vencida') THEN
+        SET V_NUEVO_ESTADO_CREDITO = 'Vencido';
+    ELSE
+        SET V_NUEVO_ESTADO_CREDITO = 'Pendiente';
+    END IF;
+
+    -- Actualiza el saldo pendiente y el estado general del Crédito
+    UPDATE CREDITO
+    SET SALDO_PENDIENTE = V_NUEVO_SALDO_CREDITO,
+        ESTADO_CREDITO = V_NUEVO_ESTADO_CREDITO
+    WHERE ID_CREDITO = P_ID_CREDITO;
+
+    COMMIT;
+END%%
+
+
+DROP PROCEDURE IF EXISTS SP_CONSULTAR_CUOTAS%%
+
+CREATE PROCEDURE SP_CONSULTAR_CUOTAS(
+    IN P_ID_SUCURSAL INT,
+    IN P_BUSQUEDA VARCHAR(50),
+    IN P_ESTADO VARCHAR(30)
+)
+BEGIN
+    DECLARE V_FILTRO VARCHAR(52);
+
+    IF P_BUSQUEDA IS NULL OR TRIM(P_BUSQUEDA) = '' THEN
+
+        SELECT C.ID_CREDITO, F.ID_CLIENTE, COALESCE(CN.NOMBRE_CLIENTE, CJ.RAZON_SOCIAL) AS NOMBRE_CLIENTE, F.NUMERO_FACTURA, C.NUMERO_CUOTA, C.FECHA_VENCIMIENTO, C.FECHA_PAGO, C.MONTO_ABONADO, C.MONTO_ESPERADO, C.ESTADO_CUOTA
+        FROM CUOTA C
+        JOIN CREDITO CR ON C.ID_CREDITO = CR.ID_CREDITO
+        JOIN FACTURA F ON CR.ID_FACTURA = F.ID_FACTURA
+        LEFT JOIN CLIENTENATURAL CN ON CN.ID_CLIENTE = F.ID_CLIENTE
+        LEFT JOIN CLIENTEJURIDICO CJ ON CJ.ID_CLIENTE = F.ID_CLIENTE
+        WHERE F.ID_SUCURSAL = P_ID_SUCURSAL
+          AND (NULLIF(TRIM(P_ESTADO), '') IS NULL OR C.ESTADO_CUOTA = TRIM(P_ESTADO))
+        ORDER BY C.ID_CREDITO ASC, C.NUMERO_CUOTA ASC;
+
+    ELSE
+        SET V_FILTRO = CONCAT('%', TRIM(P_BUSQUEDA), '%');
+
+        SELECT C.ID_CREDITO, F.ID_CLIENTE, COALESCE(CN.NOMBRE_CLIENTE, CJ.RAZON_SOCIAL) AS NOMBRE_CLIENTE, F.NUMERO_FACTURA, C.NUMERO_CUOTA, C.FECHA_VENCIMIENTO, C.FECHA_PAGO, C.MONTO_ABONADO, C.MONTO_ESPERADO, C.ESTADO_CUOTA
+        FROM CUOTA C
+        JOIN CREDITO CR ON C.ID_CREDITO = CR.ID_CREDITO
+        JOIN FACTURA F ON CR.ID_FACTURA = F.ID_FACTURA
+        LEFT JOIN CLIENTENATURAL CN ON CN.ID_CLIENTE = F.ID_CLIENTE
+        LEFT JOIN CLIENTEJURIDICO CJ ON CJ.ID_CLIENTE = F.ID_CLIENTE
+        WHERE F.ID_SUCURSAL = P_ID_SUCURSAL
+          AND (
+              CAST(F.ID_CLIENTE AS CHAR) LIKE V_FILTRO
+              OR CN.NOMBRE_CLIENTE LIKE V_FILTRO
+              OR CJ.RAZON_SOCIAL LIKE V_FILTRO
+              OR CAST(C.ID_CREDITO AS CHAR) LIKE V_FILTRO
+              OR CAST(CR.ID_FACTURA AS CHAR) LIKE V_FILTRO
+              OR F.NUMERO_FACTURA LIKE V_FILTRO
+              OR CAST(C.NUMERO_CUOTA AS CHAR) LIKE V_FILTRO
+          )
+          AND (NULLIF(TRIM(P_ESTADO), '') IS NULL OR C.ESTADO_CUOTA = TRIM(P_ESTADO))
+        ORDER BY C.ID_CREDITO ASC, C.NUMERO_CUOTA ASC;
+
+    END IF;
+
+END%%
+DELIMITER ;
