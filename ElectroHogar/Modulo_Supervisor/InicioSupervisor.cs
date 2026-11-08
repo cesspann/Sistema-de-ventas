@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ElectroHogar.Modulo_Supervisor;
 using ElectroHogar.Modulo_Supervisor.submodulo_productos;
 using ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios;
 
@@ -10,8 +11,8 @@ namespace ElectroHogar
     {
         private const string PlaceholderText = "Buscar herramientas...";
         private ListBox listaResultadosBusqueda;
-        private Panel pnlVentanaPerfil;
         private ContextMenuStrip menuSucursales;
+        private ContextMenuStrip menuConsultasLocales;
 
         public InicioSupervisor()
         {
@@ -19,25 +20,31 @@ namespace ElectroHogar
             ConfigurarPlaceholder();
             InicializarOpcionesVentanillas();
             ConfigurarListaBusquedaDinamica();
-            ConfigurarVentanaPerfilDinamica();
+
+            btnPerfil.Click += btnPerfil_Click;
         }
 
         private void InicializarOpcionesVentanillas()
         {
-            // --- 1. OPCIONES PARA VER REPORTES (EN UNA SOLA LISTA DIRECTA) ---
+            // --- 1. OPCIONES PARA VER REPORTES (Solo reportes de ventas) ---
             menuReportes.Items.Add(" Reporte de Ventas General", null, (s, e) => AccionOpcion("Reporte de Ventas General"));
             menuReportes.Items.Add(" Reporte de Ventas por Vendedor", null, (s, e) => AccionOpcion("Reporte de Ventas por Vendedor"));
             menuReportes.Items.Add(" Reporte de Ventas por Categoría", null, (s, e) => AccionOpcion("Reporte de Ventas por Categoría"));
             menuReportes.Items.Add(" Reporte de Ventas por Proveedor", null, (s, e) => AccionOpcion("Reporte de Ventas por Proveedor"));
-            menuReportes.Items.Add(" Bitácora de Facturas Fallidas", null, (s, e) => AccionOpcion("Bitácora de Facturas Fallidas"));
-            menuReportes.Items.Add(" Créditos Otorgados", null, (s, e) => AccionOpcion("Créditos Otorgados"));
 
             // --- 2. OPCIONES PARA GESTIONAR USUARIOS ---
             menuUsuarios.Items.Add(" Consultar Cajeros", null, (s, e) => AccionOpcion("Consultar Cajeros"));
             menuUsuarios.Items.Add(" Consultar Vendedores", null, (s, e) => AccionOpcion("Consultar Vendedores"));
             menuUsuarios.Items.Add(" Consultar Supervisores", null, (s, e) => AccionOpcion("Consultar Supervisores"));
 
-            // --- 3. OPCIONES PARA OTRAS SUCURSALES ---
+            // --- 3. OPCIONES PARA CONSULTAS LOCALES ---
+            menuConsultasLocales = new ContextMenuStrip();
+            menuConsultasLocales.ImageScalingSize = new Size(20, 20);
+            menuConsultasLocales.Items.Add(" Consultar Clientes", null, (s, e) => AccionOpcion("Consultar Clientes"));
+            menuConsultasLocales.Items.Add(" Bitácora de Facturas Fallidas", null, (s, e) => AccionOpcion("Bitácora de Facturas Fallidas"));
+            menuConsultasLocales.Items.Add(" Créditos Otorgados", null, (s, e) => AccionOpcion("Créditos Otorgados"));
+
+            // --- 4. OPCIONES PARA OTRAS SUCURSALES ---
             menuSucursales = new ContextMenuStrip();
             menuSucursales.ImageScalingSize = new Size(20, 20);
             menuSucursales.Items.Add(" Reportes de Ventas", null, (s, e) => AccionOpcion("Reportes de Ventas (Otras Sucursales)"));
@@ -81,63 +88,19 @@ namespace ElectroHogar
             }
         }
 
-        private void ConfigurarVentanaPerfilDinamica()
+        // --- PERFIL DEL SUPERVISOR ---
+        private void btnPerfil_Click(object sender, EventArgs e)
         {
-            pnlVentanaPerfil = new Panel();
-            pnlVentanaPerfil.Size = new Size(240, 160);
-            pnlVentanaPerfil.BackColor = Color.FromArgb(245, 247, 250);
-            pnlVentanaPerfil.BorderStyle = BorderStyle.FixedSingle;
-            pnlVentanaPerfil.Visible = false;
-
-            int coordenadaX = pnlLateral.Width + 10;
-            int coordenadaY = btnPerfil.Location.Y + (btnPerfil.Height / 2) - (pnlVentanaPerfil.Height / 2);
-            pnlVentanaPerfil.Location = new Point(coordenadaX, coordenadaY);
-
-            Label lblNombreUsuario = new Label();
-            lblNombreUsuario.Text = "Supervisor";
-            lblNombreUsuario.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblNombreUsuario.ForeColor = Color.Black;
-            lblNombreUsuario.Location = new Point(10, 15);
-            lblNombreUsuario.Size = new Size(220, 25);
-            lblNombreUsuario.TextAlign = ContentAlignment.MiddleCenter;
-
-            Button btnCambiarContra = new Button();
-            btnCambiarContra.Text = "Cambiar Contraseña";
-            btnCambiarContra.Font = new Font("Segoe UI", 9.5F);
-            btnCambiarContra.Size = new Size(200, 35);
-            btnCambiarContra.Location = new Point(20, 55);
-            btnCambiarContra.BackColor = Color.White;
-            btnCambiarContra.FlatStyle = FlatStyle.Flat;
-            btnCambiarContra.FlatAppearance.BorderColor = Color.LightGray;
-            btnCambiarContra.Click += (s, e) => {
-                AccionOpcion("Cambiar Contraseña");
-                pnlVentanaPerfil.Visible = false;
-            };
-
-            Button btnDesactivarPerfil = new Button();
-            btnDesactivarPerfil.Text = "Desactivar Cuenta";
-            btnDesactivarPerfil.Font = new Font("Segoe UI", 9.5F);
-            btnDesactivarPerfil.Size = new Size(200, 35);
-            btnDesactivarPerfil.Location = new Point(20, 100);
-            btnDesactivarPerfil.BackColor = Color.FromArgb(231, 76, 60);
-            btnDesactivarPerfil.ForeColor = Color.White;
-            btnDesactivarPerfil.FlatStyle = FlatStyle.Flat;
-            btnDesactivarPerfil.FlatAppearance.BorderSize = 0;
-            btnDesactivarPerfil.Click += (s, e) => {
-                AccionOpcion("Desactivar Cuenta");
-                pnlVentanaPerfil.Visible = false;
-            };
-
-            pnlVentanaPerfil.Controls.Add(lblNombreUsuario);
-            pnlVentanaPerfil.Controls.Add(btnCambiarContra);
-            pnlVentanaPerfil.Controls.Add(btnDesactivarPerfil);
-
-            this.Controls.Add(pnlVentanaPerfil);
-            pnlVentanaPerfil.BringToFront();
-
-            btnPerfil.Click += (s, e) => pnlVentanaPerfil.Visible = !pnlVentanaPerfil.Visible;
+            GestionarPerfilSupervisor ventanaPerfil = new GestionarPerfilSupervisor();
+            if (ventanaPerfil.ShowDialog() == DialogResult.Abort)
+            {
+                Form1 loginForm = new Form1();
+                loginForm.Show();
+                this.Close();
+            }
         }
 
+        // --- BÚSQUEDA DINÁMICA ---
         private void ConfigurarListaBusquedaDinamica()
         {
             listaResultadosBusqueda = new ListBox();
@@ -174,6 +137,7 @@ namespace ElectroHogar
                 "Reporte de Ventas por Vendedor",
                 "Reporte de Ventas por Categoría",
                 "Reporte de Ventas por Proveedor",
+                "Consultar Clientes",
                 "Bitácora de Facturas Fallidas",
                 "Créditos Otorgados",
                 "Consultar Cajeros",
@@ -209,24 +173,32 @@ namespace ElectroHogar
             }
         }
 
+        // --- BOTONES PRINCIPALES ---
         private void btnGestionarInventario_Click(object sender, EventArgs e)
         {
             AccionOpcion("Gestionar Inventario");
         }
 
-
         private void btnVerReportes_Click(object sender, EventArgs e)
         {
             menuReportes.Show(btnVerReportes, new Point(0, btnVerReportes.Height));
         }
+
         private void btnGestionarUsuarios_Click(object sender, EventArgs e)
         {
             menuUsuarios.Show(btnGestionarUsuarios, new Point(0, btnGestionarUsuarios.Height));
         }
+
+        private void btnConsultasLocales_Click(object sender, EventArgs e)
+        {
+            menuConsultasLocales.Show(btnConsultasLocales, new Point(0, btnConsultasLocales.Height));
+        }
+
         private void btnOtrasSucursales_Click(object sender, EventArgs e)
         {
             menuSucursales.Show(btnOtrasSucursales, new Point(0, btnOtrasSucursales.Height));
         }
+
         private void ConfigurarPlaceholder()
         {
             txtBuscar.Text = PlaceholderText;
@@ -246,6 +218,7 @@ namespace ElectroHogar
                 }
             };
         }
+
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             Form1 loginForm = new Form1();

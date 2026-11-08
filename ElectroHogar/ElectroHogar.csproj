@@ -96,6 +96,24 @@
     <Compile Include="Modulo_Cajero\FrmModificarDatos.Designer.cs">
       <DependentUpon>FrmModificarDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Supervisor\GestionarPerfilSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\GestionarPerfilSupervisor.Designer.cs">
+      <DependentUpon>GestionarPerfilSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarCajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarCajero.Designer.cs">
+      <DependentUpon>ActualizarCajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarVendedor.Designer.cs">
+      <DependentUpon>ActualizarVendedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_supervisor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +131,24 @@
     </Compile>
     <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\GestionCajerosSupervisor.Designer.cs">
       <DependentUpon>GestionCajerosSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Cajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Cajero.Designer.cs">
+      <DependentUpon>Registrar_Cajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Supervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Supervisor.Designer.cs">
+      <DependentUpon>Registrar_Supervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Vendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Vendedor.Designer.cs">
+      <DependentUpon>Registrar_Vendedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\InicioSupervisor.cs">
       <SubType>Form</SubType>
@@ -224,8 +260,32 @@
     <EmbeddedResource Include="Modulo_Cajero\InicioCajero.resx">
       <DependentUpon>InicioCajero.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\GestionarPerfilSupervisor.resx">
+      <DependentUpon>GestionarPerfilSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarCajero.resx">
+      <DependentUpon>ActualizarCajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarVendedor.resx">
+      <DependentUpon>ActualizarVendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_vendedor.resx">
+      <DependentUpon>gestiona_vendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Cajero.resx">
+      <DependentUpon>Registrar_Cajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Supervisor.resx">
+      <DependentUpon>Registrar_Supervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Vendedor.resx">
+      <DependentUpon>Registrar_Vendedor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\InicioSupervisor.resx">
       <DependentUpon>InicioSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.resx">
+      <DependentUpon>GestionarClientesJuridico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Vendedor\InicioVendedor.resx">
       <DependentUpon>InicioVendedor.cs</DependentUpon>

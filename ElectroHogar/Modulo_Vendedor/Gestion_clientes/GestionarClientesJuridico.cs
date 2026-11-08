@@ -191,5 +191,10 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
         {
             this.Close();
         }
+
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

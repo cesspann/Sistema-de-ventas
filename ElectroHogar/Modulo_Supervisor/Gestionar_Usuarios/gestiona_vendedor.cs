@@ -43,7 +43,6 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             dgvVendedores.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 8 columnas de SP_CONSULTAR_VENDEDORES
         private void InicializarEstructuraTabla()
         {
             dtVendedores = new DataTable();
@@ -75,10 +74,28 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
         // --- BOTÓN SUPERIOR ---
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Abriendo ventana para Agregar Vendedor (Sucursal ID: {idSucursalActual})...", "ElectroHogar - Vendedores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Registrar_Vendedor modalVendedor = new Registrar_Vendedor();
+            modalVendedor.ShowDialog();
         }
 
-        // --- BOTONES DE CAMBIO DE ESTADO (INFERIORES) ---
+        // --- BOTONES INFERIORES (ACCIONES SOBRE VENDEDOR SELECCIONADO) ---
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            if (dgvVendedores.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un vendedor de la tabla para actualizar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idEmpleado = Convert.ToInt32(dgvVendedores.SelectedRows[0].Cells["ID_EMPLEADO"].Value);
+            string nombre = dgvVendedores.SelectedRows[0].Cells["NOMBRE_EMPLEADO"].Value.ToString();
+            decimal comision = Convert.ToDecimal(dgvVendedores.SelectedRows[0].Cells["PORCENTAJE_COMISION"].Value);
+
+            ActualizarVendedor modalActualizar = new ActualizarVendedor(idEmpleado, nombre, comision, 0);
+            modalActualizar.ShowDialog();
+        }
+
+
         private void btnActivar_Click(object sender, EventArgs e)
         {
             if (dgvVendedores.SelectedRows.Count == 0)

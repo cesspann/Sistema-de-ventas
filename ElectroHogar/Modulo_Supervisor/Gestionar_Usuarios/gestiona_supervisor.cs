@@ -75,8 +75,10 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
         // --- BOTÓN SUPERIOR ---
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abriendo ventana para Agregar Supervisor...", "ElectroHogar - Supervisores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Registrar_Supervisor modalSupervisor = new Registrar_Supervisor();
+            modalSupervisor.ShowDialog();
         }
+
 
         // --- BOTONES DE CAMBIO DE ESTADO (INFERIORES) ---
         private void btnActivar_Click(object sender, EventArgs e)

@@ -76,10 +76,29 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
         // --- BOTÓN SUPERIOR ---
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Abriendo ventana para Agregar Cajero (Sucursal ID: {idSucursalActual})...", "ElectroHogar - Cajeros", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Registrar_Cajero modalCajero = new Registrar_Cajero();
+            modalCajero.ShowDialog();
         }
 
-        // --- BOTONES DE CAMBIO DE ESTADO (INFERIORES) ---
+        // --- BOTONES INFERIORES (ACCIONES SOBRE CAJERO SELECCIONADO) ---
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            if (dgvCajeros.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un cajero de la tabla para actualizar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idEmpleado = Convert.ToInt32(dgvCajeros.SelectedRows[0].Cells["ID_EMPLEADO"].Value);
+            string nombre = dgvCajeros.SelectedRows[0].Cells["NOMBRE_EMPLEADO"].Value.ToString();
+            int caja = Convert.ToInt32(dgvCajeros.SelectedRows[0].Cells["NUMERO_CAJA"].Value);
+            string turno = dgvCajeros.SelectedRows[0].Cells["TURNO"].Value.ToString();
+
+            ActualizarCajero modalActualizar = new ActualizarCajero(idEmpleado, nombre, caja, turno);
+            modalActualizar.ShowDialog();
+        }
+
+
         private void btnActivar_Click(object sender, EventArgs e)
         {
             if (dgvCajeros.SelectedRows.Count == 0)
