@@ -16,7 +16,7 @@ namespace ElectroHogar
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Modulo_Cajero.InicioCajero());
+            Application.Run(new Form1());
         }
     }
 }

@@ -33,10 +33,53 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.35.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>packages\Google.Protobuf.3.35.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>packages\K4os.Compression.LZ4.1.3.8\lib\net462\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>packages\K4os.Compression.LZ4.Streams.1.3.8\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=26.10.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.26.10.0\lib\net462\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=10.0.0.8, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Configuration.ConfigurationManager.10.0.8\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,8 +89,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZstdSharp, Version=0.8.8.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>packages\ZstdSharp.Port.0.8.8\lib\net462\ZstdSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conexion.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,17 +143,233 @@
     <Compile Include="Modulo_Cajero\FrmModificarDatos.Designer.cs">
       <DependentUpon>FrmModificarDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.Designer.cs">
+      <DependentUpon>actualizarLimiteCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\BitacoraFacturasFallidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\BitacoraFacturasFallidas.Designer.cs">
+      <DependentUpon>BitacoraFacturasFallidas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\ClienteJuridico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\ClienteJuridico.Designer.cs">
+      <DependentUpon>ClienteJuridico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\ClienteNatural.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\ClienteNatural.Designer.cs">
+      <DependentUpon>ClienteNatural.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\CreditosOtorgados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\CreditosOtorgados.Designer.cs">
+      <DependentUpon>CreditosOtorgados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\RegistrarLimiteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\RegistrarLimiteCredito.Designer.cs">
+      <DependentUpon>RegistrarLimiteCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\GestionarPerfilSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\GestionarPerfilSupervisor.Designer.cs">
+      <DependentUpon>GestionarPerfilSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarCajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarCajero.Designer.cs">
+      <DependentUpon>ActualizarCajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarVendedor.Designer.cs">
+      <DependentUpon>ActualizarVendedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_supervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_supervisor.Designer.cs">
+      <DependentUpon>gestiona_supervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_vendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_vendedor.Designer.cs">
+      <DependentUpon>gestiona_vendedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\GestionCajerosSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\GestionCajerosSupervisor.Designer.cs">
+      <DependentUpon>GestionCajerosSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Cajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Cajero.Designer.cs">
+      <DependentUpon>Registrar_Cajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Supervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Supervisor.Designer.cs">
+      <DependentUpon>Registrar_Supervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Vendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Vendedor.Designer.cs">
+      <DependentUpon>Registrar_Vendedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Supervisor\InicioSupervisor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modulo_Supervisor\InicioSupervisor.Designer.cs">
       <DependentUpon>InicioSupervisor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modulo_Supervisor\PerfilSupervisor.cs">
+    <Compile Include="Modulo_Supervisor\OtrasSucursales\productos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modulo_Supervisor\PerfilSupervisor.Designer.cs">
-      <DependentUpon>PerfilSupervisor.cs</DependentUpon>
+    <Compile Include="Modulo_Supervisor\OtrasSucursales\productos.Designer.cs">
+      <DependentUpon>productos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\OtrasSucursales\ventas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\OtrasSucursales\ventas.Designer.cs">
+      <DependentUpon>ventas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\Reporte_Inventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\Reporte_Inventario.Designer.cs">
+      <DependentUpon>Reporte_Inventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_categoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_categoria.Designer.cs">
+      <DependentUpon>ventas_categoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_general.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_general.Designer.cs">
+      <DependentUpon>ventas_general.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_proveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_proveedor.Designer.cs">
+      <DependentUpon>ventas_proveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_vendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ReportesLocales\ventas_vendedor.Designer.cs">
+      <DependentUpon>ventas_vendedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\ActualizarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\ActualizarProducto.Designer.cs">
+      <DependentUpon>ActualizarProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\bitacora_precios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\bitacora_precios.Designer.cs">
+      <DependentUpon>bitacora_precios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\CategoriasInactivas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\CategoriasInactivas.Designer.cs">
+      <DependentUpon>CategoriasInactivas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\FrmAgregarCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\FrmAgregarCategoria.Designer.cs">
+      <DependentUpon>FrmAgregarCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionProductosSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionProductosSupervisor.Designer.cs">
+      <DependentUpon>GestionProductosSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\productosInactivos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\productosInactivos.Designer.cs">
+      <DependentUpon>productosInactivos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\RegistrarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\RegistrarProducto.Designer.cs">
+      <DependentUpon>RegistrarProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\RegistrarPromocion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\RegistrarPromocion.Designer.cs">
+      <DependentUpon>RegistrarPromocion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\GestionPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\GestionPerfil.Designer.cs">
+      <DependentUpon>GestionPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\ActualizarClienteJuridico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\ActualizarClienteJuridico.Designer.cs">
+      <DependentUpon>ActualizarClienteJuridico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\ActualizarClienteNatural.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\ActualizarClienteNatural.Designer.cs">
+      <DependentUpon>ActualizarClienteNatural.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\FrmRegistrarClienteNatural.cs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\FrmRegistrarClienteNatural.cs.Designer.cs">
+      <DependentUpon>FrmRegistrarClienteNatural.cs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.Designer.cs">
+      <DependentUpon>GestionarClientesJuridico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesNatural.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesNatural.Designer.cs">
+      <DependentUpon>GestionarClientesNatural.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\RegistrarCllienteJuridico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Gestion_clientes\RegistrarCllienteJuridico.Designer.cs">
+      <DependentUpon>RegistrarCllienteJuridico.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Vendedor\InicioVendedor.cs">
       <SubType>Form</SubType>
@@ -114,8 +377,15 @@
     <Compile Include="Modulo_Vendedor\InicioVendedor.Designer.cs">
       <DependentUpon>InicioVendedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Vendedor\Modulo_consultasVendedor\ConsultarProductosPromocion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Vendedor\Modulo_consultasVendedor\ConsultarProductosPromocion.Designer.cs">
+      <DependentUpon>ConsultarProductosPromocion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SesionUsuario.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,14 +407,74 @@
     <EmbeddedResource Include="Modulo_Cajero\InicioCajero.resx">
       <DependentUpon>InicioCajero.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.resx">
+      <DependentUpon>actualizarLimiteCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\BitacoraFacturasFallidas.resx">
+      <DependentUpon>BitacoraFacturasFallidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\ClienteJuridico.resx">
+      <DependentUpon>ClienteJuridico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\ClienteNatural.resx">
+      <DependentUpon>ClienteNatural.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\CreditosOtorgados.resx">
+      <DependentUpon>CreditosOtorgados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\GestionarPerfilSupervisor.resx">
+      <DependentUpon>GestionarPerfilSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarCajero.resx">
+      <DependentUpon>ActualizarCajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\ActualizarVendedor.resx">
+      <DependentUpon>ActualizarVendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\gestiona_vendedor.resx">
+      <DependentUpon>gestiona_vendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Cajero.resx">
+      <DependentUpon>Registrar_Cajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Supervisor.resx">
+      <DependentUpon>Registrar_Supervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\Gestionar_Usuarios\Registrar_Vendedor.resx">
+      <DependentUpon>Registrar_Vendedor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\InicioSupervisor.resx">
       <DependentUpon>InicioSupervisor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modulo_Supervisor\PerfilSupervisor.resx">
-      <DependentUpon>PerfilSupervisor.cs</DependentUpon>
+    <EmbeddedResource Include="Modulo_Supervisor\OtrasSucursales\productos.resx">
+      <DependentUpon>productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\OtrasSucursales\ventas.resx">
+      <DependentUpon>ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\Reporte_Inventario.resx">
+      <DependentUpon>Reporte_Inventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_categoria.resx">
+      <DependentUpon>ventas_categoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_general.resx">
+      <DependentUpon>ventas_general.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_proveedor.resx">
+      <DependentUpon>ventas_proveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_vendedor.resx">
+      <DependentUpon>ventas_vendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.resx">
+      <DependentUpon>GestionarClientesJuridico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Vendedor\InicioVendedor.resx">
       <DependentUpon>InicioVendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Vendedor\Modulo_consultasVendedor\ConsultarProductosPromocion.resx">
+      <DependentUpon>ConsultarProductosPromocion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -155,6 +485,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,5 +499,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
