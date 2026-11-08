@@ -37,16 +37,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
-            // picLogo
-            // 
-            this.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.picLogo.Location = new System.Drawing.Point(225, 40);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(350, 160);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picLogo.TabIndex = 0;
-            this.picLogo.TabStop = false;
-            // 
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
@@ -54,7 +44,7 @@
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.lblUsuario.Location = new System.Drawing.Point(225, 230);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(148, 25);
+            this.lblUsuario.Size = new System.Drawing.Size(150, 25);
             this.lblUsuario.TabIndex = 1;
             this.lblUsuario.Text = "Usuario o email";
             // 
@@ -106,6 +96,16 @@
             this.btnIngresar.UseVisualStyleBackColor = false;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
+            // picLogo
+            // 
+            this.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picLogo.Location = new System.Drawing.Point(225, 40);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(350, 160);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabIndex = 0;
+            this.picLogo.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -123,6 +123,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ElectroHogar - Login";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

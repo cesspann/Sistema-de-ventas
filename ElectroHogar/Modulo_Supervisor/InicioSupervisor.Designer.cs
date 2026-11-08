@@ -25,11 +25,11 @@
             this.pnlContenido = new System.Windows.Forms.Panel();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscarIcono = new System.Windows.Forms.Label();
-            this.btnAgregarRegistro = new System.Windows.Forms.Button();
+            this.btnGestionarInventario = new System.Windows.Forms.Button();
             this.btnVerReportes = new System.Windows.Forms.Button();
             this.btnGestionarUsuarios = new System.Windows.Forms.Button();
             this.btnOtrasSucursales = new System.Windows.Forms.Button();
-            this.menuAgregar = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuInventario = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuReportes = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuUsuarios = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pnlLateral.SuspendLayout();
@@ -93,7 +93,7 @@
             this.pnlContenido.BackColor = System.Drawing.Color.White;
             this.pnlContenido.Controls.Add(this.txtBuscar);
             this.pnlContenido.Controls.Add(this.lblBuscarIcono);
-            this.pnlContenido.Controls.Add(this.btnAgregarRegistro);
+            this.pnlContenido.Controls.Add(this.btnGestionarInventario);
             this.pnlContenido.Controls.Add(this.btnVerReportes);
             this.pnlContenido.Controls.Add(this.btnGestionarUsuarios);
             this.pnlContenido.Controls.Add(this.btnOtrasSucursales);
@@ -124,20 +124,20 @@
             this.lblBuscarIcono.TabIndex = 1;
             this.lblBuscarIcono.Text = "🔍";
             // 
-            // btnAgregarRegistro
+            // btnGestionarInventario
             // 
-            this.btnAgregarRegistro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
-            this.btnAgregarRegistro.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
-            this.btnAgregarRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarRegistro.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAgregarRegistro.ForeColor = System.Drawing.Color.Teal;
-            this.btnAgregarRegistro.Location = new System.Drawing.Point(50, 140);
-            this.btnAgregarRegistro.Name = "btnAgregarRegistro";
-            this.btnAgregarRegistro.Size = new System.Drawing.Size(250, 160);
-            this.btnAgregarRegistro.TabIndex = 2;
-            this.btnAgregarRegistro.Text = "➕\n\nAgregar Registro";
-            this.btnAgregarRegistro.UseVisualStyleBackColor = false;
-            this.btnAgregarRegistro.Click += new System.EventHandler(this.btnAgregarRegistro_Click);
+            this.btnGestionarInventario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
+            this.btnGestionarInventario.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
+            this.btnGestionarInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGestionarInventario.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnGestionarInventario.ForeColor = System.Drawing.Color.Teal;
+            this.btnGestionarInventario.Location = new System.Drawing.Point(50, 140);
+            this.btnGestionarInventario.Name = "btnGestionarInventario";
+            this.btnGestionarInventario.Size = new System.Drawing.Size(250, 160);
+            this.btnGestionarInventario.TabIndex = 2;
+            this.btnGestionarInventario.Text = "📦\n\nGestionar Inventario";
+            this.btnGestionarInventario.UseVisualStyleBackColor = false;
+            this.btnGestionarInventario.Click += new System.EventHandler(this.btnGestionarInventario_Click);
             // 
             // btnVerReportes
             // 
@@ -176,7 +176,7 @@
             this.btnOtrasSucursales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOtrasSucursales.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnOtrasSucursales.ForeColor = System.Drawing.Color.Teal;
-            this.btnOtrasSucursales.Location = new System.Drawing.Point(340, 340);
+            this.btnOtrasSucursales.Location = new System.Drawing.Point(350, 340);
             this.btnOtrasSucursales.Name = "btnOtrasSucursales";
             this.btnOtrasSucursales.Size = new System.Drawing.Size(250, 160);
             this.btnOtrasSucursales.TabIndex = 5;
@@ -184,11 +184,11 @@
             this.btnOtrasSucursales.UseVisualStyleBackColor = false;
             this.btnOtrasSucursales.Click += new System.EventHandler(this.btnOtrasSucursales_Click);
             // 
-            // menuAgregar
+            // menuInventario
             // 
-            this.menuAgregar.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuAgregar.Name = "menuAgregar";
-            this.menuAgregar.Size = new System.Drawing.Size(61, 4);
+            this.menuInventario.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuInventario.Name = "menuInventario";
+            this.menuInventario.Size = new System.Drawing.Size(61, 4);
             // 
             // menuReportes
             // 
@@ -226,11 +226,11 @@
         private System.Windows.Forms.Panel pnlContenido;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label lblBuscarIcono;
-        private System.Windows.Forms.Button btnAgregarRegistro;
+        private System.Windows.Forms.Button btnGestionarInventario;
         private System.Windows.Forms.Button btnVerReportes;
         private System.Windows.Forms.Button btnGestionarUsuarios;
         private System.Windows.Forms.Button btnOtrasSucursales;
-        private System.Windows.Forms.ContextMenuStrip menuAgregar;
+        private System.Windows.Forms.ContextMenuStrip menuInventario;
         private System.Windows.Forms.ContextMenuStrip menuReportes;
         private System.Windows.Forms.ContextMenuStrip menuUsuarios;
     }

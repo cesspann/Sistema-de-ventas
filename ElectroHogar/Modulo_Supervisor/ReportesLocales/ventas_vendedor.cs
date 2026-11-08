@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
+namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
-    public partial class mostrarInformeCategorias : Form
+    public partial class ventas_vendedor : Form
     {
-        public mostrarInformeCategorias()
+        public ventas_vendedor()
         {
             InitializeComponent();
         }

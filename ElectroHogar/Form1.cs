@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElectroHogar.Modulo_Vendedor;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -57,13 +58,18 @@ namespace ElectroHogar
             }
 
             // 2. Instanciamos la pantalla de Inicio del Supervisor directamente
-            InicioSupervisor pantallaSupervisor = new InicioSupervisor();
+            InicioVendedor pantallaVendedor = new InicioVendedor();
 
             // 3. Mostramos la pantalla del supervisor
-            pantallaSupervisor.Show();
+            pantallaVendedor.Show();
 
             // 4. Ocultamos el login de inmediato
             this.Hide();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
