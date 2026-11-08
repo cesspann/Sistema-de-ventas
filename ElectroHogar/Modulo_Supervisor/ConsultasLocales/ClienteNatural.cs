@@ -90,7 +90,6 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             string nombreCliente = dgvClientes.SelectedRows[0].Cells["NOMBRE_CLIENTE"].Value.ToString();
             string estadoCliente = dgvClientes.SelectedRows[0].Cells["ESTADO_CLIENTE"].Value.ToString();
 
-
             if (!estadoCliente.Equals("Activo", StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("El cliente seleccionado se encuentra inactivo y no puede recibir límite de crédito.",
@@ -98,17 +97,10 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
                 return;
             }
 
-            decimal? montoAutorizado = SolicitarMontoCredito("Asignar Límite de Crédito Personal", nombreCliente, idCliente);
-
-            if (montoAutorizado.HasValue)
-            {
-                // Aquí se llamará a SP_REGISTRAR_LIMITE_CREDITO(idCliente, idSucursalActual, montoAutorizado.Value)
-                MessageBox.Show($"Límite de crédito de {montoAutorizado.Value:C2} listo para registrarse a '{nombreCliente}' en la Sucursal {idSucursalActual}.",
-                                "ElectroHogar - Crédito Personal", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            RegistrarLimiteCredito modalRegistrar = new RegistrarLimiteCredito(idCliente, nombreCliente, idSucursalActual);
+            modalRegistrar.ShowDialog();
         }
 
-        // --- BOTÓN 2: ACTUALIZAR LÍMITE DE CRÉDITO (SP_ACTUALIZAR_LIMITE_CREDITO_PERSONAL) ---
         private void btnActualizarLimite_Click(object sender, EventArgs e)
         {
             if (dgvClientes.SelectedRows.Count == 0)
@@ -121,17 +113,9 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             int idCliente = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ID_CLIENTE"].Value);
             string nombreCliente = dgvClientes.SelectedRows[0].Cells["NOMBRE_CLIENTE"].Value.ToString();
 
-
-            decimal? nuevoMonto = SolicitarMontoCredito("Actualizar Límite de Crédito Personal", nombreCliente, idCliente);
-
-            if (nuevoMonto.HasValue)
-            {
-                // Aquí se llamará a SP_ACTUALIZAR_LIMITE_CREDITO_PERSONAL(idCliente, idSucursalActual, nuevoMonto.Value, OUT CONFIRMACION)
-                MessageBox.Show($"Nuevo límite de crédito de {nuevoMonto.Value:C2} listo para actualizarse para '{nombreCliente}' en la Sucursal {idSucursalActual}.",
-                                "ElectroHogar - Crédito Personal", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            actualizarLimiteCredito modalActualizar = new actualizarLimiteCredito(idCliente, nombreCliente, idSucursalActual);
+            modalActualizar.ShowDialog();
         }
-
         // Cuadro modal limpio para capturar el monto de crédito (validación > 0)
         private decimal? SolicitarMontoCredito(string tituloModal, string nombreCliente, int idCliente)
         {

@@ -96,6 +96,12 @@
     <Compile Include="Modulo_Cajero\FrmModificarDatos.Designer.cs">
       <DependentUpon>FrmModificarDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.Designer.cs">
+      <DependentUpon>actualizarLimiteCredito.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Supervisor\ConsultasLocales\BitacoraFacturasFallidas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,12 @@
     </Compile>
     <Compile Include="Modulo_Supervisor\ConsultasLocales\CreditosOtorgados.Designer.cs">
       <DependentUpon>CreditosOtorgados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\RegistrarLimiteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\ConsultasLocales\RegistrarLimiteCredito.Designer.cs">
+      <DependentUpon>RegistrarLimiteCredito.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\GestionarPerfilSupervisor.cs">
       <SubType>Form</SubType>
@@ -179,12 +191,6 @@
     </Compile>
     <Compile Include="Modulo_Supervisor\InicioSupervisor.Designer.cs">
       <DependentUpon>InicioSupervisor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modulo_Supervisor\OtrasSucursales\empleados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modulo_Supervisor\OtrasSucursales\empleados.Designer.cs">
-      <DependentUpon>empleados.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\OtrasSucursales\productos.cs">
       <SubType>Form</SubType>
@@ -344,6 +350,9 @@
     <EmbeddedResource Include="Modulo_Cajero\InicioCajero.resx">
       <DependentUpon>InicioCajero.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.resx">
+      <DependentUpon>actualizarLimiteCredito.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\ConsultasLocales\BitacoraFacturasFallidas.resx">
       <DependentUpon>BitacoraFacturasFallidas.cs</DependentUpon>
     </EmbeddedResource>
@@ -382,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\OtrasSucursales\productos.resx">
       <DependentUpon>productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\OtrasSucursales\ventas.resx">
+      <DependentUpon>ventas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\Reporte_Inventario.resx">
       <DependentUpon>Reporte_Inventario.cs</DependentUpon>

@@ -49,8 +49,8 @@ namespace ElectroHogar
             menuSucursales = new ContextMenuStrip();
             menuSucursales.ImageScalingSize = new Size(20, 20);
             menuSucursales.Items.Add(" Reportes de Ventas", null, (s, e) => AccionOpcion("Reportes de Ventas (Otras Sucursales)"));
-            menuSucursales.Items.Add(" Consultar Empleados", null, (s, e) => AccionOpcion("Consultar Empleados (Otras Sucursales)"));
             menuSucursales.Items.Add(" Consultar Productos", null, (s, e) => AccionOpcion("Consultar Productos (Otras Sucursales)"));
+
 
             // --- 1. OPCIONES PARA VER REPORTES ---
             menuReportes.Items.Add(" Reporte de Ventas General", null, (s, e) => AccionOpcion("Reporte de Ventas General"));
@@ -161,7 +161,13 @@ namespace ElectroHogar
                 ventanaProductosSucursal.Show();
                 this.Hide();
             }
-
+            else if (nombreOpcion == "Reportes de Ventas (Otras Sucursales)")
+            {
+                ventas ventanaVentasSucursal = new ventas();
+                ventanaVentasSucursal.FormClosed += (s, args) => this.Show();
+                ventanaVentasSucursal.Show();
+                this.Hide();
+            }
             else
             {
                 MessageBox.Show($"Abriendo el módulo de: {nombreOpcion}", "ElectroHogar - BAD215", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -227,7 +233,6 @@ namespace ElectroHogar
                 "Consultar Vendedores",
                 "Consultar Supervisores",
                 "Reportes de Ventas (Otras Sucursales)",
-                "Consultar Empleados (Otras Sucursales)",
                 "Consultar Productos (Otras Sucursales)"
             };
 
