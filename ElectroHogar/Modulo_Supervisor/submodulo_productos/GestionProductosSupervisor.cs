@@ -9,14 +9,39 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
     {
         private const string PlaceholderText = "Buscar por ID, categoría, producto, stock, precio, estado o promoción...";
         private DataTable dtProductos;
+        private ContextMenuStrip menuInactivos;
 
         public GestionProductosSupervisor()
         {
             InitializeComponent();
             ConfigurarPlaceholder();
+            InicializarMenuInactivos();
             ConfigurarTabla();
             InicializarEstructuraTabla();
         }
+
+        private void InicializarMenuInactivos()
+        {
+            menuInactivos = new ContextMenuStrip();
+            menuInactivos.ImageScalingSize = new Size(20, 20);
+            menuInactivos.Font = new Font("Segoe UI", 9.5F);
+            menuInactivos.Items.Add(" Categorías Inactivas", null, (s, e) => AbrirCategoriasInactivas());
+            menuInactivos.Items.Add(" Productos Inactivos", null, (s, e) => AbrirProductosInactivos());
+        }
+
+        private void AbrirCategoriasInactivas()
+        {
+            CategoriasInactivas ventanaCategorias = new CategoriasInactivas();
+            ventanaCategorias.ShowDialog();
+        }
+
+
+        private void AbrirProductosInactivos()
+        {
+            productosInactivos ventanaInactivos = new productosInactivos();
+            ventanaInactivos.ShowDialog();
+        }
+
 
         private void ConfigurarTabla()
         {
@@ -68,7 +93,8 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
         // --- BOTONES SUPERIORES ---
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abriendo ventana para Agregar Producto...", "ElectroHogar - Gestión de Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RegistrarProducto modalProducto = new RegistrarProducto();
+            modalProducto.ShowDialog();
         }
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
@@ -79,12 +105,13 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 
         private void btnAgregarPromocion_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abriendo ventana para Agregar Promoción...", "ElectroHogar - Gestión de Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RegistrarPromocion modalPromocion = new RegistrarPromocion();
+            modalPromocion.ShowDialog();
         }
 
         private void btnProductosInactivos_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abriendo ventana de Productos Inactivos...", "ElectroHogar - Gestión de Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            menuInactivos.Show(btnProductosInactivos, new Point(0, btnProductosInactivos.Height));
         }
 
         // --- BOTONES INFERIORES (ACCIONES SOBRE PRODUCTO SELECCIONADO) ---
@@ -98,8 +125,10 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 
             int idProducto = Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["ID_PRODUCTO"].Value);
             string nombreProducto = dgvProductos.SelectedRows[0].Cells["NOMBRE_PRODUCTO"].Value.ToString();
+            decimal precioActual = Convert.ToDecimal(dgvProductos.SelectedRows[0].Cells["PRECIO_VENTA"].Value);
 
-            MessageBox.Show($"Abriendo ventana para actualizar: {nombreProducto} (ID: {idProducto})", "ElectroHogar - Gestión de Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ActualizarProducto modalActualizar = new ActualizarProducto(idProducto, nombreProducto, precioActual);
+            modalActualizar.ShowDialog();
         }
 
         private void btnHistorialPrecios_Click(object sender, EventArgs e)
@@ -118,7 +147,6 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
                 ventanaHistorial.ShowDialog();
             }
         }
-
 
         // --- BÚSQUEDA DINÁMICA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)

@@ -1,9 +1,13 @@
-﻿using System;
+﻿using ElectroHogar.Modulo_Supervisor;
+using ElectroHogar.Modulo_Supervisor.ConsultasLocales;
+using ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios;
+using ElectroHogar.Modulo_Supervisor.OtrasSucursales;
+using ElectroHogar.Modulo_Supervisor.ReportesLocales;
+using ElectroHogar.Modulo_Supervisor.submodulo_productos;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ElectroHogar.Modulo_Supervisor;
-using ElectroHogar.Modulo_Supervisor.submodulo_productos;
-using ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios;
+using System.Windows.Forms;
 
 namespace ElectroHogar
 {
@@ -26,11 +30,6 @@ namespace ElectroHogar
 
         private void InicializarOpcionesVentanillas()
         {
-            // --- 1. OPCIONES PARA VER REPORTES (Solo reportes de ventas) ---
-            menuReportes.Items.Add(" Reporte de Ventas General", null, (s, e) => AccionOpcion("Reporte de Ventas General"));
-            menuReportes.Items.Add(" Reporte de Ventas por Vendedor", null, (s, e) => AccionOpcion("Reporte de Ventas por Vendedor"));
-            menuReportes.Items.Add(" Reporte de Ventas por Categoría", null, (s, e) => AccionOpcion("Reporte de Ventas por Categoría"));
-            menuReportes.Items.Add(" Reporte de Ventas por Proveedor", null, (s, e) => AccionOpcion("Reporte de Ventas por Proveedor"));
 
             // --- 2. OPCIONES PARA GESTIONAR USUARIOS ---
             menuUsuarios.Items.Add(" Consultar Cajeros", null, (s, e) => AccionOpcion("Consultar Cajeros"));
@@ -40,9 +39,11 @@ namespace ElectroHogar
             // --- 3. OPCIONES PARA CONSULTAS LOCALES ---
             menuConsultasLocales = new ContextMenuStrip();
             menuConsultasLocales.ImageScalingSize = new Size(20, 20);
-            menuConsultasLocales.Items.Add(" Consultar Clientes", null, (s, e) => AccionOpcion("Consultar Clientes"));
+            menuConsultasLocales.Items.Add(" Consultar Cliente Natural", null, (s, e) => AccionOpcion("Consultar Cliente Natural"));
+            menuConsultasLocales.Items.Add(" Consultar Cliente Jurídico", null, (s, e) => AccionOpcion("Consultar Cliente Jurídico"));
             menuConsultasLocales.Items.Add(" Bitácora de Facturas Fallidas", null, (s, e) => AccionOpcion("Bitácora de Facturas Fallidas"));
             menuConsultasLocales.Items.Add(" Créditos Otorgados", null, (s, e) => AccionOpcion("Créditos Otorgados"));
+
 
             // --- 4. OPCIONES PARA OTRAS SUCURSALES ---
             menuSucursales = new ContextMenuStrip();
@@ -50,6 +51,14 @@ namespace ElectroHogar
             menuSucursales.Items.Add(" Reportes de Ventas", null, (s, e) => AccionOpcion("Reportes de Ventas (Otras Sucursales)"));
             menuSucursales.Items.Add(" Consultar Empleados", null, (s, e) => AccionOpcion("Consultar Empleados (Otras Sucursales)"));
             menuSucursales.Items.Add(" Consultar Productos", null, (s, e) => AccionOpcion("Consultar Productos (Otras Sucursales)"));
+
+            // --- 1. OPCIONES PARA VER REPORTES ---
+            menuReportes.Items.Add(" Reporte de Ventas General", null, (s, e) => AccionOpcion("Reporte de Ventas General"));
+            menuReportes.Items.Add(" Reporte de Ventas por Vendedor", null, (s, e) => AccionOpcion("Reporte de Ventas por Vendedor"));
+            menuReportes.Items.Add(" Reporte de Ventas por Categoría", null, (s, e) => AccionOpcion("Reporte de Ventas por Categoría"));
+            menuReportes.Items.Add(" Reporte de Ventas por Proveedor", null, (s, e) => AccionOpcion("Reporte de Ventas por Proveedor"));
+            menuReportes.Items.Add(" Reporte de Inventario", null, (s, e) => AccionOpcion("Reporte de Inventario"));
+
         }
 
         private void AccionOpcion(string nombreOpcion)
@@ -82,6 +91,77 @@ namespace ElectroHogar
                 ventanaSupervisores.Show();
                 this.Hide();
             }
+            else if (nombreOpcion == "Reporte de Ventas por Vendedor")
+            {
+                ventas_vendedor ventanaReporteVendedor = new ventas_vendedor();
+                ventanaReporteVendedor.FormClosed += (s, args) => this.Show();
+                ventanaReporteVendedor.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Reporte de Ventas por Categoría")
+            {
+                ventas_categoria ventanaReporteCategoria = new ventas_categoria();
+                ventanaReporteCategoria.FormClosed += (s, args) => this.Show();
+                ventanaReporteCategoria.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Reporte de Ventas General")
+            {
+                ventas_general ventanaReporteGeneral = new ventas_general();
+                ventanaReporteGeneral.FormClosed += (s, args) => this.Show();
+                ventanaReporteGeneral.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Reporte de Ventas por Proveedor")
+            {
+                ventas_proveedor ventanaReporteProveedor = new ventas_proveedor();
+                ventanaReporteProveedor.FormClosed += (s, args) => this.Show();
+                ventanaReporteProveedor.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Reporte de Inventario")
+            {
+                Reporte_Inventario ventanaReporteInventario = new Reporte_Inventario();
+                ventanaReporteInventario.FormClosed += (s, args) => this.Show();
+                ventanaReporteInventario.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Consultar Cliente Natural")
+            {
+                ClienteNatural ventanaClienteNatural = new ClienteNatural();
+                ventanaClienteNatural.FormClosed += (s, args) => this.Show();
+                ventanaClienteNatural.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Consultar Cliente Jurídico")
+            {
+                ClienteJuridico ventanaClienteJuridico = new ClienteJuridico();
+                ventanaClienteJuridico.FormClosed += (s, args) => this.Show();
+                ventanaClienteJuridico.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Bitácora de Facturas Fallidas")
+            {
+                BitacoraFacturasFallidas ventanaBitacora = new BitacoraFacturasFallidas();
+                ventanaBitacora.FormClosed += (s, args) => this.Show();
+                ventanaBitacora.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Créditos Otorgados")
+            {
+                CreditosOtorgados ventanaCreditos = new CreditosOtorgados();
+                ventanaCreditos.FormClosed += (s, args) => this.Show();
+                ventanaCreditos.Show();
+                this.Hide();
+            }
+            else if (nombreOpcion == "Consultar Productos (Otras Sucursales)")
+            {
+                productos ventanaProductosSucursal = new productos();
+                ventanaProductosSucursal.FormClosed += (s, args) => this.Show();
+                ventanaProductosSucursal.Show();
+                this.Hide();
+            }
+
             else
             {
                 MessageBox.Show($"Abriendo el módulo de: {nombreOpcion}", "ElectroHogar - BAD215", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -130,6 +210,7 @@ namespace ElectroHogar
 
             listaResultadosBusqueda.Items.Clear();
 
+
             string[] todasLasFunciones = new string[]
             {
                 "Gestionar Inventario",
@@ -137,7 +218,9 @@ namespace ElectroHogar
                 "Reporte de Ventas por Vendedor",
                 "Reporte de Ventas por Categoría",
                 "Reporte de Ventas por Proveedor",
-                "Consultar Clientes",
+                "Reporte de Inventario",
+                "Consultar Cliente Natural",
+                "Consultar Cliente Jurídico",
                 "Bitácora de Facturas Fallidas",
                 "Créditos Otorgados",
                 "Consultar Cajeros",
