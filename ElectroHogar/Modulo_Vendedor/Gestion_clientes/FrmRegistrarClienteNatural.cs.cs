@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 {
@@ -38,11 +40,43 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
                 return;
             }
 
-            MessageBox.Show($"Cliente Natural '{nombre}' listo para registrarse con SP_REGISTRAR_CLIENTE_NATURAL.",
-                            "ElectroHogar - Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_REGISTRAR_CLIENTE_NATURAL", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_CORREO", correo);
+                        cmd.Parameters.AddWithValue("P_TELEFONO", telefono);
+                        cmd.Parameters.AddWithValue("P_NOMBRE_CLIENTE", nombre);
+                        cmd.Parameters.AddWithValue("P_DUI_CLIENTE", dui);
+
+                        MySqlParameter paramId = new MySqlParameter("P_ID_CLIENTE", MySqlDbType.Int32);
+                        paramId.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(paramId);
+
+                        cmd.ExecuteNonQuery();
+                        int idGenerado = Convert.ToInt32(paramId.Value);
+
+                        MessageBox.Show($"Cliente Natural '{nombre}' registrado correctamente con ID: {idGenerado}.",
+                                        "ElectroHogar - Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 {
@@ -16,7 +17,7 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
             ConfigurarPlaceholder();
             ConfigurarComboEstado();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarClientesJuridicos();
         }
 
         private void ConfigurarComboEstado()
@@ -48,20 +49,42 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
             dgvClientes.RowTemplate.Height = 32;
         }
 
-        private void InicializarEstructuraTabla()
+        private void CargarClientesJuridicos()
         {
-            dtClientesJuridicos = new DataTable();
-            dtClientesJuridicos.Columns.Add("ID_CLIENTE", typeof(int));
-            dtClientesJuridicos.Columns.Add("RAZON_SOCIAL", typeof(string));
-            dtClientesJuridicos.Columns.Add("NIT", typeof(string));
-            dtClientesJuridicos.Columns.Add("CORREO", typeof(string));
-            dtClientesJuridicos.Columns.Add("TELEFONO_CLIENTE", typeof(string));
-            dtClientesJuridicos.Columns.Add("NOMBRE_REPRESENTANTE_LEGAL", typeof(string));
-            dtClientesJuridicos.Columns.Add("CUPO_CREDITO_CORPORATIVO", typeof(decimal));
-            dtClientesJuridicos.Columns.Add("ESTADO_CLIENTE", typeof(string));
-            dtClientesJuridicos.Columns.Add("TIPO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvClientes.DataSource = dtClientesJuridicos;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_CLIENTE_JURIDICO", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtClientesJuridicos = new DataTable();
+                        da.Fill(dtClientesJuridicos);
+
+                        dgvClientes.DataSource = dtClientesJuridicos;
+                        FormatearColumnas();
+                        AplicarFiltros();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar clientes jurídicos: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvClientes.Columns.Count == 0) return;
 
             dgvClientes.Columns["ID_CLIENTE"].HeaderText = "ID";
             dgvClientes.Columns["RAZON_SOCIAL"].HeaderText = "Razón Social";
@@ -81,9 +104,11 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
             RegistrarClienteJuridico modalRegistro = new RegistrarClienteJuridico();
-            modalRegistro.ShowDialog();
+            if (modalRegistro.ShowDialog() == DialogResult.OK)
+            {
+                CargarClientesJuridicos();
+            }
         }
-
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
@@ -99,7 +124,10 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
             decimal cupo = Convert.ToDecimal(dgvClientes.SelectedRows[0].Cells["CUPO_CREDITO_CORPORATIVO"].Value);
 
             ActualizarClienteJuridico modalActualizar = new ActualizarClienteJuridico(idCliente, razonSocial, representante, cupo);
-            modalActualizar.ShowDialog();
+            if (modalActualizar.ShowDialog() == DialogResult.OK)
+            {
+                CargarClientesJuridicos();
+            }
         }
 
         private void btnActivar_Click(object sender, EventArgs e)
@@ -111,8 +139,40 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
             }
 
             int idCliente = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ID_CLIENTE"].Value);
-            MessageBox.Show($"Cliente Jurídico ID {idCliente} activado.", "ElectroHogar - Clientes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string razonSocial = dgvClientes.SelectedRows[0].Cells["RAZON_SOCIAL"].Value.ToString();
+
+            DialogResult confirm = MessageBox.Show($"¿Desea activar nuevamente al cliente '{razonSocial}'?",
+                                                   "Confirmar Activación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_ACTIVAR_CLIENTE", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_CLIENTE", idCliente);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show($"Cliente Jurídico '{razonSocial}' activado correctamente.",
+                                        "ElectroHogar - Clientes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarClientesJuridicos();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
+
 
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
@@ -123,7 +183,34 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
             }
 
             int idCliente = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ID_CLIENTE"].Value);
-            MessageBox.Show($"Cliente Jurídico ID {idCliente} desactivado.", "ElectroHogar - Clientes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string razonSocial = dgvClientes.SelectedRows[0].Cells["RAZON_SOCIAL"].Value.ToString();
+
+            DialogResult confirm = MessageBox.Show($"¿Está seguro que desea desactivar al cliente '{razonSocial}'?",
+                                                   "Confirmar Desactivación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null) return;
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_DESACTIVAR_CLIENTE", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_CLIENTE", idCliente);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show($"Cliente Jurídico '{razonSocial}' desactivado correctamente.",
+                                        "ElectroHogar - Clientes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarClientesJuridicos();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -142,32 +229,28 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 
             string filtroTexto = txtBuscar.Text.Trim().Replace("'", "''");
             string estadoSeleccionado = cmbEstado.SelectedItem?.ToString() ?? "Todos";
-            string condicion = "";
 
+            string condicion = "";
             if (!string.IsNullOrEmpty(filtroTexto) && filtroTexto != PlaceholderText)
             {
                 condicion = string.Format(
-                    "(CONVERT(ID_CLIENTE, 'System.String') LIKE '%{0}%' OR " +
-                    "RAZON_SOCIAL LIKE '%{0}%' OR " +
-                    "NIT LIKE '%{0}%' OR " +
-                    "NOMBRE_REPRESENTANTE_LEGAL LIKE '%{0}%')",
-                    filtroTexto
+                "(CONVERT(ID_CLIENTE, 'System.String') LIKE '%{0}%' OR " +
+                "RAZON_SOCIAL LIKE '%{0}%' OR " +
+                "NIT LIKE '%{0}%' OR " +
+                "NOMBRE_REPRESENTANTE_LEGAL LIKE '%{0}%')",
+                filtroTexto
                 );
             }
-
             if (estadoSeleccionado != "Todos")
             {
                 condicion += (condicion.Length > 0 ? " AND " : "") + $"ESTADO_CLIENTE = '{estadoSeleccionado}'";
             }
-
             dtClientesJuridicos.DefaultView.RowFilter = condicion;
         }
-
         private void ConfigurarPlaceholder()
         {
             txtBuscar.Text = PlaceholderText;
             txtBuscar.ForeColor = Color.Gray;
-
             txtBuscar.Enter += (s, e) =>
             {
                 if (txtBuscar.Text == PlaceholderText)
@@ -176,7 +259,6 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
                     txtBuscar.ForeColor = Color.Black;
                 }
             };
-
             txtBuscar.Leave += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -186,15 +268,12 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
                 }
             };
         }
-
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
     }
 }

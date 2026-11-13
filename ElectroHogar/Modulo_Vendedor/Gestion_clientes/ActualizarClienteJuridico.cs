@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 {
@@ -28,17 +30,44 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 
             if (cupoCredito < 0)
             {
-                MessageBox.Show("El cupo de crédito no puede ser negativo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El cupo de crédito no puede ser negativo.",
+                                "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 numCupoCredito.Focus();
                 return;
             }
 
-            // Mensaje temporal hasta conectar SP_ACTUALIZAR_CLIENTE_JURIDICO
-            MessageBox.Show($"Datos del Cliente ID {idCliente} listos para actualizarse en la base de datos.",
-                            "ElectroHogar - Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.",
+                                    "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_ACTUALIZAR_CLIENTE_JURIDICO", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_CLIENTE", this.idCliente);
+                        cmd.Parameters.AddWithValue("P_REPRESENTANTE", string.IsNullOrWhiteSpace(representante) ? (object)DBNull.Value : representante);
+                        cmd.Parameters.AddWithValue("P_CUPO_CREDITO", cupoCredito);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Cliente jurídico actualizado correctamente.",
+                                        "ElectroHogar - Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -47,4 +76,3 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
         }
     }
 }
-
