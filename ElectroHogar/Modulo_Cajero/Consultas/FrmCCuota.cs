@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ElectroHogar.Modulo_Cajero
+namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmModificarDatos : Form
+    public partial class FrmCCuota : Form
     {
-        public FrmModificarDatos()
+        public FrmCCuota()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            InicioCajero inicioCajero = new InicioCajero();
+            this.Close();
         }
     }
 }
