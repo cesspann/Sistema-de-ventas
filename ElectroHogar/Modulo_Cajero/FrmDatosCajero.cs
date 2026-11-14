@@ -22,5 +22,15 @@ namespace ElectroHogar.Modulo_Cajero
             InicioCajero inicioCajero = new InicioCajero();
             this.Close();
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -32,5 +32,16 @@ namespace ElectroHogar.Modulo_Cajero
             InicioCajero inicioCajero = new InicioCajero();
             this.Close();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            InicioCajero inicioCajero = new InicioCajero();
+            this.Close();
+        }
     }
 }

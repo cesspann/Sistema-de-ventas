@@ -103,6 +103,72 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.Designer.cs">
+      <DependentUpon>FrmCBitacoraFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraProducto.Designer.cs">
+      <DependentUpon>FrmCBitacoraProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCClienteJuridico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCClienteJuridico.Designer.cs">
+      <DependentUpon>FrmCClienteJuridico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCClienteNatural.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCClienteNatural.Designer.cs">
+      <DependentUpon>FrmCClienteNatural.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCCredito.Designer.cs">
+      <DependentUpon>FrmCCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCCuota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCCuota.Designer.cs">
+      <DependentUpon>FrmCCuota.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCDetalleFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCDetalleFactura.Designer.cs">
+      <DependentUpon>FrmCDetalleFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCFactura.Designer.cs">
+      <DependentUpon>FrmCFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCInventario.Designer.cs">
+      <DependentUpon>FrmCInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCLimiteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCLimiteCredito.Designer.cs">
+      <DependentUpon>FrmCLimiteCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCPromocion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\Consultas\FrmCPromocion.Designer.cs">
+      <DependentUpon>FrmCPromocion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Cajero\FrmConsultarDatos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,17 +199,17 @@
     <Compile Include="Modulo_Cajero\FrmPagoCredito.Designer.cs">
       <DependentUpon>FrmPagoCredito.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Cajero\FrmTerminarVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Cajero\FrmTerminarVenta.Designer.cs">
+      <DependentUpon>FrmTerminarVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Cajero\InicioCajero.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modulo_Cajero\InicioCajero.Designer.cs">
       <DependentUpon>InicioCajero.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modulo_Cajero\FrmModificarDatos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modulo_Cajero\FrmModificarDatos.Designer.cs">
-      <DependentUpon>FrmModificarDatos.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\ConsultasLocales\actualizarLimiteCredito.cs">
       <SubType>Form</SubType>
@@ -403,6 +469,39 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.resx">
+      <DependentUpon>FrmCBitacoraFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCBitacoraProducto.resx">
+      <DependentUpon>FrmCBitacoraProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCClienteJuridico.resx">
+      <DependentUpon>FrmCClienteJuridico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCClienteNatural.resx">
+      <DependentUpon>FrmCClienteNatural.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCCredito.resx">
+      <DependentUpon>FrmCCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCCuota.resx">
+      <DependentUpon>FrmCCuota.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCDetalleFactura.resx">
+      <DependentUpon>FrmCDetalleFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCFactura.resx">
+      <DependentUpon>FrmCFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCInventario.resx">
+      <DependentUpon>FrmCInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCLimiteCredito.resx">
+      <DependentUpon>FrmCLimiteCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCPromocion.resx">
+      <DependentUpon>FrmCPromocion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\FrmConsultarDatos.resx">
       <DependentUpon>FrmConsultarDatos.cs</DependentUpon>
     </EmbeddedResource>
@@ -417,6 +516,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\FrmPagoCredito.resx">
       <DependentUpon>FrmPagoCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Cajero\FrmTerminarVenta.resx">
+      <DependentUpon>FrmTerminarVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\InicioCajero.resx">
       <DependentUpon>InicioCajero.cs</DependentUpon>
