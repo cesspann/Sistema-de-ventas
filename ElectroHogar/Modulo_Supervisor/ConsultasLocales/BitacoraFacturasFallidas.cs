@@ -77,7 +77,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
 
                         string textoBusqueda = txtBuscar.Text.Trim();
                         bool hayTexto = !string.IsNullOrEmpty(textoBusqueda) && textoBusqueda != PlaceholderText;
-
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
                         cmd.Parameters.AddWithValue("P_BUSQUEDA", hayTexto ? (object)textoBusqueda : DBNull.Value);
                         cmd.Parameters.AddWithValue("P_FECHA_DESDE", dtpFechaDesde.Checked ? (object)dtpFechaDesde.Value.Date : DBNull.Value);
                         cmd.Parameters.AddWithValue("P_FECHA_HASTA", dtpFechaHasta.Checked ? (object)dtpFechaHasta.Value.Date.AddDays(1).AddSeconds(-1) : DBNull.Value);

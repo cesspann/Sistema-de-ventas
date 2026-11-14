@@ -40,7 +40,7 @@
             this.pnlSuperior.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSuperior.Location = new System.Drawing.Point(0, 0);
             this.pnlSuperior.Name = "pnlSuperior";
-            this.pnlSuperior.Size = new System.Drawing.Size(1180, 75);
+            this.pnlSuperior.Size = new System.Drawing.Size(1223, 75);
             this.pnlSuperior.TabIndex = 0;
             // 
             // lblTitulo
@@ -50,7 +50,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(95, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(242, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(269, 37);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Créditos Otorgados";
             // 
@@ -81,67 +81,8 @@
             this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPrincipal.Location = new System.Drawing.Point(0, 75);
             this.pnlPrincipal.Name = "pnlPrincipal";
-            this.pnlPrincipal.Size = new System.Drawing.Size(1180, 595);
+            this.pnlPrincipal.Size = new System.Drawing.Size(1223, 639);
             this.pnlPrincipal.TabIndex = 1;
-            // 
-            // txtBuscar
-            // 
-            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
-            this.txtBuscar.Location = new System.Drawing.Point(35, 25);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(795, 32);
-            this.txtBuscar.TabIndex = 0;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
-            // 
-            // lblIconoBuscar
-            // 
-            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblIconoBuscar.AutoSize = true;
-            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
-            this.lblIconoBuscar.Location = new System.Drawing.Point(838, 25);
-            this.lblIconoBuscar.Name = "lblIconoBuscar";
-            this.lblIconoBuscar.Size = new System.Drawing.Size(44, 32);
-            this.lblIconoBuscar.TabIndex = 1;
-            this.lblIconoBuscar.Text = "🔍";
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblEstado.ForeColor = System.Drawing.Color.DimGray;
-            this.lblEstado.Location = new System.Drawing.Point(925, 29);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(64, 23);
-            this.lblEstado.TabIndex = 2;
-            this.lblEstado.Text = "Estado:";
-            // 
-            // cmbEstado
-            // 
-            this.cmbEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Location = new System.Drawing.Point(995, 25);
-            this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(150, 31);
-            this.cmbEstado.TabIndex = 3;
-            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
-            // 
-            // dgvCreditos
-            // 
-            this.dgvCreditos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCreditos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCreditos.Location = new System.Drawing.Point(35, 80);
-            this.dgvCreditos.Name = "dgvCreditos";
-            this.dgvCreditos.Size = new System.Drawing.Size(1110, 445);
-            this.dgvCreditos.TabIndex = 4;
             // 
             // lblResumenTotales
             // 
@@ -149,17 +90,77 @@
             this.lblResumenTotales.AutoSize = true;
             this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.lblResumenTotales.Location = new System.Drawing.Point(565, 542);
+            this.lblResumenTotales.Location = new System.Drawing.Point(578, 588);
             this.lblResumenTotales.Name = "lblResumenTotales";
-            this.lblResumenTotales.Size = new System.Drawing.Size(580, 25);
+            this.lblResumenTotales.Size = new System.Drawing.Size(560, 25);
             this.lblResumenTotales.TabIndex = 5;
             this.lblResumenTotales.Text = "Créditos: 0   |   Total Financiado: $0.00   |   Saldo Pendiente: $0.00";
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Location = new System.Drawing.Point(1038, 25);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(150, 31);
+            this.cmbEstado.TabIndex = 3;
+            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblEstado.ForeColor = System.Drawing.Color.DimGray;
+            this.lblEstado.Location = new System.Drawing.Point(968, 29);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(68, 23);
+            this.lblEstado.TabIndex = 2;
+            this.lblEstado.Text = "Estado:";
+            // 
+            // dgvCreditos
+            // 
+            this.dgvCreditos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCreditos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCreditos.Location = new System.Drawing.Point(35, 80);
+            this.dgvCreditos.Name = "dgvCreditos";
+            this.dgvCreditos.RowHeadersWidth = 51;
+            this.dgvCreditos.Size = new System.Drawing.Size(1153, 489);
+            this.dgvCreditos.TabIndex = 4;
+            // 
+            // lblIconoBuscar
+            // 
+            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIconoBuscar.AutoSize = true;
+            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
+            this.lblIconoBuscar.Location = new System.Drawing.Point(881, 25);
+            this.lblIconoBuscar.Name = "lblIconoBuscar";
+            this.lblIconoBuscar.Size = new System.Drawing.Size(47, 32);
+            this.lblIconoBuscar.TabIndex = 1;
+            this.lblIconoBuscar.Text = "🔍";
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscar.Location = new System.Drawing.Point(35, 25);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(838, 32);
+            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
             // CreditosOtorgados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1180, 670);
+            this.ClientSize = new System.Drawing.Size(1223, 714);
             this.Controls.Add(this.pnlPrincipal);
             this.Controls.Add(this.pnlSuperior);
             this.Name = "CreditosOtorgados";
@@ -171,6 +172,7 @@
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCreditos)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

@@ -301,23 +301,23 @@
     <Compile Include="Modulo_Supervisor\submodulo_productos\bitacora_precios.Designer.cs">
       <DependentUpon>bitacora_precios.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modulo_Supervisor\submodulo_productos\CategoriasInactivas.cs">
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarCategorias.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modulo_Supervisor\submodulo_productos\CategoriasInactivas.Designer.cs">
-      <DependentUpon>CategoriasInactivas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modulo_Supervisor\submodulo_productos\FrmAgregarCategoria.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modulo_Supervisor\submodulo_productos\FrmAgregarCategoria.Designer.cs">
-      <DependentUpon>FrmAgregarCategoria.cs</DependentUpon>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarCategorias.Designer.cs">
+      <DependentUpon>GestionarCategorias.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarPromociones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarPromociones.Designer.cs">
       <DependentUpon>GestionarPromociones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarProveedores.Designer.cs">
+      <DependentUpon>GestionarProveedores.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\submodulo_productos\GestionProductosSupervisor.cs">
       <SubType>Form</SubType>
@@ -481,8 +481,17 @@
     <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_vendedor.resx">
       <DependentUpon>ventas_vendedor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionarCategorias.resx">
+      <DependentUpon>GestionarCategorias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionarPromociones.resx">
       <DependentUpon>GestionarPromociones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionarProveedores.resx">
+      <DependentUpon>GestionarProveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionProductosSupervisor.resx">
+      <DependentUpon>GestionProductosSupervisor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.resx">
       <DependentUpon>GestionarClientesJuridico.cs</DependentUpon>
