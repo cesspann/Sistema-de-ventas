@@ -174,5 +174,9 @@ namespace ElectroHogar.Modulo_Vendedor
             this.Close();
         }
 
+        private void InicioVendedor_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

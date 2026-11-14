@@ -53,7 +53,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(95, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(374, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(437, 37);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Reporte de Ventas por Categoría";
             // 
@@ -90,43 +90,40 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(1120, 595);
             this.pnlPrincipal.TabIndex = 1;
             // 
-            // lblFechaInicio
+            // lblResumenTotales
             // 
-            this.lblFechaInicio.AutoSize = true;
-            this.lblFechaInicio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblFechaInicio.ForeColor = System.Drawing.Color.DimGray;
-            this.lblFechaInicio.Location = new System.Drawing.Point(35, 28);
-            this.lblFechaInicio.Name = "lblFechaInicio";
-            this.lblFechaInicio.Size = new System.Drawing.Size(60, 23);
-            this.lblFechaInicio.TabIndex = 0;
-            this.lblFechaInicio.Text = "Desde:";
+            this.lblResumenTotales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResumenTotales.AutoSize = true;
+            this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
+            this.lblResumenTotales.Location = new System.Drawing.Point(34, 544);
+            this.lblResumenTotales.Name = "lblResumenTotales";
+            this.lblResumenTotales.Size = new System.Drawing.Size(534, 25);
+            this.lblResumenTotales.TabIndex = 8;
+            this.lblResumenTotales.Text = "Total Unidades Vendidas: 0   |   Monto Total Vendido: $0.00";
             // 
-            // dtpFechaInicio
+            // lblIconoBuscar
             // 
-            this.dtpFechaInicio.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dtpFechaInicio.Location = new System.Drawing.Point(100, 24);
-            this.dtpFechaInicio.Name = "dtpFechaInicio";
-            this.dtpFechaInicio.Size = new System.Drawing.Size(145, 30);
-            this.dtpFechaInicio.TabIndex = 1;
+            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIconoBuscar.AutoSize = true;
+            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
+            this.lblIconoBuscar.Location = new System.Drawing.Point(1045, 22);
+            this.lblIconoBuscar.Name = "lblIconoBuscar";
+            this.lblIconoBuscar.Size = new System.Drawing.Size(47, 32);
+            this.lblIconoBuscar.TabIndex = 6;
+            this.lblIconoBuscar.Text = "🔍";
             // 
-            // lblFechaFin
+            // txtBuscar
             // 
-            this.lblFechaFin.AutoSize = true;
-            this.lblFechaFin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblFechaFin.ForeColor = System.Drawing.Color.DimGray;
-            this.lblFechaFin.Location = new System.Drawing.Point(260, 28);
-            this.lblFechaFin.Name = "lblFechaFin";
-            this.lblFechaFin.Size = new System.Drawing.Size(56, 23);
-            this.lblFechaFin.TabIndex = 2;
-            this.lblFechaFin.Text = "Hasta:";
-            // 
-            // dtpFechaFin
-            // 
-            this.dtpFechaFin.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dtpFechaFin.Location = new System.Drawing.Point(322, 24);
-            this.dtpFechaFin.Name = "dtpFechaFin";
-            this.dtpFechaFin.Size = new System.Drawing.Size(145, 30);
-            this.dtpFechaFin.TabIndex = 3;
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscar.Location = new System.Drawing.Point(675, 24);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(365, 30);
+            this.txtBuscar.TabIndex = 5;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
             // btnGenerarReporte
             // 
@@ -143,55 +140,58 @@
             this.btnGenerarReporte.UseVisualStyleBackColor = false;
             this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
             // 
-            // txtBuscar
+            // dtpFechaFin
             // 
-            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
-            this.txtBuscar.Location = new System.Drawing.Point(675, 24);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(365, 30);
-            this.txtBuscar.TabIndex = 5;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            this.dtpFechaFin.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dtpFechaFin.Location = new System.Drawing.Point(322, 24);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(145, 30);
+            this.dtpFechaFin.TabIndex = 3;
             // 
-            // lblIconoBuscar
+            // lblFechaFin
             // 
-            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblIconoBuscar.AutoSize = true;
-            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
-            this.lblIconoBuscar.Location = new System.Drawing.Point(1045, 22);
-            this.lblIconoBuscar.Name = "lblIconoBuscar";
-            this.lblIconoBuscar.Size = new System.Drawing.Size(44, 32);
-            this.lblIconoBuscar.TabIndex = 6;
-            this.lblIconoBuscar.Text = "🔍";
+            this.lblFechaFin.AutoSize = true;
+            this.lblFechaFin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblFechaFin.ForeColor = System.Drawing.Color.DimGray;
+            this.lblFechaFin.Location = new System.Drawing.Point(260, 28);
+            this.lblFechaFin.Name = "lblFechaFin";
+            this.lblFechaFin.Size = new System.Drawing.Size(60, 23);
+            this.lblFechaFin.TabIndex = 2;
+            this.lblFechaFin.Text = "Hasta:";
+            // 
+            // dtpFechaInicio
+            // 
+            this.dtpFechaInicio.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dtpFechaInicio.Location = new System.Drawing.Point(100, 24);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(145, 30);
+            this.dtpFechaInicio.TabIndex = 1;
+            // 
+            // lblFechaInicio
+            // 
+            this.lblFechaInicio.AutoSize = true;
+            this.lblFechaInicio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblFechaInicio.ForeColor = System.Drawing.Color.DimGray;
+            this.lblFechaInicio.Location = new System.Drawing.Point(35, 28);
+            this.lblFechaInicio.Name = "lblFechaInicio";
+            this.lblFechaInicio.Size = new System.Drawing.Size(64, 23);
+            this.lblFechaInicio.TabIndex = 0;
+            this.lblFechaInicio.Text = "Desde:";
             // 
             // dgvReporte
             // 
-            this.dgvReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgvReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvReporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReporte.Location = new System.Drawing.Point(35, 78);
             this.dgvReporte.Name = "dgvReporte";
+            this.dgvReporte.RowHeadersWidth = 51;
             this.dgvReporte.Size = new System.Drawing.Size(1050, 445);
             this.dgvReporte.TabIndex = 7;
             // 
-            // lblResumenTotales
-            // 
-            this.lblResumenTotales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-
-            this.lblResumenTotales.AutoSize = true;
-            this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.lblResumenTotales.Location = new System.Drawing.Point(625, 540);
-            this.lblResumenTotales.Name = "lblResumenTotales";
-            this.lblResumenTotales.Size = new System.Drawing.Size(460, 25);
-            this.lblResumenTotales.TabIndex = 8;
-            this.lblResumenTotales.Text = "Total Unidades Vendidas: 0   |   Monto Total Vendido: $0.00";
-            //
             // ventas_categoria
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1120, 670);
@@ -206,6 +206,7 @@
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).EndInit();
             this.ResumeLayout(false);
+
         }
         #endregion
         private System.Windows.Forms.Panel pnlSuperior;

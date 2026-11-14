@@ -167,5 +167,10 @@ namespace ElectroHogar
         {
 
         }
+
+        private void lblUsuario_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

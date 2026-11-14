@@ -154,7 +154,9 @@
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlLateral);
             this.Name = "InicioVendedor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ElectroHogar - Panel de Vendedor";
+            this.Load += new System.EventHandler(this.InicioVendedor_Load);
             this.pnlLateral.ResumeLayout(false);
             this.pnlLateral.PerformLayout();
             this.pnlContenido.ResumeLayout(false);
