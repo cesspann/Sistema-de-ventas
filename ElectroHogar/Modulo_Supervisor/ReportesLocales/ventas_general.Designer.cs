@@ -49,7 +49,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(95, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(329, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(358, 37);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Reporte de Ventas General";
             // 
@@ -82,50 +82,15 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(1120, 595);
             this.pnlPrincipal.TabIndex = 1;
             // 
-            // txtBuscar
-            // 
-            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
-            this.txtBuscar.Location = new System.Drawing.Point(35, 25);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(995, 32);
-            this.txtBuscar.TabIndex = 0;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
-            // 
-            // lblIconoBuscar
-            // 
-            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblIconoBuscar.AutoSize = true;
-            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
-            this.lblIconoBuscar.Location = new System.Drawing.Point(1038, 24);
-            this.lblIconoBuscar.Name = "lblIconoBuscar";
-            this.lblIconoBuscar.Size = new System.Drawing.Size(44, 32);
-            this.lblIconoBuscar.TabIndex = 1;
-            this.lblIconoBuscar.Text = "🔍";
-            // 
-            // dgvFacturas
-            // 
-            this.dgvFacturas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFacturas.Location = new System.Drawing.Point(35, 78);
-            this.dgvFacturas.Name = "dgvFacturas";
-            this.dgvFacturas.Size = new System.Drawing.Size(1050, 440);
-            this.dgvFacturas.TabIndex = 2;
-            // 
             // lblResumenTotales
             // 
             this.lblResumenTotales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblResumenTotales.AutoSize = true;
             this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.lblResumenTotales.Location = new System.Drawing.Point(35, 540);
+            this.lblResumenTotales.Location = new System.Drawing.Point(39, 539);
             this.lblResumenTotales.Name = "lblResumenTotales";
-            this.lblResumenTotales.Size = new System.Drawing.Size(346, 25);
+            this.lblResumenTotales.Size = new System.Drawing.Size(377, 25);
             this.lblResumenTotales.TabIndex = 3;
             this.lblResumenTotales.Text = "Facturas Activas: 0   |   Monto Total: $0.00";
             // 
@@ -145,6 +110,42 @@
             this.btnAnularFactura.UseVisualStyleBackColor = false;
             this.btnAnularFactura.Click += new System.EventHandler(this.btnAnularFactura_Click);
             // 
+            // dgvFacturas
+            // 
+            this.dgvFacturas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFacturas.Location = new System.Drawing.Point(35, 78);
+            this.dgvFacturas.Name = "dgvFacturas";
+            this.dgvFacturas.RowHeadersWidth = 51;
+            this.dgvFacturas.Size = new System.Drawing.Size(1050, 440);
+            this.dgvFacturas.TabIndex = 2;
+            // 
+            // lblIconoBuscar
+            // 
+            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIconoBuscar.AutoSize = true;
+            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
+            this.lblIconoBuscar.Location = new System.Drawing.Point(1038, 24);
+            this.lblIconoBuscar.Name = "lblIconoBuscar";
+            this.lblIconoBuscar.Size = new System.Drawing.Size(47, 32);
+            this.lblIconoBuscar.TabIndex = 1;
+            this.lblIconoBuscar.Text = "🔍";
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscar.Location = new System.Drawing.Point(35, 25);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(995, 32);
+            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            // 
             // ventas_general
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -161,6 +162,7 @@
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

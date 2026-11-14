@@ -42,11 +42,12 @@
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            this.lblUsuario.Location = new System.Drawing.Point(225, 230);
+            this.lblUsuario.Location = new System.Drawing.Point(220, 254);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(150, 25);
+            this.lblUsuario.Size = new System.Drawing.Size(86, 25);
             this.lblUsuario.TabIndex = 1;
-            this.lblUsuario.Text = "Usuario o email";
+            this.lblUsuario.Text = "Usuario ";
+            this.lblUsuario.Click += new System.EventHandler(this.lblUsuario_Click);
             // 
             // txtUsuario
             // 
@@ -54,7 +55,7 @@
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.txtUsuario.ForeColor = System.Drawing.Color.Black;
-            this.txtUsuario.Location = new System.Drawing.Point(225, 265);
+            this.txtUsuario.Location = new System.Drawing.Point(225, 282);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(350, 36);
             this.txtUsuario.TabIndex = 2;
@@ -64,7 +65,7 @@
             this.lblContrasena.AutoSize = true;
             this.lblContrasena.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            this.lblContrasena.Location = new System.Drawing.Point(225, 330);
+            this.lblContrasena.Location = new System.Drawing.Point(220, 348);
             this.lblContrasena.Name = "lblContrasena";
             this.lblContrasena.Size = new System.Drawing.Size(113, 25);
             this.lblContrasena.TabIndex = 3;
@@ -76,7 +77,7 @@
             this.txtContrasena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.txtContrasena.ForeColor = System.Drawing.Color.Black;
-            this.txtContrasena.Location = new System.Drawing.Point(225, 365);
+            this.txtContrasena.Location = new System.Drawing.Point(225, 376);
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PasswordChar = '•';
             this.txtContrasena.Size = new System.Drawing.Size(350, 36);
@@ -88,7 +89,7 @@
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIngresar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnIngresar.ForeColor = System.Drawing.Color.White;
-            this.btnIngresar.Location = new System.Drawing.Point(225, 450);
+            this.btnIngresar.Location = new System.Drawing.Point(225, 468);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(350, 50);
             this.btnIngresar.TabIndex = 5;

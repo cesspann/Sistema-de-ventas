@@ -51,7 +51,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(95, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(274, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(300, 37);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Reporte de Inventario";
             // 
@@ -86,53 +86,17 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(1140, 595);
             this.pnlPrincipal.TabIndex = 1;
             // 
-            // txtBuscar
+            // lblResumenTotales
             // 
-            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
-            this.txtBuscar.Location = new System.Drawing.Point(35, 24);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(580, 31);
-            this.txtBuscar.TabIndex = 0;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
-            // 
-            // lblIconoBuscar
-            // 
-            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblIconoBuscar.AutoSize = true;
-            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
-            this.lblIconoBuscar.Location = new System.Drawing.Point(622, 23);
-            this.lblIconoBuscar.Name = "lblIconoBuscar";
-            this.lblIconoBuscar.Size = new System.Drawing.Size(44, 32);
-            this.lblIconoBuscar.TabIndex = 1;
-            this.lblIconoBuscar.Text = "🔍";
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblEstado.ForeColor = System.Drawing.Color.DimGray;
-            this.lblEstado.Location = new System.Drawing.Point(710, 28);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(64, 23);
-            this.lblEstado.TabIndex = 2;
-            this.lblEstado.Text = "Estado:";
-            // 
-            // cmbEstado
-            // 
-            this.cmbEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Location = new System.Drawing.Point(780, 24);
-            this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(140, 31);
-            this.cmbEstado.TabIndex = 3;
-            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
+            this.lblResumenTotales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResumenTotales.AutoSize = true;
+            this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
+            this.lblResumenTotales.Location = new System.Drawing.Point(30, 543);
+            this.lblResumenTotales.Name = "lblResumenTotales";
+            this.lblResumenTotales.Size = new System.Drawing.Size(486, 25);
+            this.lblResumenTotales.TabIndex = 6;
+            this.lblResumenTotales.Text = "Unidades en Stock: 0   |   Valor Total Inventario: $0.00";
             // 
             // btnGenerarReporte
             // 
@@ -150,32 +114,68 @@
             this.btnGenerarReporte.UseVisualStyleBackColor = false;
             this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
             // 
+            // cmbEstado
+            // 
+            this.cmbEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Location = new System.Drawing.Point(780, 24);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(140, 31);
+            this.cmbEstado.TabIndex = 3;
+            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblEstado.ForeColor = System.Drawing.Color.DimGray;
+            this.lblEstado.Location = new System.Drawing.Point(710, 28);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(68, 23);
+            this.lblEstado.TabIndex = 2;
+            this.lblEstado.Text = "Estado:";
+            // 
+            // lblIconoBuscar
+            // 
+            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIconoBuscar.AutoSize = true;
+            this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
+            this.lblIconoBuscar.Location = new System.Drawing.Point(622, 23);
+            this.lblIconoBuscar.Name = "lblIconoBuscar";
+            this.lblIconoBuscar.Size = new System.Drawing.Size(47, 32);
+            this.lblIconoBuscar.TabIndex = 1;
+            this.lblIconoBuscar.Text = "🔍";
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscar.Location = new System.Drawing.Point(35, 24);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(580, 31);
+            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            // 
             // dgvReporte
             // 
-            this.dgvReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgvReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvReporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReporte.Location = new System.Drawing.Point(35, 78);
             this.dgvReporte.Name = "dgvReporte";
+            this.dgvReporte.RowHeadersWidth = 51;
             this.dgvReporte.Size = new System.Drawing.Size(1070, 445);
             this.dgvReporte.TabIndex = 5;
             // 
-            // lblResumenTotales
-            // 
-            this.lblResumenTotales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblResumenTotales.AutoSize = true;
-            this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.lblResumenTotales.Location = new System.Drawing.Point(625, 540);
-            this.lblResumenTotales.Name = "lblResumenTotales";
-            this.lblResumenTotales.Size = new System.Drawing.Size(480, 25);
-
-            this.lblResumenTotales.TabIndex = 6;
-            this.lblResumenTotales.Text = "Unidades en Stock: 0   |   Valor Total Inventario: $0.00";
-            //
             // Reporte_Inventario
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 670);
@@ -190,6 +190,7 @@
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).EndInit();
             this.ResumeLayout(false);
+
         }
         #endregion
         private System.Windows.Forms.Panel pnlSuperior;

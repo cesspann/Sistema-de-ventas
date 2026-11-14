@@ -24,7 +24,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
 
         private void ConfigurarComboEstado()
         {
-            cmbEstado.Items.AddRange(new object[] { "Todos", "Activo", "Pagado", "Cancelado" });
+            cmbEstado.Items.AddRange(new object[] { "Todos", "Activo", "Pagado", "Cancelado", "Pendiente"});
             cmbEstado.SelectedIndex = 0;
         }
 

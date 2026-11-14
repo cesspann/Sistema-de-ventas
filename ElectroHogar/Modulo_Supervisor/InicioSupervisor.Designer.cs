@@ -208,7 +208,7 @@
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlLateral);
             this.Name = "InicioSupervisor";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ElectroHogar - Menú Supervisor";
             this.pnlLateral.ResumeLayout(false);
             this.pnlContenido.ResumeLayout(false);

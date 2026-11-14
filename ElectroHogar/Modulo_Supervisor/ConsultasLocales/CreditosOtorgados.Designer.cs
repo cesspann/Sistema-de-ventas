@@ -90,7 +90,7 @@
             this.lblResumenTotales.AutoSize = true;
             this.lblResumenTotales.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.lblResumenTotales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.lblResumenTotales.Location = new System.Drawing.Point(578, 588);
+            this.lblResumenTotales.Location = new System.Drawing.Point(30, 592);
             this.lblResumenTotales.Name = "lblResumenTotales";
             this.lblResumenTotales.Size = new System.Drawing.Size(560, 25);
             this.lblResumenTotales.TabIndex = 5;
