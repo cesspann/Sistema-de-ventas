@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
@@ -11,13 +12,13 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
         private DataTable dtProductosInactivos;
         private int idEmpleadoActual;
 
-        public productosInactivos(int idEmpleado = 1)
+        public productosInactivos(int idEmpleado = 0)
         {
             InitializeComponent();
-            this.idEmpleadoActual = idEmpleado;
+            this.idEmpleadoActual = idEmpleado > 0 ? idEmpleado : (SesionUsuario.IdEmpleado > 0 ? SesionUsuario.IdEmpleado : 1);
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarProductosInactivos();
         }
 
         private void ConfigurarTabla()
@@ -42,7 +43,6 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             dgvProductosInactivos.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvProductosInactivos.RowTemplate.Height = 32;
 
-            // Habilita el botón solo cuando haya un producto seleccionado y permite doble clic
             dgvProductosInactivos.SelectionChanged += (s, e) =>
             {
                 btnActivarProducto.Enabled = (dgvProductosInactivos.SelectedRows.Count > 0);
@@ -53,17 +53,43 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             };
         }
 
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_PRODUCTOS_INACTIVOS(P_ID_EMPLEADO)
+        private void CargarProductosInactivos()
         {
-            dtProductosInactivos = new DataTable();
-            dtProductosInactivos.Columns.Add("ID_PRODUCTO", typeof(int));
-            dtProductosInactivos.Columns.Add("NOMBRE_PRODUCTO", typeof(string));
-            dtProductosInactivos.Columns.Add("NOMBRE_CATEGORIA", typeof(string));
-            dtProductosInactivos.Columns.Add("STOCK", typeof(int));
-            dtProductosInactivos.Columns.Add("PRECIO_VENTA", typeof(decimal));
-            dtProductosInactivos.Columns.Add("ESTADO_PRODUCTO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvProductosInactivos.DataSource = dtProductosInactivos;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_PRODUCTOS_INACTIVOS", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_EMPLEADO", this.idEmpleadoActual);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtProductosInactivos = new DataTable();
+                        da.Fill(dtProductosInactivos);
+
+                        dgvProductosInactivos.DataSource = dtProductosInactivos;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvProductosInactivos.Columns.Count == 0) return;
 
             dgvProductosInactivos.Columns["ID_PRODUCTO"].HeaderText = "ID";
             dgvProductosInactivos.Columns["NOMBRE_PRODUCTO"].HeaderText = "Producto";
@@ -101,16 +127,45 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
-            if (confirmacion == DialogResult.Yes)
+            if (confirmacion != DialogResult.Yes) return;
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
             {
-                // Aquí irá la llamada a tu SP de activar producto
-                MessageBox.Show($"Producto '{nombreProducto}' reactivado correctamente.",
-                                "ElectroHogar - Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    string query = "UPDATE PRODUCTO SET ESTADO_PRODUCTO = 'Activo' WHERE ID_PRODUCTO = @id;";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", idProducto);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show($"Producto '{nombreProducto}' reactivado correctamente.",
+                                        "ElectroHogar - Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        CargarProductosInactivos();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al reactivar el producto: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         // --- BÚSQUEDA DINÁMICA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtProductosInactivos == null) return;
 
@@ -162,4 +217,3 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
         }
     }
 }
-

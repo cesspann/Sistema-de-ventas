@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 {
@@ -28,17 +30,44 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 
             if (string.IsNullOrWhiteSpace(correo) && string.IsNullOrWhiteSpace(telefono))
             {
-                MessageBox.Show("Ingrese al menos un dato (correo o teléfono) para actualizar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ingrese al menos un dato (correo o teléfono) para actualizar.",
+                                "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCorreo.Focus();
                 return;
             }
 
-            // Mensaje temporal hasta conectar SP_ACTUALIZAR_CLIENTE
-            MessageBox.Show($"Datos del Cliente ID {idCliente} listos para actualizarse en la base de datos.",
-                            "ElectroHogar - Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.",
+                                    "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_ACTUALIZAR_CLIENTE", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_CLIENTE", this.idCliente);
+                        cmd.Parameters.AddWithValue("P_CORREO", correo);
+                        cmd.Parameters.AddWithValue("P_TELEFONO", telefono);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Datos del cliente actualizados correctamente.",
+                                        "ElectroHogar - Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -47,4 +76,3 @@ namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
         }
     }
 }
-

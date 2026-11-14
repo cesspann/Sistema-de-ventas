@@ -2,20 +2,23 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
     public partial class bitacora_precios : Form
     {
         private DataTable dtHistorial;
-        private int idSucursalActual;
+        private int idEmpleadoActual;
         private int idProductoSeleccionado;
+        private string nombreProductoSeleccionado;
 
-        public bitacora_precios(int idSucursal = 1, int idProducto = 0, string nombreProducto = "")
+        public bitacora_precios(int idEmpleado = 0, int idProducto = 0, string nombreProducto = "")
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
+            this.idEmpleadoActual = idEmpleado > 0 ? idEmpleado : (SesionUsuario.IdEmpleado > 0 ? SesionUsuario.IdEmpleado : 1);
             this.idProductoSeleccionado = idProducto;
+            this.nombreProductoSeleccionado = nombreProducto;
 
             if (!string.IsNullOrEmpty(nombreProducto))
             {
@@ -24,7 +27,7 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 
             ConfigurarFechas();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarHistorialPrecios();
         }
 
         private void ConfigurarFechas()
@@ -61,19 +64,58 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             dgvHistorial.RowTemplate.Height = 32;
         }
 
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_HISTORIAL_PRECIOS(P_ID_EMPLEADO, P_BUSQUEDA, P_FECHA_DESDE, P_FECHA_HASTA)
+        private void CargarHistorialPrecios()
         {
-            dtHistorial = new DataTable();
-            dtHistorial.Columns.Add("ID_BITACORA", typeof(int));
-            dtHistorial.Columns.Add("ID_PRODUCTO", typeof(int));
-            dtHistorial.Columns.Add("NOMBRE_PRODUCTO", typeof(string));
-            dtHistorial.Columns.Add("ID_EMPLEADO", typeof(int));
-            dtHistorial.Columns.Add("NOMBRE_EMPLEADO", typeof(string));
-            dtHistorial.Columns.Add("PRECIO_ANTERIOR", typeof(decimal));
-            dtHistorial.Columns.Add("PRECIO_ACTUAL", typeof(decimal));
-            dtHistorial.Columns.Add("FECHA_CAMBIO", typeof(DateTime));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvHistorial.DataSource = dtHistorial;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_HISTORIAL_PRECIOS", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_EMPLEADO", this.idEmpleadoActual);
+
+                        // Si se abrió seleccionando un producto específico, filtra por su ID; si no, trae todo
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA",
+                            this.idProductoSeleccionado > 0 ? (object)this.idProductoSeleccionado.ToString() : DBNull.Value);
+
+                        cmd.Parameters.AddWithValue("P_FECHA_DESDE",
+                            dtpDesde.Checked ? (object)dtpDesde.Value.Date : DBNull.Value);
+
+                        cmd.Parameters.AddWithValue("P_FECHA_HASTA",
+                            dtpHasta.Checked ? (object)dtpHasta.Value.Date.AddDays(1).AddSeconds(-1) : DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtHistorial = new DataTable();
+                        da.Fill(dtHistorial);
+
+                        // Asegura coincidencia exacta de producto si se abrió para uno específico
+                        if (this.idProductoSeleccionado > 0)
+                        {
+                            dtHistorial.DefaultView.RowFilter = $"ID_PRODUCTO = {this.idProductoSeleccionado}";
+                        }
+
+                        dgvHistorial.DataSource = dtHistorial;
+                        FormatearColumnas();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvHistorial.Columns.Count == 0) return;
 
             dgvHistorial.Columns["ID_BITACORA"].HeaderText = "ID Bitácora";
             dgvHistorial.Columns["ID_PRODUCTO"].HeaderText = "ID Prod.";
@@ -102,23 +144,7 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
                 return;
             }
 
-            if (dtHistorial == null) return;
-
-            string condicion = "";
-
-            if (dtpDesde.Checked)
-            {
-                string fDesde = dtpDesde.Value.Date.ToString("MM/dd/yyyy");
-                condicion = $"FECHA_CAMBIO >= #{fDesde}#";
-            }
-
-            if (dtpHasta.Checked)
-            {
-                string fHasta = dtpHasta.Value.Date.AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy HH:mm:ss");
-                condicion += (condicion.Length > 0 ? " AND " : "") + $"FECHA_CAMBIO <= #{fHasta}#";
-            }
-
-            dtHistorial.DefaultView.RowFilter = condicion;
+            CargarHistorialPrecios();
         }
 
         private void btnRegresar_Click(object sender, EventArgs e)

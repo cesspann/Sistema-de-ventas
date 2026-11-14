@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
 {
@@ -11,14 +12,14 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
         private DataTable dtClientesNaturales;
         private int idSucursalActual;
 
-        public ClienteNatural(int idSucursal = 1)
+        public ClienteNatural(int idSucursal = 0)
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
+            this.idSucursalActual = idSucursal > 0 ? idSucursal : (SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
             ConfigurarPlaceholder();
             ConfigurarComboEstado();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarClientesNaturales();
         }
 
         private void ConfigurarComboEstado()
@@ -50,19 +51,43 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             dgvClientes.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 7 columnas de SP_CONSULTAR_CLIENTE_NATURAL
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_CLIENTE_NATURAL(P_BUSQUEDA)
+        private void CargarClientesNaturales()
         {
-            dtClientesNaturales = new DataTable();
-            dtClientesNaturales.Columns.Add("ID_CLIENTE", typeof(int));
-            dtClientesNaturales.Columns.Add("NOMBRE_CLIENTE", typeof(string));
-            dtClientesNaturales.Columns.Add("DUI_CLIENTE", typeof(string));
-            dtClientesNaturales.Columns.Add("CORREO", typeof(string));
-            dtClientesNaturales.Columns.Add("TELEFONO_CLIENTE", typeof(string));
-            dtClientesNaturales.Columns.Add("ESTADO_CLIENTE", typeof(string));
-            dtClientesNaturales.Columns.Add("TIPO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvClientes.DataSource = dtClientesNaturales;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_CLIENTE_NATURAL", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtClientesNaturales = new DataTable();
+                        da.Fill(dtClientesNaturales);
+
+                        dgvClientes.DataSource = dtClientesNaturales;
+                        FormatearColumnas();
+                        AplicarFiltros();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar clientes naturales: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvClientes.Columns.Count == 0) return;
 
             dgvClientes.Columns["ID_CLIENTE"].HeaderText = "ID";
             dgvClientes.Columns["NOMBRE_CLIENTE"].HeaderText = "Nombre del Cliente";
@@ -97,10 +122,11 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
                 return;
             }
 
-            RegistrarLimiteCredito modalRegistrar = new RegistrarLimiteCredito(idCliente, nombreCliente, idSucursalActual);
+            RegistrarLimiteCredito modalRegistrar = new RegistrarLimiteCredito(idCliente, nombreCliente, this.idSucursalActual);
             modalRegistrar.ShowDialog();
         }
 
+        // --- BOTÓN 2: ACTUALIZAR LÍMITE DE CRÉDITO (SP_ACTUALIZAR_LIMITE_CREDITO_PERSONAL) ---
         private void btnActualizarLimite_Click(object sender, EventArgs e)
         {
             if (dgvClientes.SelectedRows.Count == 0)
@@ -113,160 +139,52 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             int idCliente = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ID_CLIENTE"].Value);
             string nombreCliente = dgvClientes.SelectedRows[0].Cells["NOMBRE_CLIENTE"].Value.ToString();
 
-            actualizarLimiteCredito modalActualizar = new actualizarLimiteCredito(idCliente, nombreCliente, idSucursalActual);
+            actualizarLimiteCredito modalActualizar = new actualizarLimiteCredito(idCliente, nombreCliente, this.idSucursalActual);
             modalActualizar.ShowDialog();
         }
-        // Cuadro modal limpio para capturar el monto de crédito (validación > 0)
-        private decimal? SolicitarMontoCredito(string tituloModal, string nombreCliente, int idCliente)
-        {
-            decimal? resultado = null;
 
-            Form prompt = new Form()
-            {
-                Width = 440,
-                Height = 250,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = tituloModal,
-                StartPosition = FormStartPosition.CenterParent,
-                MaximizeBox = false,
-                MinimizeBox = false,
-                BackColor = Color.White
-            };
-
-            Panel pnlTop = new Panel()
-            {
-                Dock = DockStyle.Top,
-                Height = 52,
-                BackColor = Color.FromArgb(51, 82, 209)
-            };
-
-            Label lblHeader = new Label()
-            {
-                Text = tituloModal,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                AutoSize = true,
-                Left = 18,
-                Top = 13
-            };
-            pnlTop.Controls.Add(lblHeader);
-
-            Label lblCliente = new Label()
-            {
-                Left = 22,
-                Top = 68,
-                Width = 385,
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Italic),
-                ForeColor = Color.Teal,
-                Text = $"Cliente: {nombreCliente} (ID: {idCliente})  |  Sucursal: {idSucursalActual}"
-            };
-
-            Label lblMonto = new Label()
-            {
-                Left = 22,
-                Top = 100,
-                Width = 385,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.DimGray,
-                Text = "Monto Límite Autorizado ($):*"
-            };
-
-            NumericUpDown numMonto = new NumericUpDown()
-            {
-                Left = 22,
-                Top = 128,
-                Width = 385,
-                DecimalPlaces = 2,
-                Maximum = 10000000,
-                Minimum = 0,
-                Increment = 50,
-                Font = new Font("Segoe UI", 10.5F)
-            };
-
-            Button btnCancelar = new Button()
-            {
-                Text = "Cancelar",
-                Left = 152,
-                Top = 172,
-                Width = 115,
-                Height = 36,
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(240, 244, 248),
-                ForeColor = Color.DimGray,
-                Font = new Font("Segoe UI", 9.5F)
-            };
-            btnCancelar.FlatAppearance.BorderColor = Color.LightGray;
-            btnCancelar.Click += (s, ev) => { prompt.DialogResult = DialogResult.Cancel; prompt.Close(); };
-
-            Button btnGuardar = new Button()
-            {
-                Text = "Guardar",
-                Left = 277,
-                Top = 172,
-                Width = 130,
-                Height = 36,
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.Teal,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold)
-            };
-            btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.Click += (s, ev) =>
-            {
-            if (numMonto.Value <= 0)
-            {
-
-                    MessageBox.Show("El límite de crédito debe ser mayor que cero.",
-"Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    numMonto.Focus();
-                    return;
-                }
-                resultado = numMonto.Value;
-                prompt.DialogResult = DialogResult.OK;
-                prompt.Close();
-            };
-            prompt.Controls.Add(pnlTop);
-            prompt.Controls.Add(lblCliente);
-            prompt.Controls.Add(lblMonto);
-            prompt.Controls.Add(numMonto);
-            prompt.Controls.Add(btnCancelar);
-            prompt.Controls.Add(btnGuardar);
-            return prompt.ShowDialog() == DialogResult.OK ? resultado : null;
-        }
         // --- FILTRO RÁPIDO EN MEMORIA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             AplicarFiltros();
         }
+
         private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
             AplicarFiltros();
         }
+
         private void AplicarFiltros()
         {
             if (dtClientesNaturales == null) return;
+
             string filtroTexto = txtBuscar.Text.Trim().Replace("'", "''");
             string estadoSeleccionado = cmbEstado.SelectedItem?.ToString() ?? "Todos";
             string condicion = "";
+
             if (!string.IsNullOrEmpty(filtroTexto) && filtroTexto != PlaceholderText)
             {
                 condicion = string.Format(
-                "(CONVERT(ID_CLIENTE, 'System.String') LIKE '%{0}%' OR " +
-                "NOMBRE_CLIENTE LIKE '%{0}%' OR " +
-                "DUI_CLIENTE LIKE '%{0}%')",
-                filtroTexto
+                    "(CONVERT(ID_CLIENTE, 'System.String') LIKE '%{0}%' OR " +
+                    "NOMBRE_CLIENTE LIKE '%{0}%' OR " +
+                    "DUI_CLIENTE LIKE '%{0}%')",
+                    filtroTexto
                 );
             }
+
             if (estadoSeleccionado != "Todos")
             {
                 condicion += (condicion.Length > 0 ? " AND " : "") + $"ESTADO_CLIENTE = '{estadoSeleccionado}'";
             }
+
             dtClientesNaturales.DefaultView.RowFilter = condicion;
         }
+
         private void ConfigurarPlaceholder()
         {
             txtBuscar.Text = PlaceholderText;
             txtBuscar.ForeColor = Color.Gray;
+
             txtBuscar.Enter += (s, e) =>
             {
                 if (txtBuscar.Text == PlaceholderText)
@@ -275,6 +193,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
                     txtBuscar.ForeColor = Color.Black;
                 }
             };
+
             txtBuscar.Leave += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -284,6 +203,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
                 }
             };
         }
+
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();

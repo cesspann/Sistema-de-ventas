@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
@@ -12,14 +13,14 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
         private int idSucursalActual;
         private int idEmpleadoActual;
 
-        public ventas_general(int idSucursal = 1, int idEmpleado = 1)
+        public ventas_general(int idSucursal = 0, int idEmpleado = 0)
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
-            this.idEmpleadoActual = idEmpleado;
+            this.idSucursalActual = idSucursal > 0 ? idSucursal : (SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
+            this.idEmpleadoActual = idEmpleado > 0 ? idEmpleado : (SesionUsuario.IdEmpleado > 0 ? SesionUsuario.IdEmpleado : 1);
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarFacturasActivas();
         }
 
         private void ConfigurarTabla()
@@ -45,19 +46,44 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
             dgvFacturas.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 7 columnas de SP_CONSULTAR_FACTURAS
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_FACTURAS(P_ID_SUCURSAL, P_BUSQUEDA)
+        private void CargarFacturasActivas()
         {
-            dtFacturas = new DataTable();
-            dtFacturas.Columns.Add("ID_FACTURA", typeof(int));
-            dtFacturas.Columns.Add("NUMERO_FACTURA", typeof(string));
-            dtFacturas.Columns.Add("NOMBRE_CLIENTE", typeof(string));
-            dtFacturas.Columns.Add("NOMBRE_SUCURSAL", typeof(string));
-            dtFacturas.Columns.Add("FECHA_HORA", typeof(DateTime));
-            dtFacturas.Columns.Add("MONTO_TOTAL", typeof(decimal));
-            dtFacturas.Columns.Add("METODO_PAGO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvFacturas.DataSource = dtFacturas;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_FACTURAS", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", this.idSucursalActual);
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtFacturas = new DataTable();
+                        da.Fill(dtFacturas);
+
+                        dgvFacturas.DataSource = dtFacturas;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar facturas: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvFacturas.Columns.Count == 0) return;
 
             dgvFacturas.Columns["ID_FACTURA"].HeaderText = "ID";
             dgvFacturas.Columns["NUMERO_FACTURA"].HeaderText = "N° Factura";
@@ -94,9 +120,36 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
                 return;
             }
 
-            // Aquí se llamará a SP_ANULAR_FACTURA(idFactura, idEmpleadoActual, motivo)
-            MessageBox.Show($"Factura '{numeroFactura}' (ID: {idFactura}) lista para anularse.\nMotivo: {motivo}",
-                            "ElectroHogar - Anulación de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_ANULAR_FACTURA", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_FACTURA", idFactura);
+                        cmd.Parameters.AddWithValue("P_ID_EMPLEADO", this.idEmpleadoActual);
+                        cmd.Parameters.AddWithValue("P_MOTIVO_CANCELACION", motivo);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show($"Factura '{numeroFactura}' anulada correctamente. El inventario ha sido restaurado.",
+                                        "ElectroHogar - Anulación de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        CargarFacturasActivas();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         // Cuadro de diálogo modal limpio para capturar P_MOTIVO_CANCELACION (VARCHAR 500)
@@ -175,48 +228,44 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
             btnConfirmar.FlatAppearance.BorderSize = 0;
             btnConfirmar.Click += (s, ev) =>
             {
-                if (string.IsNullOrWhiteSpace(txtMotivo.Text))
-                {
-                    MessageBox.Show("Debe indicar el motivo de cancelación.",
-                                    "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtMotivo.Focus();
-                    return;
-                }
+            if (string.IsNullOrWhiteSpace(txtMotivo.Text))
+            {
+                MessageBox.Show("Debe indicar el motivo de cancelación.",
+                                "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMotivo.Focus();
+                return;
+            }
+
                 prompt.DialogResult = DialogResult.OK;
                 prompt.Close();
             };
-
             prompt.Controls.Add(lblInfo);
             prompt.Controls.Add(lblMotivo);
             prompt.Controls.Add(txtMotivo);
             prompt.Controls.Add(btnCancelar);
             prompt.Controls.Add(btnConfirmar);
-
             return prompt.ShowDialog() == DialogResult.OK ? txtMotivo.Text.Trim() : null;
         }
-
         private void ActualizarTotalesResumen()
         {
             if (dtFacturas == null) return;
-
             int totalFacturas = dtFacturas.DefaultView.Count;
             decimal sumaMonto = 0;
-
             foreach (DataRowView fila in dtFacturas.DefaultView)
             {
                 sumaMonto += Convert.ToDecimal(fila["MONTO_TOTAL"]);
             }
-
             lblResumenTotales.Text = $"Facturas Activas: {totalFacturas}   |   Monto Total: {sumaMonto:C2}";
         }
-
         // --- BÚSQUEDA DINÁMICA (REPLICA EL WHERE DE SP_CONSULTAR_FACTURAS) ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            AplicarFiltroLocal();
+        }
+        private void AplicarFiltroLocal()
+        {
             if (dtFacturas == null) return;
-
             string filtro = txtBuscar.Text.Trim().Replace("'", "''");
-
             if (string.IsNullOrEmpty(filtro) || filtro == PlaceholderText)
             {
                 dtFacturas.DefaultView.RowFilter = "";
@@ -224,21 +273,18 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
             else
             {
                 dtFacturas.DefaultView.RowFilter = string.Format(
-                    "CONVERT(ID_FACTURA, 'System.String') LIKE '%{0}%' OR " +
-                    "NUMERO_FACTURA LIKE '%{0}%' OR " +
-                    "NOMBRE_CLIENTE LIKE '%{0}%'",
-                    filtro
+                "CONVERT(ID_FACTURA, 'System.String') LIKE '%{0}%' OR " +
+                "NUMERO_FACTURA LIKE '%{0}%' OR " +
+                "NOMBRE_CLIENTE LIKE '%{0}%'",
+                filtro
                 );
             }
-
             ActualizarTotalesResumen();
         }
-
         private void ConfigurarPlaceholder()
         {
             txtBuscar.Text = PlaceholderText;
             txtBuscar.ForeColor = Color.Gray;
-
             txtBuscar.Enter += (s, e) =>
             {
                 if (txtBuscar.Text == PlaceholderText)
@@ -247,8 +293,6 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
                     txtBuscar.ForeColor = Color.Black;
                 }
             };
-
-
             txtBuscar.Leave += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))

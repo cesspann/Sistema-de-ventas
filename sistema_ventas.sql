@@ -159,7 +159,7 @@ CREATE TABLE `cliente` (
   `ESTADO_CLIENTE` varchar(50) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`ID_CLIENTE`),
   CONSTRAINT `CK_ESTADO_CLIENTE` CHECK ((`ESTADO_CLIENTE` in (_utf8mb4'Activo',_utf8mb4'Inactivo')))
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'carlos.mendoza@gmail.com','7854-1234','Activo'),(2,'ana.guerra@yahoo.com','7234-5678','Activo'),(3,'luis.ramirez@hotmail.com','7987-4321','Activo'),(4,'marta.fuentes@gmail.com','7123-8901','Activo'),(5,'jorge.hernandez@outlook.com','7543-2109','Activo'),(6,'elena.castro@gmail.com','7654-3210','Activo'),(7,'roberto.flores@yahoo.com','7321-6548','Activo'),(8,'sandra.martinez@gmail.com','7456-9871','Activo'),(9,'victor.perez@hotmail.com','7890-1235','Activo'),(10,'claudia.rivas@gmail.com','7111-2233','Activo'),(11,'daniel.cruz@outlook.com','7222-3344','Activo'),(12,'beatriz.gomez@gmail.com','7333-4455','Activo'),(13,'oscar.silva@yahoo.com','7444-5566','Activo'),(14,'patricia.morales@gmail.com','7555-6677','Activo'),(15,'ricardo.ortiz@hotmail.com','7666-7788','Activo'),(16,'gabriela.suarez@gmail.com','7777-8899','Activo'),(17,'fernando.aguilar@outlook.com','7888-9900','Activo'),(18,'sofia.portillo@gmail.com','7999-0011','Activo'),(19,'alejandro.coreas@yahoo.com','7100-1122','Activo'),(20,'daniela.orellana@gmail.com','7200-2233','Activo'),(21,'mauricio.melendez@hotmail.com','7300-3344','Activo'),(22,'carolina.escobar@gmail.com','7400-4455','Activo'),(23,'eduardo.velasquez@outlook.com','7500-5566','Activo'),(24,'katherine.quinteros@gmail.com','7600-6677','Activo'),(25,'hugo.perez@yahoo.com','7700-7788','Activo'),(26,'veronica.ramirez@gmail.com','7800-8899','Activo'),(27,'cesar.romero@hotmail.com','7900-9900','Activo'),(28,'monica.sosa@gmail.com','7123-1111','Activo'),(29,'francisco.amezquita@outlook.com','7234-2222','Activo'),(30,'jessica.guevara@gmail.com','7345-3333','Activo'),(31,'manuel.arevalo@yahoo.com','7456-4444','Activo'),(32,'rocio.navas@gmail.com','7567-5555','Activo'),(33,'alfredo.palacios@hotmail.com','7678-6666','Activo'),(34,'brenda.lara@gmail.com','7789-7777','Activo'),(35,'sergio.bonilla@outlook.com','7890-8888','Activo'),(36,'compras@hotellosrobles.com','2245-1000','Activo'),(37,'adquisiciones@restaurantelaloma.sv','2268-2000','Activo'),(38,'contacto@constructoraaltos.com','2234-3000','Activo'),(39,'admin@hotelorquidea.com','2660-4000','Activo'),(40,'info@cafeterialabenecol.sv','2440-5000','Activo'),(41,'operaciones@inmobiliariacentral.com','2298-6000','Activo'),(42,'gerencia@supermercadoely.com','2332-7000','Activo'),(43,'compras@hotelpalmeras.sv','2661-8000','Activo'),(44,'logistica@industriastecnologicas.com','2279-9000','Activo'),(45,'facturacion@restauranteelsabor.com','2222-1111','Activo'),(46,'admin@residencialessonsonate.com','2451-2222','Activo'),(47,'contacto@hoteltropical.sv','2664-3333','Activo'),(48,'compras@distribuidoramejia.com','2236-4444','Activo'),(49,'ventas@equipamientohogar.com','2272-5555','Activo'),(50,'soporte@constructormontana.sv','2211-6666','Activo'),(51,'admin@hostalcolonial.com','2443-7788','Activo'),(52,'compras@restauranteelfogon.com','2280-9900','Activo'),(53,'finanzas@inversionessanbenito.com','2299-4433','Activo'),(54,'operaciones@corporaciondelnorte.sv','2335-5566','Activo'),(55,'contacto@hotelmiramar.com','2668-7788','Activo'),(56,'admin@cafegourmetsv.com','2225-9988','Activo'),(57,'compras@constructoraorion.com','2244-1122','Activo'),(58,'logistica@multiserviciosglobales.sv','2276-3344','Activo'),(59,'facturacion@hotellapaz.com','2448-5566','Activo'),(60,'admin@comercializadoradelvalle.com','2290-7788','Activo');
+INSERT INTO `cliente` VALUES (1,'carlos.mendoza@gmail.com','7854-1234','Inactivo'),(2,'ana.guerra@yahoo.com','7234-5678','Activo'),(3,'luis.ramirez@hotmail.com','7987-4321','Activo'),(4,'marta.fuentes@gmail.com','7123-8901','Activo'),(5,'jorge.hernandez@outlook.com','7543-2109','Activo'),(6,'elena.castro@gmail.com','7654-3210','Activo'),(7,'roberto.flores@yahoo.com','7321-6548','Activo'),(8,'sandra.martinez@gmail.com','7456-9871','Activo'),(9,'victor.perez@hotmail.com','7890-1235','Activo'),(10,'claudia.rivas@gmail.com','7111-2233','Activo'),(11,'daniel.cruz@outlook.com','7222-3344','Activo'),(12,'beatriz.gomez@gmail.com','7333-4455','Activo'),(13,'oscar.silva@yahoo.com','7444-5566','Activo'),(14,'patricia.morales@gmail.com','7555-6677','Activo'),(15,'ricardo.ortiz@hotmail.com','7666-7788','Activo'),(16,'gabriela.suarez@gmail.com','7777-8899','Activo'),(17,'fernando.aguilar@outlook.com','7888-9900','Activo'),(18,'sofia.portillo@gmail.com','7999-0011','Activo'),(19,'alejandro.coreas@yahoo.com','7100-1122','Activo'),(20,'daniela.orellana@gmail.com','7200-2233','Activo'),(21,'mauricio.melendez@hotmail.com','7300-3344','Activo'),(22,'carolina.escobar@gmail.com','7400-4455','Activo'),(23,'eduardo.velasquez@outlook.com','7500-5566','Activo'),(24,'katherine.quinteros@gmail.com','7600-6677','Activo'),(25,'hugo.perez@yahoo.com','7700-7788','Activo'),(26,'veronica.ramirez@gmail.com','7800-8899','Activo'),(27,'cesar.romero@hotmail.com','7900-9900','Activo'),(28,'monica.sosa@gmail.com','7123-1111','Activo'),(29,'francisco.amezquita@outlook.com','7234-2222','Activo'),(30,'jessica.guevara@gmail.com','7345-3333','Activo'),(31,'manuel.arevalo@yahoo.com','7456-4444','Activo'),(32,'rocio.navas@gmail.com','7567-5555','Activo'),(33,'alfredo.palacios@hotmail.com','7678-6666','Activo'),(34,'brenda.lara@gmail.com','7789-7777','Activo'),(35,'sergio.bonilla@outlook.com','7890-8888','Activo'),(36,'compras@hotellosrobles.com','2245-1000','Inactivo'),(37,'adquisiciones@restaurantelaloma.sv','2268-2000','Inactivo'),(38,'contacto@constructoraaltos.com','2234-3000','Activo'),(39,'admin@hotelorquidea.com','2660-4000','Activo'),(40,'info@cafeterialabenecol.sv','2440-5000','Activo'),(41,'operaciones@inmobiliariacentral.com','2298-6000','Activo'),(42,'gerencia@supermercadoely.com','2332-7000','Activo'),(43,'compras@hotelpalmeras.sv','2661-8000','Activo'),(44,'logistica@industriastecnologicas.com','2279-9000','Activo'),(45,'facturacion@restauranteelsabor.com','2222-1111','Activo'),(46,'admin@residencialessonsonate.com','2451-2222','Activo'),(47,'contacto@hoteltropical.sv','2664-3333','Activo'),(48,'compras@distribuidoramejia.com','2236-4444','Activo'),(49,'ventas@equipamientohogar.com','2272-5555','Activo'),(50,'soporte@constructormontana.sv','2211-6666','Activo'),(51,'admin@hostalcolonial.com','2443-7788','Activo'),(52,'compras@restauranteelfogon.com','2280-9900','Activo'),(53,'finanzas@inversionessanbenito.com','2299-4433','Activo'),(54,'operaciones@corporaciondelnorte.sv','2335-5566','Activo'),(55,'contacto@hotelmiramar.com','2668-7788','Activo'),(56,'admin@cafegourmetsv.com','2225-9988','Activo'),(57,'compras@constructoraorion.com','2244-1122','Activo'),(58,'logistica@multiserviciosglobales.sv','2276-3344','Activo'),(59,'facturacion@hotellapaz.com','2448-5566','Activo'),(60,'admin@comercializadoradelvalle.com','2290-7788','Activo'),(61,'nomeacuerdo@gmail.com','12343242','Activo'),(62,'leticiaVasquez@gmail.com','76293030','Inactivo');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `clientejuridico` (
 
 LOCK TABLES `clientejuridico` WRITE;
 /*!40000 ALTER TABLE `clientejuridico` DISABLE KEYS */;
-INSERT INTO `clientejuridico` VALUES (36,'Roberto Valdés','0614-120585-101-2','Hoteles y Resorts Los Robles',25000.00),(37,'Mario Benítez','0614-220890-102-5','Restaurantes La Loma',10000.00),(38,'Carmen de Paz','0614-301178-103-8','Constructora Altos de Santa Tecla',50000.00),(39,'Sofia Arévalo','0614-050482-104-1','Hotel Boutique Orquídea',15000.00),(40,'Mauricio Cerna','0614-180995-105-3','Cafetería y Repostería La Benecol',5000.00),(41,'Ricardo Molina','0614-251280-106-7','Inmobiliaria Central',30000.00),(42,'Rosaura Menjívar','0614-090688-107-9','Supermercados Ely',40000.00),(43,'Ernesto Salguero','0614-140275-108-4','Hotel Las Palmeras del Golfo',20000.00),(44,'Marcela Dubón','0614-310191-109-2','Industrias Tecnológicas de C.A.',35000.00),(45,'Humberto Ticas','0614-110783-110-6','Restaurante El Sabor Criollo',8000.00),(46,'Guillermo Portillo','0614-220389-111-8','Inversiones Residenciales Sonsonate',45000.00),(47,'Ana Patricia Rueda','0614-081092-112-1','Hotel Tropical San Miguel',18000.00),(48,'José Luis Mejía','0614-190477-113-5','Distribuidora Mejía e Hijos',22000.00),(49,'Claudia Cárdenas','0614-270884-114-3','Equipamiento del Hogar Moderno',12000.00),(50,'David Sandoval','0614-031290-115-9','Constructora Montaña Alta',60000.00),(51,'Fernando Chinchilla','0614-160586-116-4','Hostal Colonial de Occidente',6000.00),(52,'Gloria Melgar','0614-290993-117-2','Restaurante y Asados El Fogón',9000.00),(53,'Mauricio Interiano','0614-121179-118-8','Inversiones San Benito',28000.00),(54,'Beatriz Orellana','0614-040787-119-1','Corporación del Norte',33000.00),(55,'Roxana Galán','0614-210294-120-5','Hotel y Playa Miramar',24000.00),(56,'Samuel Peraza','0614-150881-121-7','Café Gourmet Salvadoreño',7000.00),(57,'Cristian Landaverde','0614-280689-122-3','Constructora e Inmobiliaria Orión',55000.00),(58,'Walter Espinoza','0614-071092-123-6','Multiservicios Globales de C.A.',15000.00),(59,'Carmen Elena Sosa','0614-130385-124-9','Hotel La Paz de Oriente',17000.00),(60,'Gustavo Adolfo Paz','0614-201276-125-2','Comercializadora del Valle',38000.00);
+INSERT INTO `clientejuridico` VALUES (36,'Roberto flores','0614-120585-101-2','Hoteles y Resorts Los Robles',25000.00),(37,'Mario Benítez','0614-220890-102-5','Restaurantes La Loma',10000.00),(38,'Carmen de Paz','0614-301178-103-8','Constructora Altos de Santa Tecla',50000.00),(39,'Sofia Arévalo','0614-050482-104-1','Hotel Boutique Orquídea',15000.00),(40,'Mauricio Cerna','0614-180995-105-3','Cafetería y Repostería La Benecol',5000.00),(41,'Ricardo Molina','0614-251280-106-7','Inmobiliaria Central',30000.00),(42,'Rosaura Menjívar','0614-090688-107-9','Supermercados Ely',40000.00),(43,'Ernesto Salguero','0614-140275-108-4','Hotel Las Palmeras del Golfo',20000.00),(44,'Marcela Dubón','0614-310191-109-2','Industrias Tecnológicas de C.A.',35000.00),(45,'Humberto Ticas','0614-110783-110-6','Restaurante El Sabor Criollo',8000.00),(46,'Guillermo Portillo','0614-220389-111-8','Inversiones Residenciales Sonsonate',45000.00),(47,'Ana Patricia Rueda','0614-081092-112-1','Hotel Tropical San Miguel',18000.00),(48,'José Luis Mejía','0614-190477-113-5','Distribuidora Mejía e Hijos',22000.00),(49,'Claudia Cárdenas','0614-270884-114-3','Equipamiento del Hogar Moderno',12000.00),(50,'David Sandoval','0614-031290-115-9','Constructora Montaña Alta',60000.00),(51,'Fernando Chinchilla','0614-160586-116-4','Hostal Colonial de Occidente',6000.00),(52,'Gloria Melgar','0614-290993-117-2','Restaurante y Asados El Fogón',9000.00),(53,'Mauricio Interiano','0614-121179-118-8','Inversiones San Benito',28000.00),(54,'Beatriz Orellana','0614-040787-119-1','Corporación del Norte',33000.00),(55,'Roxana Galán','0614-210294-120-5','Hotel y Playa Miramar',24000.00),(56,'Samuel Peraza','0614-150881-121-7','Café Gourmet Salvadoreño',7000.00),(57,'Cristian Landaverde','0614-280689-122-3','Constructora e Inmobiliaria Orión',55000.00),(58,'Walter Espinoza','0614-071092-123-6','Multiservicios Globales de C.A.',15000.00),(59,'Carmen Elena Sosa','0614-130385-124-9','Hotel La Paz de Oriente',17000.00),(60,'Gustavo Adolfo Paz','0614-201276-125-2','Comercializadora del Valle',38000.00),(61,'cesia sa','1038909410389094','Ventas generales',330000.00);
 /*!40000 ALTER TABLE `clientejuridico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +225,7 @@ CREATE TABLE `clientenatural` (
 
 LOCK TABLES `clientenatural` WRITE;
 /*!40000 ALTER TABLE `clientenatural` DISABLE KEYS */;
-INSERT INTO `clientenatural` VALUES (1,'Carlos Alberto Mendoza','03456789-1'),(2,'Ana María Guerra','04567890-2'),(3,'Luis Alonso Ramírez','05678901-3'),(4,'Marta Alicia Fuentes','06789012-4'),(5,'Jorge Mario Hernández','07890123-5'),(6,'Elena Beatriz Castro','08901234-6'),(7,'Roberto Carlos Flores','09012345-7'),(8,'Sandra Patricia Martínez','01234567-8'),(9,'Víctor Manuel Pérez','02345678-9'),(10,'Claudia Elizabeth Rivas','03456780-1'),(11,'Daniel Enrique Cruz','04567812-2'),(12,'Beatriz Adriana Gómez','05678923-3'),(13,'Óscar Antonio Silva','06789034-4'),(14,'Patricia Guadalupe Morales','07890145-5'),(15,'Ricardo Ernesto Ortiz','08901256-6'),(16,'Gabriela Alejandra Suárez','09012367-7'),(17,'Fernando José Aguilar','01234589-8'),(18,'Sofía Margarita Portillo','02345690-9'),(19,'Alejandro Javier Coreas','03456712-1'),(20,'Daniela Michelle Orellana','04567823-2'),(21,'Mauricio Ernesto Meléndez','05678934-3'),(22,'Carolina del Carmen Escobar','06789045-4'),(23,'Eduardo Rafael Velásquez','07890156-5'),(24,'Katherine Nicole Quinteros','08901267-6'),(25,'Hugo Ernesto Pérez','09012378-7'),(26,'Verónica Alejandra Ramírez','01234590-8'),(27,'César Alejandro Romero','02345601-9'),(28,'Mónica Raquel Sosa','03456723-1'),(29,'Francisco Javier Amézquita','04567834-2'),(30,'Jessica María Guevara','05678945-3'),(31,'Manuel de Jesús Arévalo','06789056-4'),(32,'Rocío del Carmen Navas','07890167-5'),(33,'Alfredo Enrique Palacios','08901278-6'),(34,'Brenda Estefanía Lara','09012389-7'),(35,'Sergio Daniel Bonilla','01234501-8');
+INSERT INTO `clientenatural` VALUES (1,'Carlos Alberto Mendoza','03456789-1'),(2,'Ana María Guerra','04567890-2'),(3,'Luis Alonso Ramírez','05678901-3'),(4,'Marta Alicia Fuentes','06789012-4'),(5,'Jorge Mario Hernández','07890123-5'),(6,'Elena Beatriz Castro','08901234-6'),(7,'Roberto Carlos Flores','09012345-7'),(8,'Sandra Patricia Martínez','01234567-8'),(9,'Víctor Manuel Pérez','02345678-9'),(10,'Claudia Elizabeth Rivas','03456780-1'),(11,'Daniel Enrique Cruz','04567812-2'),(12,'Beatriz Adriana Gómez','05678923-3'),(13,'Óscar Antonio Silva','06789034-4'),(14,'Patricia Guadalupe Morales','07890145-5'),(15,'Ricardo Ernesto Ortiz','08901256-6'),(16,'Gabriela Alejandra Suárez','09012367-7'),(17,'Fernando José Aguilar','01234589-8'),(18,'Sofía Margarita Portillo','02345690-9'),(19,'Alejandro Javier Coreas','03456712-1'),(20,'Daniela Michelle Orellana','04567823-2'),(21,'Mauricio Ernesto Meléndez','05678934-3'),(22,'Carolina del Carmen Escobar','06789045-4'),(23,'Eduardo Rafael Velásquez','07890156-5'),(24,'Katherine Nicole Quinteros','08901267-6'),(25,'Hugo Ernesto Pérez','09012378-7'),(26,'Verónica Alejandra Ramírez','01234590-8'),(27,'César Alejandro Romero','02345601-9'),(28,'Mónica Raquel Sosa','03456723-1'),(29,'Francisco Javier Amézquita','04567834-2'),(30,'Jessica María Guevara','05678945-3'),(31,'Manuel de Jesús Arévalo','06789056-4'),(32,'Rocío del Carmen Navas','07890167-5'),(33,'Alfredo Enrique Palacios','08901278-6'),(34,'Brenda Estefanía Lara','09012389-7'),(35,'Sergio Daniel Bonilla','01234501-8'),(62,'cesia leticia sa','21342343-2');
 /*!40000 ALTER TABLE `clientenatural` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,7 +522,7 @@ CREATE TABLE `empleado` (
 
 LOCK TABLES `empleado` WRITE;
 /*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
-INSERT INTO `empleado` VALUES (1,1,NULL,1,'Juan Carlos Sánchez','02345678-1','jsanchez@electrohogar.sv','2023-01-15','Colonia Escalón, San Salvador','7911-2233','Activo','Supervisor'),(2,1,1,2,'María José Hernández','03456789-2','mhernandez@electrohogar.sv','2023-03-10','Soyapango, San Salvador','7822-3344','Activo','Subordinado'),(3,1,1,3,'Luis Alberto Martínez','04567890-3','lmartinez@electrohogar.sv','2023-05-12','Mejicanos, San Salvador','7733-4455','Activo','Subordinado'),(4,1,1,4,'Carlos Eduardo Flores','05678901-4','cflores@electrohogar.sv','2023-06-20','San Salvador Centro','7644-5566','Activo','Subordinado'),(5,1,1,5,'Ana Raquel Ramírez','06789012-5','aramirez@electrohogar.sv','2023-08-01','Antiguo Cuscatlán','7555-6677','Activo','Subordinado'),(6,1,1,6,'Kevin Alexander Gómez','07890123-6','kgomez@electrohogar.sv','2023-09-15','Ilopango, San Salvador','7466-7788','Activo','Subordinado'),(7,1,1,7,'Diana Marcela Castillo','08901234-7','dcastillo@electrohogar.sv','2023-10-10','Ciudad Delgado','7377-8899','Activo','Subordinado'),(8,1,1,8,'Nelson Ernesto Ortiz','09012345-8','nortiz@electrohogar.sv','2024-01-11','San Salvador Norte','7288-9900','Activo','Subordinado'),(9,1,1,9,'Paola Michelle Mendoza','01234567-9','pmendoza@electrohogar.sv','2024-02-15','Apopa, San Salvador','7199-0011','Activo','Subordinado'),(10,1,1,10,'Héctor Daniel Suárez','02345679-0','hsuarez@electrohogar.sv','2024-03-01','San Salvador Sur','7011-1122','Activo','Subordinado'),(11,2,NULL,11,'José Mauricio Rivas','03456791-1','jrivas@electrohogar.sv','2023-02-01','Colonia El Trébol, Santa Ana','7922-1122','Activo','Supervisor'),(12,2,11,12,'Claudia María Morales','04567802-2','cmorales@electrohogar.sv','2023-04-15','Santa Ana Centro','7833-2233','Activo','Subordinado'),(13,2,11,13,'Ernesto Antonio Silva','05678913-3','esilva@electrohogar.sv','2023-06-10','Chalchuapa, Santa Ana','7744-3344','Activo','Subordinado'),(14,2,11,14,'Fabiola Guadalupe Gaitán','06789024-4','fgaitan@electrohogar.sv','2023-07-22','Metapán, Santa Ana','7655-4455','Activo','Subordinado'),(15,2,11,15,'Víctor Manuel Aguilar','07890135-5','vaguilar@electrohogar.sv','2023-09-05','Santa Ana Oeste','7566-5566','Activo','Subordinado'),(16,2,11,16,'Brenda Lissette Portillo','08901246-6','bportillo@electrohogar.sv','2023-11-12','El Congo, Santa Ana','7477-6677','Activo','Subordinado'),(17,2,11,17,'Mario René Coreas','09012357-7','mcoreas@electrohogar.sv','2024-01-20','Santa Ana Norte','7388-7788','Activo','Subordinado'),(18,2,11,18,'Sandra Elizabeth Orellana','01234678-8','sorellana@electrohogar.sv','2024-02-10','Buena Vista, Santa Ana','7299-8899','Activo','Subordinado'),(19,2,11,19,'Javier Alejandro Meléndez','02345789-9','jmelendez@electrohogar.sv','2024-03-15','Santa Ana Sur','7100-9900','Activo','Subordinado'),(20,2,11,20,'Alejandra Beatriz Escobar','03456890-0','aescobar@electrohogar.sv','2024-04-01','Candelaria de la Frontera','7011-0011','Activo','Subordinado'),(21,3,NULL,21,'Roberto Carlos Velásquez','04567901-1','rvelasquez@electrohogar.sv','2023-02-15','Avenida Roosevelt, San Miguel','7933-4455','Activo','Supervisor'),(22,3,21,22,'Karen Yessenia Quinteros','05678012-2','lquinteros@electrohogar.sv','2023-04-20','San Miguel Centro','7844-5566','Activo','Subordinado'),(23,3,21,23,'Edgar Alonso Pérez','06789123-3','eperez@electrohogar.sv','2023-06-15','Chinameca, San Miguel','7755-6677','Activo','Subordinado'),(24,3,21,24,'Nathalie Nicole Ramírez','07890234-4','nramirez@electrohogar.sv','2023-08-10','Moncagua, San Miguel','7666-7788','Activo','Subordinado'),(25,3,21,25,'David Alejandro Romero','08901345-5','dromero@electrohogar.sv','2023-10-01','San Miguel Norte','7577-8899','Activo','Subordinado'),(26,3,21,26,'Carmen Rosa Sosa','09012456-6','csosa@electrohogar.sv','2023-11-20','Quelepa, San Miguel','7488-9900','Activo','Subordinado'),(27,3,21,27,'Marvin Antonio Amézquita','01235678-7','mamezquita@electrohogar.sv','2024-01-05','San Miguel Este','7399-0011','Activo','Subordinado'),(28,3,21,28,'Flor de María Guevara','02346789-8','fguevara@electrohogar.sv','2024-02-18','El Tránsito, San Miguel','7100-1122','Activo','Subordinado'),(29,3,21,29,'Julio César Arévalo','03457890-9','jarevalo@electrohogar.sv','2024-03-10','San Miguel Sur','7022-2233','Activo','Subordinado'),(30,3,21,30,'Olga Marina Admin','04568901-0','oadmin@electrohogar.sv','2024-04-05','Comacarán, San Miguel','7033-3344','Activo','Subordinado');
+INSERT INTO `empleado` VALUES (1,1,NULL,1,'Juan Carlos Sánchez','02345678-1','jsanchez@electrohogar.sv','2023-01-15','Colonia Escalón, San Salvador','7911-2233','Activo','Supervisor'),(2,1,1,2,'María José Hernández','03456789-2','mhernandez@electrohogar.sv','2023-03-10','Soyapango, San Salvador','7822-3344','Activo','Subordinado'),(3,1,1,3,'Luis Alberto Martínez','04567890-3','lmartinez@electrohogar.sv','2023-05-12','Mejicanos, San Salvador','7733-4455','Activo','Subordinado'),(4,1,1,4,'Carlos Eduardo Flores','05678901-4','cflores@electrohogar.sv','2023-06-20','La libertad centro','7644-5566','Activo','Subordinado'),(5,1,1,5,'Ana Raquel Ramírez','06789012-5','aramirez@electrohogar.sv','2023-08-01','Antiguo Cuscatlán','7555-6677','Activo','Subordinado'),(6,1,1,6,'Kevin Alexander Gómez','07890123-6','kgomez@electrohogar.sv','2023-09-15','Ilopango, San Salvador','7466-7788','Activo','Subordinado'),(7,1,1,7,'Diana Marcela Castillo','08901234-7','dcastillo@electrohogar.sv','2023-10-10','Ciudad Delgado','7377-8899','Activo','Subordinado'),(8,1,1,8,'Nelson Ernesto Ortiz','09012345-8','nortiz@electrohogar.sv','2024-01-11','San Salvador Norte','7288-9900','Activo','Subordinado'),(9,1,1,9,'Paola Michelle Mendoza','01234567-9','pmendoza@electrohogar.sv','2024-02-15','Apopa, San Salvador','7199-0011','Activo','Subordinado'),(10,1,1,10,'Héctor Daniel Suárez','02345679-0','hsuarez@electrohogar.sv','2024-03-01','San Salvador Sur','7011-1122','Activo','Subordinado'),(11,2,NULL,11,'José Mauricio Rivas','03456791-1','jrivas@electrohogar.sv','2023-02-01','Colonia El Trébol, Santa Ana','7922-1122','Activo','Supervisor'),(12,2,11,12,'Claudia María Morales','04567802-2','cmorales@electrohogar.sv','2023-04-15','Santa Ana Centro','7833-2233','Activo','Subordinado'),(13,2,11,13,'Ernesto Antonio Silva','05678913-3','esilva@electrohogar.sv','2023-06-10','Chalchuapa, Santa Ana','7744-3344','Activo','Subordinado'),(14,2,11,14,'Fabiola Guadalupe Gaitán','06789024-4','fgaitan@electrohogar.sv','2023-07-22','Metapán, Santa Ana','7655-4455','Activo','Subordinado'),(15,2,11,15,'Víctor Manuel Aguilar','07890135-5','vaguilar@electrohogar.sv','2023-09-05','Santa Ana Oeste','7566-5566','Activo','Subordinado'),(16,2,11,16,'Brenda Lissette Portillo','08901246-6','bportillo@electrohogar.sv','2023-11-12','El Congo, Santa Ana','7477-6677','Activo','Subordinado'),(17,2,11,17,'Mario René Coreas','09012357-7','mcoreas@electrohogar.sv','2024-01-20','Santa Ana Norte','7388-7788','Activo','Subordinado'),(18,2,11,18,'Sandra Elizabeth Orellana','01234678-8','sorellana@electrohogar.sv','2024-02-10','Buena Vista, Santa Ana','7299-8899','Activo','Subordinado'),(19,2,11,19,'Javier Alejandro Meléndez','02345789-9','jmelendez@electrohogar.sv','2024-03-15','Santa Ana Sur','7100-9900','Activo','Subordinado'),(20,2,11,20,'Alejandra Beatriz Escobar','03456890-0','aescobar@electrohogar.sv','2024-04-01','Candelaria de la Frontera','7011-0011','Activo','Subordinado'),(21,3,NULL,21,'Roberto Carlos Velásquez','04567901-1','rvelasquez@electrohogar.sv','2023-02-15','Avenida Roosevelt, San Miguel','7933-4455','Activo','Supervisor'),(22,3,21,22,'Karen Yessenia Quinteros','05678012-2','lquinteros@electrohogar.sv','2023-04-20','San Miguel Centro','7844-5566','Activo','Subordinado'),(23,3,21,23,'Edgar Alonso Pérez','06789123-3','eperez@electrohogar.sv','2023-06-15','Chinameca, San Miguel','7755-6677','Activo','Subordinado'),(24,3,21,24,'Nathalie Nicole Ramírez','07890234-4','nramirez@electrohogar.sv','2023-08-10','Moncagua, San Miguel','7666-7788','Activo','Subordinado'),(25,3,21,25,'David Alejandro Romero','08901345-5','dromero@electrohogar.sv','2023-10-01','San Miguel Norte','7577-8899','Activo','Subordinado'),(26,3,21,26,'Carmen Rosa Sosa','09012456-6','csosa@electrohogar.sv','2023-11-20','Quelepa, San Miguel','7488-9900','Activo','Subordinado'),(27,3,21,27,'Marvin Antonio Amézquita','01235678-7','mamezquita@electrohogar.sv','2024-01-05','San Miguel Este','7399-0011','Activo','Subordinado'),(28,3,21,28,'Flor de María Guevara','02346789-8','fguevara@electrohogar.sv','2024-02-18','El Tránsito, San Miguel','7100-1122','Activo','Subordinado'),(29,3,21,29,'Julio César Arévalo','03457890-9','jarevalo@electrohogar.sv','2024-03-10','San Miguel Sur','7022-2233','Activo','Subordinado'),(30,3,21,30,'Olga Marina Admin','04568901-0','oadmin@electrohogar.sv','2024-04-05','Comacarán, San Miguel','7033-3344','Activo','Subordinado');
 /*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -827,7 +827,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'jsanchez','123456','Activo',0),(2,'mhernandez','123456','Activo',0),(3,'lmartinez','123456','Activo',0),(4,'cflores','123456','Activo',0),(5,'arapirez','123456','Activo',0),(6,'kgomez','123456','Activo',0),(7,'dcastillo','123456','Activo',0),(8,'nortiz','123456','Activo',0),(9,'pmendoza','123456','Activo',0),(10,'hsuarez','123456','Activo',0),(11,'jrivas','123456','Activo',0),(12,'cmorales','123456','Activo',0),(13,'esilva','123456','Activo',0),(14,'fgaitan','123456','Activo',0),(15,'vaguilar','123456','Activo',0),(16,'bportillo','123456','Activo',0),(17,'mcoreas','123456','Activo',0),(18,'sorellana','123456','Activo',0),(19,'jmelendez','123456','Activo',0),(20,'aescobar','123456','Activo',0),(21,'rvelasquez','123456','Activo',0),(22,'lquinteros','123456','Activo',0),(23,'eperez','123456','Activo',0),(24,'nramirez','123456','Activo',0),(25,'dromero','123456','Activo',0),(26,'csosa','123456','Activo',0),(27,'mamezquita','123456','Activo',0),(28,'fguevara','123456','Activo',0),(29,'jarevalo','123456','Activo',0),(30,'oadmin','123456','Activo',0);
+INSERT INTO `usuario` VALUES (1,'jsanchez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(2,'mhernandez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(3,'lmartinez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(4,'cflores','855baf0d6abf4a5ac7fd94b47ecd711178ac3e3be52878ab0e82d2a74c5fb9b4','Activo',0),(5,'arapirez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(6,'kgomez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(7,'dcastillo','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(8,'nortiz','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(9,'pmendoza','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(10,'hsuarez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(11,'jrivas','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(12,'cmorales','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(13,'esilva','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(14,'fgaitan','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(15,'vaguilar','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(16,'bportillo','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(17,'mcoreas','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(18,'sorellana','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(19,'jmelendez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(20,'aescobar','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(21,'rvelasquez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(22,'lquinteros','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(23,'eperez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(24,'nramirez','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(25,'dromero','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(26,'csosa','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(27,'mamezquita','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(28,'fguevara','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(29,'jarevalo','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0),(30,'oadmin','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Activo',0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1024,6 +1024,47 @@ BEGIN
     -- Se utiliza greatest para que en caso de que de un valor negativo se muestre 0, el cupo nunca debe ser negativo
     RETURN GREATEST(V_LIMITE - V_DEUDA, 0);
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ACTIVAR_CLIENTE` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ACTIVAR_CLIENTE`(
+    IN P_ID_CLIENTE INT
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    IF NOT EXISTS (SELECT 1 FROM CLIENTE WHERE ID_CLIENTE = P_ID_CLIENTE) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cliente no existe';
+    END IF;
+
+    IF EXISTS (SELECT 1 FROM CLIENTE WHERE ID_CLIENTE = P_ID_CLIENTE AND ESTADO_CLIENTE = 'Activo') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cliente ya está activo';
+    END IF;
+
+    START TRANSACTION;
+
+    UPDATE CLIENTE
+    SET ESTADO_CLIENTE = 'Activo'
+    WHERE ID_CLIENTE = P_ID_CLIENTE;
+
+    COMMIT;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -4181,7 +4222,6 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_EMPLEADO`(
-    -- USUARIO
     IN P_NOMBRE_USUARIO VARCHAR(50),
     IN P_CLAVE VARCHAR(100),
     
@@ -4216,11 +4256,13 @@ BEGIN
         SET ID_GENERADO_OUT = -1; 
     END;
 
+    SET p_clave = SHA2(p_clave, 256);
+
     SET ID_GENERADO_OUT = 0;
 
     VALIDACIONES: BEGIN
 
-        -- 1.  Campos Vacíos Generales
+
         IF P_NOMBRE_USUARIO IS NULL OR TRIM(P_NOMBRE_USUARIO) = '' OR
            P_CLAVE IS NULL OR TRIM(P_CLAVE) = '' OR
            P_NOMBRE_EMPLEADO IS NULL OR TRIM(P_NOMBRE_EMPLEADO) = '' OR
@@ -4232,21 +4274,19 @@ BEGIN
             LEAVE VALIDACIONES; 
         END IF;
 
-        -- 2. Contraseña Corta
+ 
         IF CHAR_LENGTH(TRIM(P_CLAVE)) < 4 THEN
             
             SET ID_GENERADO_OUT = -3; 
             LEAVE VALIDACIONES; 
         END IF;
 
-        -- 3. Nombre de Usuario Duplicado
         IF EXISTS (SELECT 1 FROM USUARIO WHERE NOMBRE_USUARIO = TRIM(P_NOMBRE_USUARIO)) THEN
             
             SET ID_GENERADO_OUT = -4; 
             LEAVE VALIDACIONES; 
         END IF;
 
-        -- 4.  DUI Duplicado
         IF EXISTS (SELECT 1 FROM EMPLEADO WHERE DUI_EMPLEADO = TRIM(P_DUI_EMPLEADO)) THEN
             
             SET ID_GENERADO_OUT = -5; 
@@ -4938,6 +4978,8 @@ BEGIN
         SET CONFIRMACION = -1; 
     END;
 
+    SET nueva_contraseña = SHA2(nueva_contraseña, 256);
+
     IF NUEVA_CONTRASEÑA IS NULL OR TRIM(NUEVA_CONTRASEÑA) = '' OR
        P_NOMBRE_USUARIO IS NULL OR TRIM(P_NOMBRE_USUARIO) = '' THEN
         
@@ -5022,6 +5064,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_VALIDAR_USUARIO`(
     OUT CONFIRMACION INTEGER
 )
 PROCESO: BEGIN
+    
     DECLARE V_COINCIDE INTEGER DEFAULT 0;
     DECLARE V_INTENTOS INTEGER DEFAULT 0;
     DECLARE V_ESTADO VARCHAR(20) DEFAULT '';
@@ -5032,6 +5075,8 @@ PROCESO: BEGIN
         SET CONFIRMACION = -1; 
     END;
 
+    SET p_clave = SHA2(p_clave, 256);
+    
     IF P_NOMBRE_USUARIO IS NULL OR TRIM(P_NOMBRE_USUARIO) = '' OR P_CLAVE IS NULL OR TRIM(P_CLAVE) = '' THEN
         SET CONFIRMACION = -2;
         LEAVE PROCESO;
@@ -5111,4 +5156,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-08 14:49:39
+-- Dump completed on 2026-11-13  8:12:01

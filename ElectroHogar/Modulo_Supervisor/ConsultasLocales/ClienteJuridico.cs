@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
 {
@@ -16,7 +17,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             ConfigurarPlaceholder();
             ConfigurarComboEstado();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarClientesJuridicos();
         }
 
         private void ConfigurarComboEstado()
@@ -48,21 +49,43 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             dgvClientes.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 9 columnas de SP_CONSULTAR_CLIENTE_JURIDICO
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_CLIENTE_JURIDICO(P_BUSQUEDA)
+        private void CargarClientesJuridicos()
         {
-            dtClientesJuridicos = new DataTable();
-            dtClientesJuridicos.Columns.Add("ID_CLIENTE", typeof(int));
-            dtClientesJuridicos.Columns.Add("RAZON_SOCIAL", typeof(string));
-            dtClientesJuridicos.Columns.Add("NIT", typeof(string));
-            dtClientesJuridicos.Columns.Add("CORREO", typeof(string));
-            dtClientesJuridicos.Columns.Add("TELEFONO_CLIENTE", typeof(string));
-            dtClientesJuridicos.Columns.Add("NOMBRE_REPRESENTANTE_LEGAL", typeof(string));
-            dtClientesJuridicos.Columns.Add("CUPO_CREDITO_CORPORATIVO", typeof(decimal));
-            dtClientesJuridicos.Columns.Add("ESTADO_CLIENTE", typeof(string));
-            dtClientesJuridicos.Columns.Add("TIPO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvClientes.DataSource = dtClientesJuridicos;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_CLIENTE_JURIDICO", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtClientesJuridicos = new DataTable();
+                        da.Fill(dtClientesJuridicos);
+
+                        dgvClientes.DataSource = dtClientesJuridicos;
+                        FormatearColumnas();
+                        AplicarFiltros();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar clientes jurídicos: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvClientes.Columns.Count == 0) return;
 
             dgvClientes.Columns["ID_CLIENTE"].HeaderText = "ID";
             dgvClientes.Columns["RAZON_SOCIAL"].HeaderText = "Razón Social";
@@ -148,3 +171,4 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
         }
     }
 }
+

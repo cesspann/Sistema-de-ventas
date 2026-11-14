@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
 {
@@ -10,14 +11,15 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
         private const string PlaceholderText = "Buscar por ID, categoría, producto, stock, precio, estado o descuento...";
         private DataTable dtProductosSucursal;
         private int idEmpleadoActual;
+        private bool cargandoSucursales = false;
 
-        public productos(int idEmpleado = 1)
+        public productos(int idEmpleado = 0)
         {
             InitializeComponent();
-            this.idEmpleadoActual = idEmpleado;
+            this.idEmpleadoActual = idEmpleado > 0 ? idEmpleado : (SesionUsuario.IdEmpleado > 0 ? SesionUsuario.IdEmpleado : 1);
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarSucursales();
         }
 
         private void ConfigurarTabla()
@@ -43,21 +45,76 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
             dgvProductos.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 9 columnas de SP_CONSULTAR_PRODUCTOS_SUCURSAL
-        private void InicializarEstructuraTabla()
+        private void CargarSucursales()
         {
-            dtProductosSucursal = new DataTable();
-            dtProductosSucursal.Columns.Add("ID_PRODUCTO", typeof(int));
-            dtProductosSucursal.Columns.Add("ID_CATEGORIA", typeof(int));
-            dtProductosSucursal.Columns.Add("NOMBRE_CATEGORIA", typeof(string));
-            dtProductosSucursal.Columns.Add("NOMBRE_PRODUCTO", typeof(string));
-            dtProductosSucursal.Columns.Add("STOCK", typeof(int));
-            dtProductosSucursal.Columns.Add("PRECIO_VENTA", typeof(decimal));
-            dtProductosSucursal.Columns.Add("ESTADO_PRODUCTO", typeof(string));
-            dtProductosSucursal.Columns.Add("PORCENTAJE_DESCUENTO", typeof(decimal));
-            dtProductosSucursal.Columns.Add("PRECIO_FINAL", typeof(decimal));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvProductos.DataSource = dtProductosSucursal;
+                try
+                {
+                    cargandoSucursales = true;
+                    string query = "SELECT ID_SUCURSAL, NOMBRE_SUCURSAL FROM SUCURSAL ORDER BY ID_SUCURSAL;";
+                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                    DataTable dtSucursales = new DataTable();
+                    da.Fill(dtSucursales);
+
+                    cmbSucursal.DisplayMember = "NOMBRE_SUCURSAL";
+                    cmbSucursal.ValueMember = "ID_SUCURSAL";
+                    cmbSucursal.DataSource = dtSucursales;
+                    cargandoSucursales = false;
+
+                    if (cmbSucursal.Items.Count > 0)
+                    {
+                        CargarProductosPorSucursal(Convert.ToInt32(cmbSucursal.SelectedValue));
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    cargandoSucursales = false;
+                    MessageBox.Show("Error al cargar sucursales: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void CargarProductosPorSucursal(int idSucursal)
+        {
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null) return;
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_PRODUCTOS_SUCURSAL", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_EMPLEADO", this.idEmpleadoActual);
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+                        cmd.Parameters.AddWithValue("ID_SUCURSAL", idSucursal);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtProductosSucursal = new DataTable();
+                        da.Fill(dtProductosSucursal);
+
+                        dgvProductos.DataSource = dtProductosSucursal;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar productos de la sucursal: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvProductos.Columns.Count == 0) return;
 
             dgvProductos.Columns["ID_PRODUCTO"].HeaderText = "ID Prod.";
             dgvProductos.Columns["ID_CATEGORIA"].HeaderText = "ID Cat.";
@@ -80,15 +137,20 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
             dgvProductos.Columns["PORCENTAJE_DESCUENTO"].FillWeight = 52;
         }
 
-        // --- CAMBIO DE SUCURSAL ---
         private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbSucursal.SelectedItem == null) return;
-            // Aquí se llamará a SP_CONSULTAR_PRODUCTOS_SUCURSAL(idEmpleadoActual, busqueda, idSucursalSeleccionada)
+            if (cargandoSucursales || cmbSucursal.SelectedValue == null) return;
+
+            int idSucursalSeleccionada = Convert.ToInt32(cmbSucursal.SelectedValue);
+            CargarProductosPorSucursal(idSucursalSeleccionada);
         }
 
-        // --- FILTRO RÁPIDO EN MEMORIA (REPLICA EL WHERE DE SP_CONSULTAR_PRODUCTOS_SUCURSAL) ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtProductosSucursal == null) return;
 

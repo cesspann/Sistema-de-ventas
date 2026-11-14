@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
 {
@@ -11,13 +12,13 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
         private DataTable dtVendedores;
         private int idSucursalActual;
 
-        public gestiona_vendedor(int idSucursal = 1)
+        public gestiona_vendedor(int idSucursal = 0)
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
+            this.idSucursalActual = idSucursal > 0 ? idSucursal : (SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarVendedores();
         }
 
         private void ConfigurarTabla()
@@ -43,19 +44,44 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             dgvVendedores.RowTemplate.Height = 32;
         }
 
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_VENDEDORES(P_ID_SUCURSAL, BUSQUEDA)
+        private void CargarVendedores()
         {
-            dtVendedores = new DataTable();
-            dtVendedores.Columns.Add("ID_EMPLEADO", typeof(int));
-            dtVendedores.Columns.Add("NOMBRE_EMPLEADO", typeof(string));
-            dtVendedores.Columns.Add("NOMBRE_USUARIO", typeof(string));
-            dtVendedores.Columns.Add("CORREO_ELECTRONICO", typeof(string));
-            dtVendedores.Columns.Add("DUI_EMPLEADO", typeof(string));
-            dtVendedores.Columns.Add("FECHA_CONTRATACION", typeof(DateTime));
-            dtVendedores.Columns.Add("PORCENTAJE_COMISION", typeof(decimal));
-            dtVendedores.Columns.Add("ESTADO_USUARIO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvVendedores.DataSource = dtVendedores;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_VENDEDORES", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", this.idSucursalActual);
+                        cmd.Parameters.AddWithValue("BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtVendedores = new DataTable();
+                        da.Fill(dtVendedores);
+
+                        dgvVendedores.DataSource = dtVendedores;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al cargar vendedores: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvVendedores.Columns.Count == 0) return;
 
             dgvVendedores.Columns["ID_EMPLEADO"].HeaderText = "ID";
             dgvVendedores.Columns["NOMBRE_EMPLEADO"].HeaderText = "Nombre";
@@ -67,6 +93,7 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             dgvVendedores.Columns["ESTADO_USUARIO"].HeaderText = "Estado";
 
             dgvVendedores.Columns["FECHA_CONTRATACION"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgvVendedores.Columns["PORCENTAJE_COMISION"].DefaultCellStyle.Format = "N2";
             dgvVendedores.Columns["ID_EMPLEADO"].FillWeight = 45;
             dgvVendedores.Columns["PORCENTAJE_COMISION"].FillWeight = 65;
         }
@@ -75,7 +102,10 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             Registrar_Vendedor modalVendedor = new Registrar_Vendedor();
-            modalVendedor.ShowDialog();
+            if (modalVendedor.ShowDialog() == DialogResult.OK)
+            {
+                CargarVendedores();
+            }
         }
 
         // --- BOTONES INFERIORES (ACCIONES SOBRE VENDEDOR SELECCIONADO) ---
@@ -91,43 +121,101 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             string nombre = dgvVendedores.SelectedRows[0].Cells["NOMBRE_EMPLEADO"].Value.ToString();
             decimal comision = Convert.ToDecimal(dgvVendedores.SelectedRows[0].Cells["PORCENTAJE_COMISION"].Value);
 
-            ActualizarVendedor modalActualizar = new ActualizarVendedor(idEmpleado, nombre, comision, 0);
-            modalActualizar.ShowDialog();
-        }
 
+            ActualizarVendedor modalActualizar = new ActualizarVendedor(idEmpleado, nombre, comision, 0);
+            if (modalActualizar.ShowDialog() == DialogResult.OK)
+            {
+                CargarVendedores();
+            }
+        }
 
         private void btnActivar_Click(object sender, EventArgs e)
         {
-            if (dgvVendedores.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un vendedor para activar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            MessageBox.Show("Vendedor activado.", "ElectroHogar - Vendedores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            EjecutarCambioEstadoUsuario("SP_REACTIVAR_USUARIO", "activar");
         }
 
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
-            if (dgvVendedores.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un vendedor para desactivar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            MessageBox.Show("Vendedor desactivado.", "ElectroHogar - Vendedores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            EjecutarCambioEstadoUsuario("SP_DESACTIVAR_USUARIO", "desactivar");
         }
 
         private void btnDesbloquear_Click(object sender, EventArgs e)
         {
+            EjecutarCambioEstadoUsuario("SP_DESBLOQUEAR_USUARIO", "desbloquear");
+        }
+
+        private void EjecutarCambioEstadoUsuario(string nombreSp, string accionTexto)
+        {
             if (dgvVendedores.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Seleccione un vendedor para desbloquear.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Seleccione un vendedor para {accionTexto}.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show("Vendedor desbloqueado.", "ElectroHogar - Vendedores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            string nombreUsuario = dgvVendedores.SelectedRows[0].Cells["NOMBRE_USUARIO"].Value.ToString();
+            string nombreEmpleado = dgvVendedores.SelectedRows[0].Cells["NOMBRE_EMPLEADO"].Value.ToString();
+
+
+            DialogResult resp = MessageBox.Show($"¿Está seguro que desea {accionTexto} al vendedor '{nombreEmpleado}' ({nombreUsuario})?",
+                                                "Confirmar Acción", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resp != DialogResult.Yes) return;
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(nombreSp, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_NOMBRE_USUARIO", nombreUsuario);
+
+                        MySqlParameter paramConf = new MySqlParameter("CONFIRMACION", MySqlDbType.Int32);
+                        paramConf.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(paramConf);
+
+                        cmd.ExecuteNonQuery();
+                        int confirmacion = Convert.ToInt32(paramConf.Value);
+
+                        if (confirmacion == 1)
+                        {
+                            MessageBox.Show($"Usuario '{nombreUsuario}' actualizado correctamente.",
+                                            "ElectroHogar - Vendedores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CargarVendedores();
+                        }
+                        else if (confirmacion == -2)
+                        {
+                            MessageBox.Show("El nombre de usuario no puede estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (confirmacion == -3)
+                        {
+                            MessageBox.Show("El usuario no existe en la base de datos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ocurrió un error interno en el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error de base de datos: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         // --- BÚSQUEDA DINÁMICA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtVendedores == null) return;
 
@@ -135,28 +223,26 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
 
             if (string.IsNullOrEmpty(filtro) || filtro == PlaceholderText)
             {
+
                 dtVendedores.DefaultView.RowFilter = "";
                 return;
             }
-
             dtVendedores.DefaultView.RowFilter = string.Format(
-                "CONVERT(ID_EMPLEADO, 'System.String') LIKE '%{0}%' OR " +
-                "NOMBRE_EMPLEADO LIKE '%{0}%' OR " +
-                "NOMBRE_USUARIO LIKE '%{0}%' OR " +
-                "CORREO_ELECTRONICO LIKE '%{0}%' OR " +
-                "DUI_EMPLEADO LIKE '%{0}%' OR " +
-                "CONVERT(FECHA_CONTRATACION, 'System.String') LIKE '%{0}%' OR " +
-                "CONVERT(PORCENTAJE_COMISION, 'System.String') LIKE '%{0}%' OR " +
-                "ESTADO_USUARIO LIKE '%{0}%'",
-                filtro
+            "CONVERT(ID_EMPLEADO, 'System.String') LIKE '%{0}%' OR " +
+            "NOMBRE_EMPLEADO LIKE '%{0}%' OR " +
+            "NOMBRE_USUARIO LIKE '%{0}%' OR " +
+            "CORREO_ELECTRONICO LIKE '%{0}%' OR " +
+            "DUI_EMPLEADO LIKE '%{0}%' OR " +
+            "CONVERT(FECHA_CONTRATACION, 'System.String') LIKE '%{0}%' OR " +
+            "CONVERT(PORCENTAJE_COMISION, 'System.String') LIKE '%{0}%' OR " +
+            "ESTADO_USUARIO LIKE '%{0}%'",
+            filtro
             );
         }
-
         private void ConfigurarPlaceholder()
         {
             txtBuscar.Text = PlaceholderText;
             txtBuscar.ForeColor = Color.Gray;
-
             txtBuscar.Enter += (s, e) =>
             {
                 if (txtBuscar.Text == PlaceholderText)
@@ -165,7 +251,6 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
                     txtBuscar.ForeColor = Color.Black;
                 }
             };
-
             txtBuscar.Leave += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -175,7 +260,6 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
                 }
             };
         }
-
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();
