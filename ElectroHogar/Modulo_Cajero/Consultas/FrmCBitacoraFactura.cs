@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,15 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
     public partial class FrmCBitacoraFactura : Form
     {
-        // Cadena de conexión a tu base de datos MySQL
-        string conexionString = "server=localhost; database=sistema_ventas; uid=root; pwd=rootAdmin";
-
         public FrmCBitacoraFactura()
         {
             InitializeComponent();
@@ -23,62 +20,150 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
 
         private void FrmCBitacoraFactura_Load(object sender, EventArgs e)
         {
-            // Carga todos los registros al abrir el formulario
-            CargarDatosBitacora();
+            // Al abrir la ventana, aplicamos los filtros automáticamente usando la sesión
+            AplicarFiltros();
         }
 
-        private void CargarDatosBitacora()
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
+        }
+
+        private void btnMain_Click(object sender, EventArgs e)
+        {
+            InicioCajero inicioCajero = new InicioCajero();
+            inicioCajero.Show();
+            this.Close();
+        }
+
+        private void btnsecond_Click(object sender, EventArgs e)
+        {
+            FrmConsultarDatos consultarDatos = new FrmConsultarDatos();
+            consultarDatos.Show();
+            this.Close();
+        }
+
+        // Búsqueda de texto
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        // FECHA DESDE (Usando dateDesde)
+        private void dateDesde_ValueChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        // FECHA HASTA (Usando dateHasta)
+        private void dateHasta_ValueChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void AplicarFiltros()
+        {
+            // 1. Obtenemos el ID de la sucursal directamente desde el login (SesionUsuario)
+            int idSucursal = SesionUsuario.IdSucursal;
+
+            if (idSucursal == 0)
             {
-                using (MySqlConnection conexion = new MySqlConnection(conexionString))
+                // Si por alguna razón no hay sesión activa o es 0, alertamos o limpiamos
+                return;
+            }
+
+            // 2. Texto de búsqueda
+            string busqueda = textBox1.Text.Trim();
+
+            // 3. Fecha Desde
+            DateTime? fechaDesde = dateDesde.Value.Date;
+
+            // 4. Fecha Hasta (abarcando hasta el final del día)
+            DateTime? fechaHasta = dateHasta.Value.Date.AddDays(1).AddSeconds(-1);
+
+            // Llamamos a la consulta directa con la sucursal del login
+            CargarBitacoraDirecta(idSucursal, busqueda, fechaDesde, fechaHasta);
+        }
+
+        private void CargarBitacoraDirecta(int idSucursal, string busqueda, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            using (MySqlConnection conexion = Conexion.ObtenerConexion())
+            {
+                if (conexion == null)
                 {
-                    conexion.Open();
+                    MessageBox.Show("No se pudo establecer conexión con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_BITACORA_FACTURA_ANULADA", conexion))
+                try
+                {
+                    // Armamos la consulta SQL directamente en C# sin alterar procedimientos almacenados
+                    string query = @"SELECT B.ID_BITACORA_FACTURA, B.ID_FACTURA, B.ID_EMPLEADO, B.FECHA_CREACION, B.MOTIVO_DE_CANCELACION
+                                     FROM BITACORAFACTURACANCELADA B
+                                     INNER JOIN FACTURA F ON B.ID_FACTURA = F.ID_FACTURA
+                                     WHERE F.ID_SUCURSAL = @P_ID_SUCURSAL";
+
+                    // Si escribieron algo en la búsqueda de texto
+                    if (!string.IsNullOrEmpty(busqueda))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        query += @" AND (
+                                      CAST(B.ID_BITACORA_FACTURA AS CHAR) LIKE @P_BUSQUEDA
+                                      OR CAST(B.ID_FACTURA AS CHAR) LIKE @P_BUSQUEDA
+                                      OR CAST(B.ID_EMPLEADO AS CHAR) LIKE @P_BUSQUEDA
+                                      OR B.MOTIVO_DE_CANCELACION LIKE @P_BUSQUEDA
+                                   )";
+                    }
 
-                        // 1. Enviamos el texto de búsqueda (si está vacío, manda DBNull para traer todo)
-                        if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+                    // Filtro de fecha desde
+                    if (fechaDesde.HasValue)
+                    {
+                        query += " AND B.FECHA_CREACION >= @P_FECHA_DESDE";
+                    }
+
+                    // Filtro de fecha hasta
+                    if (fechaHasta.HasValue)
+                    {
+                        query += " AND B.FECHA_CREACION <= @P_FECHA_HASTA";
+                    }
+
+                    query += " ORDER BY B.FECHA_CREACION DESC;";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@P_ID_SUCURSAL", idSucursal);
+
+                        if (!string.IsNullOrEmpty(busqueda))
                         {
-                            cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@P_BUSQUEDA", "%" + busqueda + "%");
                         }
-                        else
+
+                        if (fechaDesde.HasValue)
                         {
-                            cmd.Parameters.AddWithValue("P_BUSQUEDA", txtBuscar.Text.Trim());
+                            cmd.Parameters.AddWithValue("@P_FECHA_DESDE", fechaDesde.Value);
                         }
 
-                        // 2. Parámetros de fecha requeridos por tu procedimiento almacenado
-                        cmd.Parameters.AddWithValue("P_FECHA_DESDE", DBNull.Value);
-                        cmd.Parameters.AddWithValue("P_FECHA_HASTA", DBNull.Value);
+                        if (fechaHasta.HasValue)
+                        {
+                            cmd.Parameters.AddWithValue("@P_FECHA_HASTA", fechaHasta.Value);
+                        }
 
-                        // 3. Ejecutar la consulta y rellenar la tabla dvgBitacora
                         using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                         {
                             DataTable dt = new DataTable();
                             da.Fill(dt);
-                            dvgBitacora.DataSource = dt;
+
+                            dataGridView1.DataSource = dt;
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al consultar la bitácora: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        // Evento que se ejecuta únicamente al hacer clic en el botón "Buscar"
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {
-            CargarDatosBitacora();
-        }
-
-        // Método requerido por el diseñador para solucionar el error CS1061
-        private void dvgBitacora_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Opcional
         }
     }
 }
