@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\Saa Vasquez\AppData\Local\Temp\vs2FAF.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\Saa Vasquez\AppData\Local\Temp\vs2FAF.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -287,6 +289,12 @@
     <Compile Include="Modulo_Supervisor\submodulo_productos\ActualizarProducto.Designer.cs">
       <DependentUpon>ActualizarProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\ActualizarPromocion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\ActualizarPromocion.Designer.cs">
+      <DependentUpon>ActualizarPromocion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modulo_Supervisor\submodulo_productos\bitacora_precios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -304,6 +312,12 @@
     </Compile>
     <Compile Include="Modulo_Supervisor\submodulo_productos\FrmAgregarCategoria.Designer.cs">
       <DependentUpon>FrmAgregarCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarPromociones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modulo_Supervisor\submodulo_productos\GestionarPromociones.Designer.cs">
+      <DependentUpon>GestionarPromociones.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Supervisor\submodulo_productos\GestionProductosSupervisor.cs">
       <SubType>Form</SubType>
@@ -466,6 +480,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_vendedor.resx">
       <DependentUpon>ventas_vendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionarPromociones.resx">
+      <DependentUpon>GestionarPromociones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.resx">
       <DependentUpon>GestionarClientesJuridico.cs</DependentUpon>

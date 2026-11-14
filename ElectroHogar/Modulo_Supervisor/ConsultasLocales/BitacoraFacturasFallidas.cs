@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
 {
@@ -16,7 +17,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             ConfigurarFechas();
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarBitacora();
         }
 
         private void ConfigurarFechas()
@@ -24,7 +25,6 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             dtpFechaDesde.Format = DateTimePickerFormat.Short;
             dtpFechaHasta.Format = DateTimePickerFormat.Short;
 
-            // Permiten enviar NULL al SP si el usuario desmarca la casilla
             dtpFechaDesde.ShowCheckBox = true;
             dtpFechaHasta.ShowCheckBox = true;
 
@@ -58,17 +58,49 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             dgvBitacora.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 5 columnas de SP_CONSULTAR_BITACORA_FACTURA_ANULADA
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_BITACORA_FACTURA_ANULADA(P_BUSQUEDA, P_FECHA_DESDE, P_FECHA_HASTA)
+        private void CargarBitacora()
         {
-            dtBitacora = new DataTable();
-            dtBitacora.Columns.Add("ID_BITACORA_FACTURA", typeof(int));
-            dtBitacora.Columns.Add("ID_FACTURA", typeof(int));
-            dtBitacora.Columns.Add("ID_EMPLEADO", typeof(int));
-            dtBitacora.Columns.Add("FECHA_CREACION", typeof(DateTime));
-            dtBitacora.Columns.Add("MOTIVO_DE_CANCELACION", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvBitacora.DataSource = dtBitacora;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_BITACORA_FACTURA_ANULADA", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        string textoBusqueda = txtBuscar.Text.Trim();
+                        bool hayTexto = !string.IsNullOrEmpty(textoBusqueda) && textoBusqueda != PlaceholderText;
+
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", hayTexto ? (object)textoBusqueda : DBNull.Value);
+                        cmd.Parameters.AddWithValue("P_FECHA_DESDE", dtpFechaDesde.Checked ? (object)dtpFechaDesde.Value.Date : DBNull.Value);
+                        cmd.Parameters.AddWithValue("P_FECHA_HASTA", dtpFechaHasta.Checked ? (object)dtpFechaHasta.Value.Date.AddDays(1).AddSeconds(-1) : DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtBitacora = new DataTable();
+                        da.Fill(dtBitacora);
+
+                        dgvBitacora.DataSource = dtBitacora;
+                        FormatearColumnas();
+                        lblTotalRegistros.Text = $"Registros encontrados: {dtBitacora.Rows.Count}";
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvBitacora.Columns.Count == 0) return;
 
             dgvBitacora.Columns["ID_BITACORA_FACTURA"].HeaderText = "ID Bitácora";
             dgvBitacora.Columns["ID_FACTURA"].HeaderText = "ID Factura";
@@ -95,11 +127,7 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
                 return;
             }
 
-            // Parámetros listos para SP_CONSULTAR_BITACORA_FACTURA_ANULADA:
-            // P_BUSQUEDA = (txtBuscar.Text == PlaceholderText) ? null : txtBuscar.Text.Trim()
-            // P_FECHA_DESDE = dtpFechaDesde.Checked ? (DateTime?)dtpFechaDesde.Value.Date : null
-            // P_FECHA_HASTA = dtpFechaHasta.Checked ? (DateTime?)dtpFechaHasta.Value.Date.AddDays(1).AddSeconds(-1) : null
-            AplicarFiltrosLocales();
+            CargarBitacora();
         }
 
         // --- FILTRO RÁPIDO EN MEMORIA ---

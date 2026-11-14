@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
 {
@@ -11,14 +12,14 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
         private DataTable dtCreditos;
         private int idSucursalActual;
 
-        public CreditosOtorgados(int idSucursal = 1)
+        public CreditosOtorgados(int idSucursal = 0)
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
+            this.idSucursalActual = idSucursal > 0 ? idSucursal : (SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
             ConfigurarPlaceholder();
             ConfigurarComboEstado();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarCreditos();
         }
 
         private void ConfigurarComboEstado()
@@ -50,22 +51,45 @@ namespace ElectroHogar.Modulo_Supervisor.ConsultasLocales
             dgvCreditos.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 10 columnas de SP_CONSULTAR_CREDITOS
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_CREDITOS(P_ID_SUCURSAL, P_BUSQUEDA, P_ESTADO)
+        private void CargarCreditos()
         {
-            dtCreditos = new DataTable();
-            dtCreditos.Columns.Add("ID_CREDITO", typeof(int));
-            dtCreditos.Columns.Add("ID_CLIENTE", typeof(int));
-            dtCreditos.Columns.Add("NOMBRE_CLIENTE", typeof(string));
-            dtCreditos.Columns.Add("ID_FACTURA", typeof(int));
-            dtCreditos.Columns.Add("NUMERO_FACTURA", typeof(string));
-            dtCreditos.Columns.Add("TOTAL_FACTURA", typeof(decimal));
-            dtCreditos.Columns.Add("MONTO_FINANCIADO", typeof(decimal));
-            dtCreditos.Columns.Add("SALDO_PENDIENTE", typeof(decimal));
-            dtCreditos.Columns.Add("ESTADO_CREDITO", typeof(string));
-            dtCreditos.Columns.Add("FECHA_OTORGACION", typeof(DateTime));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvCreditos.DataSource = dtCreditos;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_CREDITOS", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", this.idSucursalActual);
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+                        cmd.Parameters.AddWithValue("P_ESTADO", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtCreditos = new DataTable();
+                        da.Fill(dtCreditos);
+
+                        dgvCreditos.DataSource = dtCreditos;
+                        FormatearColumnas();
+                        AplicarFiltros();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar créditos otorgados: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvCreditos.Columns.Count == 0) return;
 
             dgvCreditos.Columns["ID_CREDITO"].HeaderText = "ID Créd.";
             dgvCreditos.Columns["ID_CLIENTE"].HeaderText = "ID Cli.";

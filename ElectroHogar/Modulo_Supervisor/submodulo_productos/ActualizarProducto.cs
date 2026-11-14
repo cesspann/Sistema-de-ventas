@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
@@ -8,11 +10,13 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
         private int idProducto;
         private int idEmpleadoSupervisor;
 
-        public ActualizarProducto(int idProducto = 0, string nombreProducto = "", decimal precioActual = 0, int idEmpleadoSupervisor = 1)
+        public ActualizarProducto(int idProducto = 0, string nombreProducto = "", decimal precioActual = 0, int idEmpleadoSupervisor = 0)
         {
             InitializeComponent();
             this.idProducto = idProducto;
-            this.idEmpleadoSupervisor = idEmpleadoSupervisor;
+            this.idEmpleadoSupervisor = idEmpleadoSupervisor > 0
+                ? idEmpleadoSupervisor
+                : (SesionUsuario.IdEmpleado > 0 ? SesionUsuario.IdEmpleado : 1);
 
             if (!string.IsNullOrEmpty(nombreProducto))
             {
@@ -27,7 +31,6 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
         {
             decimal nuevoPrecio = numNuevoPrecio.Value;
 
-            // Validación idéntica a SP_ACTUALIZAR_PRECIO_PRODUCTO (P_NUEVO_PRECIO IS NULL OR P_NUEVO_PRECIO <= 0)
             if (nuevoPrecio <= 0)
             {
                 MessageBox.Show("El precio debe ser mayor que cero.",
@@ -36,8 +39,37 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
                 return;
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_ACTUALIZAR_PRECIO_PRODUCTO", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_PRODUCTO", this.idProducto);
+                        cmd.Parameters.AddWithValue("P_ID_EMPLEADO", this.idEmpleadoSupervisor);
+                        cmd.Parameters.AddWithValue("P_NUEVO_PRECIO", nuevoPrecio);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Precio del producto actualizado y registrado en la bitácora correctamente.",
+                                        "ElectroHogar - Productos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

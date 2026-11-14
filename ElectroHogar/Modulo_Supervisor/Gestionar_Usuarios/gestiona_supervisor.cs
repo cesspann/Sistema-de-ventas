@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
 {
@@ -15,7 +16,7 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             InitializeComponent();
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarSupervisores();
         }
 
         private void ConfigurarTabla()
@@ -41,20 +42,43 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             dgvSupervisores.RowTemplate.Height = 32;
         }
 
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_SUPERVISOR(BUSQUEDA)
+        private void CargarSupervisores()
         {
-            dtSupervisores = new DataTable();
-            dtSupervisores.Columns.Add("ID_EMPLEADO", typeof(int));
-            dtSupervisores.Columns.Add("ID_SUCURSAL", typeof(int));
-            dtSupervisores.Columns.Add("NOMBRE_EMPLEADO", typeof(string));
-            dtSupervisores.Columns.Add("NOMBRE_USUARIO", typeof(string));
-            dtSupervisores.Columns.Add("CORREO_ELECTRONICO", typeof(string));
-            dtSupervisores.Columns.Add("DUI_EMPLEADO", typeof(string));
-            dtSupervisores.Columns.Add("FECHA_CONTRATACION", typeof(DateTime));
-            dtSupervisores.Columns.Add("EMPLEADOS_A_CARGO", typeof(int));
-            dtSupervisores.Columns.Add("ESTADO_USUARIO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvSupervisores.DataSource = dtSupervisores;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_SUPERVISOR", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtSupervisores = new DataTable();
+                        da.Fill(dtSupervisores);
+
+                        dgvSupervisores.DataSource = dtSupervisores;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al cargar supervisores: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvSupervisores.Columns.Count == 0) return;
 
             dgvSupervisores.Columns["ID_EMPLEADO"].HeaderText = "ID";
             dgvSupervisores.Columns["ID_SUCURSAL"].HeaderText = "Sucursal";
@@ -76,43 +100,99 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             Registrar_Supervisor modalSupervisor = new Registrar_Supervisor();
-            modalSupervisor.ShowDialog();
+            if (modalSupervisor.ShowDialog() == DialogResult.OK)
+            {
+                CargarSupervisores();
+            }
         }
-
 
         // --- BOTONES DE CAMBIO DE ESTADO (INFERIORES) ---
         private void btnActivar_Click(object sender, EventArgs e)
         {
-            if (dgvSupervisores.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un supervisor para activar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            MessageBox.Show("Supervisor activado.", "ElectroHogar - Supervisores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            EjecutarCambioEstadoUsuario("SP_REACTIVAR_USUARIO", "activar");
         }
 
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
-            if (dgvSupervisores.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un supervisor para desactivar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            MessageBox.Show("Supervisor desactivado.", "ElectroHogar - Supervisores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            EjecutarCambioEstadoUsuario("SP_DESACTIVAR_USUARIO", "desactivar");
         }
 
         private void btnDesbloquear_Click(object sender, EventArgs e)
         {
+            EjecutarCambioEstadoUsuario("SP_DESBLOQUEAR_USUARIO", "desbloquear");
+        }
+
+        private void EjecutarCambioEstadoUsuario(string nombreSp, string accionTexto)
+        {
             if (dgvSupervisores.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Seleccione un supervisor para desbloquear.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Seleccione un supervisor para {accionTexto}.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show("Supervisor desbloqueado.", "ElectroHogar - Supervisores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            string nombreUsuario = dgvSupervisores.SelectedRows[0].Cells["NOMBRE_USUARIO"].Value.ToString();
+            string nombreEmpleado = dgvSupervisores.SelectedRows[0].Cells["NOMBRE_EMPLEADO"].Value.ToString();
+
+            DialogResult resp = MessageBox.Show($"¿Está seguro que desea {accionTexto} al supervisor '{nombreEmpleado}' ({nombreUsuario})?",
+                                                "Confirmar Acción", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resp != DialogResult.Yes) return;
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(nombreSp, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_NOMBRE_USUARIO", nombreUsuario);
+
+                        MySqlParameter paramConf = new MySqlParameter("CONFIRMACION", MySqlDbType.Int32);
+                        paramConf.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(paramConf);
+
+                        cmd.ExecuteNonQuery();
+                        int confirmacion = Convert.ToInt32(paramConf.Value);
+
+                        if (confirmacion == 1)
+                        {
+                            MessageBox.Show($"Usuario '{nombreUsuario}' actualizado correctamente.",
+                                            "ElectroHogar - Supervisores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CargarSupervisores();
+                        }
+                        else if (confirmacion == -2)
+                        {
+                            MessageBox.Show("El nombre de usuario no puede estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (confirmacion == -3)
+                        {
+                            MessageBox.Show("El usuario no existe en la base de datos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ocurrió un error interno en el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error de base de datos: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         // --- BÚSQUEDA DINÁMICA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtSupervisores == null) return;
 
@@ -145,13 +225,13 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
 
             txtBuscar.Enter += (s, e) =>
             {
+
                 if (txtBuscar.Text == PlaceholderText)
                 {
                     txtBuscar.Text = "";
                     txtBuscar.ForeColor = Color.Black;
                 }
             };
-
             txtBuscar.Leave += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -161,7 +241,6 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
                 }
             };
         }
-
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();

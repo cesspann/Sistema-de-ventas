@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
 {
@@ -9,13 +10,14 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
     {
         private const string PlaceholderText = "Buscar por ID factura, número de factura o cliente...";
         private DataTable dtVentasSucursal;
+        private bool cargandoSucursales = false;
 
         public ventas()
         {
             InitializeComponent();
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarSucursales();
         }
 
         private void ConfigurarTabla()
@@ -41,19 +43,75 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
             dgvVentas.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 7 columnas de SP_CONSULTAR_FACTURAS
-        private void InicializarEstructuraTabla()
+        private void CargarSucursales()
         {
-            dtVentasSucursal = new DataTable();
-            dtVentasSucursal.Columns.Add("ID_FACTURA", typeof(int));
-            dtVentasSucursal.Columns.Add("NUMERO_FACTURA", typeof(string));
-            dtVentasSucursal.Columns.Add("NOMBRE_CLIENTE", typeof(string));
-            dtVentasSucursal.Columns.Add("NOMBRE_SUCURSAL", typeof(string));
-            dtVentasSucursal.Columns.Add("FECHA_HORA", typeof(DateTime));
-            dtVentasSucursal.Columns.Add("MONTO_TOTAL", typeof(decimal));
-            dtVentasSucursal.Columns.Add("METODO_PAGO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvVentas.DataSource = dtVentasSucursal;
+                try
+                {
+                    cargandoSucursales = true;
+                    string query = "SELECT ID_SUCURSAL, NOMBRE_SUCURSAL FROM SUCURSAL ORDER BY ID_SUCURSAL;";
+                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                    DataTable dtSucursales = new DataTable();
+                    da.Fill(dtSucursales);
+
+                    cmbSucursal.DisplayMember = "NOMBRE_SUCURSAL";
+                    cmbSucursal.ValueMember = "ID_SUCURSAL";
+                    cmbSucursal.DataSource = dtSucursales;
+                    cargandoSucursales = false;
+
+                    if (cmbSucursal.Items.Count > 0)
+                    {
+                        CargarVentasPorSucursal(Convert.ToInt32(cmbSucursal.SelectedValue));
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    cargandoSucursales = false;
+                    MessageBox.Show("Error al cargar sucursales: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void CargarVentasPorSucursal(int idSucursal)
+        {
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null) return;
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_FACTURAS", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", idSucursal);
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", DBNull.Value);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtVentasSucursal = new DataTable();
+                        da.Fill(dtVentasSucursal);
+
+                        dgvVentas.DataSource = dtVentasSucursal;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar ventas de la sucursal: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvVentas.Columns.Count == 0) return;
 
             dgvVentas.Columns["ID_FACTURA"].HeaderText = "ID";
             dgvVentas.Columns["NUMERO_FACTURA"].HeaderText = "N° Factura";
@@ -69,12 +127,12 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
             dgvVentas.Columns["NUMERO_FACTURA"].FillWeight = 75;
         }
 
-        // --- CAMBIO DE SUCURSAL ---
         private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbSucursal.SelectedItem == null) return;
-            // Aquí se llamará a SP_CONSULTAR_FACTURAS(idSucursalSeleccionada, busqueda)
-            ActualizarResumenTotales();
+            if (cargandoSucursales || cmbSucursal.SelectedValue == null) return;
+
+            int idSucursalSeleccionada = Convert.ToInt32(cmbSucursal.SelectedValue);
+            CargarVentasPorSucursal(idSucursalSeleccionada);
         }
 
         private void ActualizarResumenTotales()
@@ -92,8 +150,12 @@ namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
             lblResumenTotales.Text = $"Facturas Activas: {totalFacturas}   |   Monto Total: {sumaMonto:C2}";
         }
 
-        // --- FILTRO RÁPIDO EN MEMORIA (REPLICA EL WHERE DE SP_CONSULTAR_FACTURAS) ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtVentasSucursal == null) return;
 

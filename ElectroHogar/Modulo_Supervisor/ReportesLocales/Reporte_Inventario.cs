@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
@@ -11,14 +12,14 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
         private DataTable dtReporteInventario;
         private int idSucursalActual;
 
-        public Reporte_Inventario(int idSucursal = 1)
+        public Reporte_Inventario(int idSucursal = 0)
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
+            this.idSucursalActual = idSucursal > 0 ? idSucursal : (SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
             ConfigurarPlaceholder();
             ConfigurarComboEstado();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarReporteInventario();
         }
 
         private void ConfigurarComboEstado()
@@ -50,21 +51,43 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
             dgvReporte.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 9 columnas de SP_REPORTE_INVENTARIO
-        private void InicializarEstructuraTabla()
+        // Llama a SP_REPORTE_INVENTARIO(P_ID_SUCURSAL)
+        private void CargarReporteInventario()
         {
-            dtReporteInventario = new DataTable();
-            dtReporteInventario.Columns.Add("ID_PRODUCTO", typeof(int));
-            dtReporteInventario.Columns.Add("NOMBRE_PRODUCTO", typeof(string));
-            dtReporteInventario.Columns.Add("NOMBRE_CATEGORIA", typeof(string));
-            dtReporteInventario.Columns.Add("ID_SUCURSAL", typeof(int));
-            dtReporteInventario.Columns.Add("NOMBRE_SUCURSAL", typeof(string));
-            dtReporteInventario.Columns.Add("STOCK", typeof(int));
-            dtReporteInventario.Columns.Add("PRECIO_VENTA", typeof(decimal));
-            dtReporteInventario.Columns.Add("VALOR_INVENTARIO", typeof(decimal));
-            dtReporteInventario.Columns.Add("ESTADO_PRODUCTO", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvReporte.DataSource = dtReporteInventario;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_REPORTE_INVENTARIO", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", this.idSucursalActual);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtReporteInventario = new DataTable();
+                        da.Fill(dtReporteInventario);
+
+                        dgvReporte.DataSource = dtReporteInventario;
+                        FormatearColumnas();
+                        AplicarFiltros();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvReporte.Columns.Count == 0) return;
 
             dgvReporte.Columns["ID_PRODUCTO"].HeaderText = "ID Prod.";
             dgvReporte.Columns["NOMBRE_PRODUCTO"].HeaderText = "Producto";
@@ -87,8 +110,7 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
         // --- BOTÓN ACTUALIZAR / CONSULTAR REPORTE ---
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            // Aquí se llamará a SP_REPORTE_INVENTARIO(idSucursalActual)
-            ActualizarTotalesResumen();
+            CargarReporteInventario();
         }
 
         private void ActualizarTotalesResumen()

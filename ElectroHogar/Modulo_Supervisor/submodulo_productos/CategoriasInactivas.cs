@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
@@ -15,7 +16,7 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             InitializeComponent();
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            CargarCategoriasInactivas();
         }
 
         private void ConfigurarTabla()
@@ -40,7 +41,6 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             dgvCategoriasInactivas.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvCategoriasInactivas.RowTemplate.Height = 32;
 
-            // Habilita el botón solo cuando hay una categoría seleccionada y permite doble clic
             dgvCategoriasInactivas.SelectionChanged += (s, e) =>
             {
                 btnActivarCategoria.Enabled = (dgvCategoriasInactivas.SelectedRows.Count > 0);
@@ -51,15 +51,42 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             };
         }
 
-        // Estructura exacta según las 3 columnas de SP_CONSULTAR_CATEGORIAS_INACTIVAS
-        private void InicializarEstructuraTabla()
+        // Llama a SP_CONSULTAR_CATEGORIAS_INACTIVAS()
+        private void CargarCategoriasInactivas()
         {
-            dtCategoriasInactivas = new DataTable();
-            dtCategoriasInactivas.Columns.Add("ID_CATEGORIA", typeof(int));
-            dtCategoriasInactivas.Columns.Add("NOMBRE_CATEGORIA", typeof(string));
-            dtCategoriasInactivas.Columns.Add("ESTADO_CATEGORIA", typeof(string));
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            dgvCategoriasInactivas.DataSource = dtCategoriasInactivas;
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_CATEGORIAS_INACTIVAS", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtCategoriasInactivas = new DataTable();
+                        da.Fill(dtCategoriasInactivas);
+
+                        dgvCategoriasInactivas.DataSource = dtCategoriasInactivas;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al consultar categorías inactivas: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvCategoriasInactivas.Columns.Count == 0) return;
 
             dgvCategoriasInactivas.Columns["ID_CATEGORIA"].HeaderText = "ID Categoría";
             dgvCategoriasInactivas.Columns["NOMBRE_CATEGORIA"].HeaderText = "Nombre de Categoría";
@@ -93,16 +120,45 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
-            if (confirmacion == DialogResult.Yes)
+            if (confirmacion != DialogResult.Yes) return;
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
             {
-                // Aquí irá la llamada a tu SP de activar categoría
-                MessageBox.Show($"Categoría '{nombreCategoria}' reactivada correctamente.",
-                                "ElectroHogar - Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    string query = "UPDATE CATEGORIA SET ESTADO_CATEGORIA = 'Activa' WHERE ID_CATEGORIA = @id;";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", idCategoria);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show($"Categoría '{nombreCategoria}' reactivada correctamente.",
+                                        "ElectroHogar - Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        CargarCategoriasInactivas();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al reactivar la categoría: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         // --- BÚSQUEDA DINÁMICA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtCategoriasInactivas == null) return;
 

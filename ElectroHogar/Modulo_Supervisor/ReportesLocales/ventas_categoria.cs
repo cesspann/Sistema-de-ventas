@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
@@ -11,14 +12,14 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
         private DataTable dtReporteCategoria;
         private int idSucursalActual;
 
-        public ventas_categoria(int idSucursal = 1)
+        public ventas_categoria(int idSucursal = 0)
         {
             InitializeComponent();
-            this.idSucursalActual = idSucursal;
+            this.idSucursalActual = idSucursal > 0 ? idSucursal : (SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1);
             ConfigurarFechas();
             ConfigurarPlaceholder();
             ConfigurarTabla();
-            InicializarEstructuraTabla();
+            GenerarReporteCategoria();
         }
 
         private void ConfigurarFechas()
@@ -53,16 +54,56 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
             dgvReporte.RowTemplate.Height = 32;
         }
 
-        // Estructura exacta según las 4 columnas de SP_REPORTE_VENTAS_POR_CATEGORIA
-        private void InicializarEstructuraTabla()
+        // Llama a SP_REPORTE_VENTAS_POR_CATEGORIA(P_FECHA_INICIO, P_FECHA_FIN, P_ID_SUCURSAL)
+        private void GenerarReporteCategoria()
         {
-            dtReporteCategoria = new DataTable();
-            dtReporteCategoria.Columns.Add("ID_CATEGORIA", typeof(int));
-            dtReporteCategoria.Columns.Add("NOMBRE_CATEGORIA", typeof(string));
-            dtReporteCategoria.Columns.Add("CANTIDAD_VENDIDA", typeof(int));
-            dtReporteCategoria.Columns.Add("TOTAL_VENTAS", typeof(decimal));
+            DateTime fechaInicio = dtpFechaInicio.Value.Date;
+            DateTime fechaFin = dtpFechaFin.Value.Date;
 
-            dgvReporte.DataSource = dtReporteCategoria;
+            if (fechaInicio > fechaFin)
+            {
+                MessageBox.Show("Debe indicar un periodo de fechas válido (la fecha inicial no puede ser mayor a la final).",
+                                "Periodo Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpFechaInicio.Focus();
+                return;
+            }
+
+            using (MySqlConnection conn = Conexion.ObtenerConexion())
+            {
+                if (conn == null)
+                {
+                    MessageBox.Show("No se pudo conectar con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("SP_REPORTE_VENTAS_POR_CATEGORIA", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("P_FECHA_INICIO", fechaInicio);
+                        cmd.Parameters.AddWithValue("P_FECHA_FIN", fechaFin);
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", this.idSucursalActual);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        dtReporteCategoria = new DataTable();
+                        da.Fill(dtReporteCategoria);
+
+                        dgvReporte.DataSource = dtReporteCategoria;
+                        FormatearColumnas();
+                        AplicarFiltroLocal();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Aviso de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void FormatearColumnas()
+        {
+            if (dgvReporte.Columns.Count == 0) return;
 
             dgvReporte.Columns["ID_CATEGORIA"].HeaderText = "ID Categoría";
             dgvReporte.Columns["NOMBRE_CATEGORIA"].HeaderText = "Nombre de Categoría";
@@ -77,20 +118,7 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
         // --- BOTÓN GENERAR REPORTE ---
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            DateTime fechaInicio = dtpFechaInicio.Value.Date;
-            DateTime fechaFin = dtpFechaFin.Value.Date;
-
-            // Validación idéntica a SP_REPORTE_VENTAS_POR_CATEGORIA
-            if (fechaInicio > fechaFin)
-            {
-                MessageBox.Show("Debe indicar un periodo de fechas válido (la fecha inicial no puede ser mayor a la final).",
-                                "Periodo Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dtpFechaInicio.Focus();
-                return;
-            }
-
-            // Aquí se llamará a SP_REPORTE_VENTAS_POR_CATEGORIA(fechaInicio, fechaFin, idSucursalActual)
-            ActualizarTotalesResumen();
+            GenerarReporteCategoria();
         }
 
         private void ActualizarTotalesResumen()
@@ -111,6 +139,11 @@ namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 
         // --- FILTRO RÁPIDO EN MEMORIA ---
         private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroLocal();
+        }
+
+        private void AplicarFiltroLocal()
         {
             if (dtReporteCategoria == null) return;
 

@@ -49,7 +49,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(95, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(377, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(402, 37);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Productos en Otras Sucursales";
             // 
@@ -82,17 +82,6 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(1160, 595);
             this.pnlPrincipal.TabIndex = 1;
             // 
-            // lblSucursal
-            // 
-            this.lblSucursal.AutoSize = true;
-            this.lblSucursal.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblSucursal.ForeColor = System.Drawing.Color.DimGray;
-            this.lblSucursal.Location = new System.Drawing.Point(35, 29);
-            this.lblSucursal.Name = "lblSucursal";
-            this.lblSucursal.Size = new System.Drawing.Size(78, 23);
-            this.lblSucursal.TabIndex = 0;
-            this.lblSucursal.Text = "Sucursal:";
-            // 
             // cmbSucursal
             // 
             this.cmbSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -100,21 +89,32 @@
             this.cmbSucursal.FormattingEnabled = true;
             this.cmbSucursal.Location = new System.Drawing.Point(120, 25);
             this.cmbSucursal.Name = "cmbSucursal";
-            this.cmbSucursal.Size = new System.Drawing.Size(220, 31);
+            this.cmbSucursal.Size = new System.Drawing.Size(312, 31);
             this.cmbSucursal.TabIndex = 1;
             this.cmbSucursal.SelectedIndexChanged += new System.EventHandler(this.cmbSucursal_SelectedIndexChanged);
             // 
-            // txtBuscar
+            // lblSucursal
             // 
-            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblSucursal.AutoSize = true;
+            this.lblSucursal.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblSucursal.ForeColor = System.Drawing.Color.DimGray;
+            this.lblSucursal.Location = new System.Drawing.Point(35, 29);
+            this.lblSucursal.Name = "lblSucursal";
+            this.lblSucursal.Size = new System.Drawing.Size(81, 23);
+            this.lblSucursal.TabIndex = 0;
+            this.lblSucursal.Text = "Sucursal:";
+            // 
+            // dgvProductos
+            // 
+            this.dgvProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
-            this.txtBuscar.Location = new System.Drawing.Point(365, 25);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(710, 31);
-            this.txtBuscar.TabIndex = 2;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductos.Location = new System.Drawing.Point(35, 80);
+            this.dgvProductos.Name = "dgvProductos";
+            this.dgvProductos.RowHeadersWidth = 51;
+            this.dgvProductos.Size = new System.Drawing.Size(1090, 480);
+            this.dgvProductos.TabIndex = 4;
             // 
             // lblIconoBuscar
             // 
@@ -124,20 +124,21 @@
             this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
             this.lblIconoBuscar.Location = new System.Drawing.Point(1082, 24);
             this.lblIconoBuscar.Name = "lblIconoBuscar";
-            this.lblIconoBuscar.Size = new System.Drawing.Size(44, 32);
+            this.lblIconoBuscar.Size = new System.Drawing.Size(47, 32);
             this.lblIconoBuscar.TabIndex = 3;
             this.lblIconoBuscar.Text = "🔍";
             // 
-            // dgvProductos
+            // txtBuscar
             // 
-            this.dgvProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Location = new System.Drawing.Point(35, 80);
-            this.dgvProductos.Name = "dgvProductos";
-            this.dgvProductos.Size = new System.Drawing.Size(1090, 480);
-            this.dgvProductos.TabIndex = 4;
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscar.Location = new System.Drawing.Point(447, 25);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(628, 31);
+            this.txtBuscar.TabIndex = 2;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
             // productos
             // 
@@ -155,6 +156,7 @@
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
