@@ -31,19 +31,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtIDFactura = new System.Windows.Forms.TextBox();
             this.txtIDEmpleado = new System.Windows.Forms.TextBox();
             this.txtMotivo = new System.Windows.Forms.TextBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -85,12 +85,46 @@
             this.panel2.Size = new System.Drawing.Size(800, 350);
             this.panel2.TabIndex = 1;
             // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Lavender;
+            this.panel6.Controls.Add(this.tableLayoutPanel1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(86, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(627, 302);
+            this.panel6.TabIndex = 3;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btnEliminar, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtIDFactura, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtIDEmpleado, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtMotivo, 1, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.05747F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.94253F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 302);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.SteelBlue;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnEliminar.Location = new System.Drawing.Point(213, 178);
+            this.btnEliminar.Location = new System.Drawing.Point(316, 265);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(151, 34);
             this.btnEliminar.TabIndex = 0;
@@ -103,13 +137,64 @@
             this.button2.BackColor = System.Drawing.Color.SteelBlue;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(3, 178);
+            this.button2.Location = new System.Drawing.Point(3, 265);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(145, 34);
             this.button2.TabIndex = 1;
             this.button2.Text = "Menu Principal";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Ingrese el ID de la factura";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(169, 16);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Ingrese el ID del empleado";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 219);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(279, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Ingrese el motivo por el cual se va a eleminar:";
+            // 
+            // txtIDFactura
+            // 
+            this.txtIDFactura.Location = new System.Drawing.Point(316, 3);
+            this.txtIDFactura.Name = "txtIDFactura";
+            this.txtIDFactura.Size = new System.Drawing.Size(205, 22);
+            this.txtIDFactura.TabIndex = 5;
+            this.txtIDFactura.TextChanged += new System.EventHandler(this.txtIDFactura_TextChanged);
+            // 
+            // txtIDEmpleado
+            // 
+            this.txtIDEmpleado.Location = new System.Drawing.Point(316, 80);
+            this.txtIDEmpleado.Name = "txtIDEmpleado";
+            this.txtIDEmpleado.Size = new System.Drawing.Size(205, 22);
+            this.txtIDEmpleado.TabIndex = 6;
+            this.txtIDEmpleado.TextChanged += new System.EventHandler(this.txtIDEmpleado_TextChanged);
+            // 
+            // txtMotivo
+            // 
+            this.txtMotivo.Location = new System.Drawing.Point(316, 222);
+            this.txtMotivo.Name = "txtMotivo";
+            this.txtMotivo.Size = new System.Drawing.Size(205, 22);
+            this.txtMotivo.TabIndex = 7;
+            this.txtMotivo.TextChanged += new System.EventHandler(this.txtMotivo_TextChanged);
             // 
             // panel5
             // 
@@ -137,90 +222,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(86, 350);
             this.panel3.TabIndex = 0;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.Lavender;
-            this.panel6.Controls.Add(this.tableLayoutPanel1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(86, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(627, 302);
-            this.panel6.TabIndex = 3;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.btnEliminar, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtIDFactura, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txtIDEmpleado, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtMotivo, 1, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(93, 35);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.05747F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.94253F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(421, 215);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Ingrese el ID de la factura";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(169, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Ingrese el ID del empleado";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 132);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(195, 32);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Ingrese el motivo por el cual se va a eleminar:";
-            // 
-            // txtIDFactura
-            // 
-            this.txtIDFactura.Location = new System.Drawing.Point(213, 3);
-            this.txtIDFactura.Name = "txtIDFactura";
-            this.txtIDFactura.Size = new System.Drawing.Size(205, 22);
-            this.txtIDFactura.TabIndex = 5;
-            this.txtIDFactura.TextChanged += new System.EventHandler(this.txtIDFactura_TextChanged);
-            // 
-            // txtIDEmpleado
-            // 
-            this.txtIDEmpleado.Location = new System.Drawing.Point(213, 49);
-            this.txtIDEmpleado.Name = "txtIDEmpleado";
-            this.txtIDEmpleado.Size = new System.Drawing.Size(205, 22);
-            this.txtIDEmpleado.TabIndex = 6;
-            this.txtIDEmpleado.TextChanged += new System.EventHandler(this.txtIDEmpleado_TextChanged);
-            // 
-            // txtMotivo
-            // 
-            this.txtMotivo.Location = new System.Drawing.Point(213, 135);
-            this.txtMotivo.Name = "txtMotivo";
-            this.txtMotivo.Size = new System.Drawing.Size(205, 22);
-            this.txtMotivo.TabIndex = 7;
-            this.txtMotivo.TextChanged += new System.EventHandler(this.txtMotivo_TextChanged);
             // 
             // FrmEliminarFactura
             // 

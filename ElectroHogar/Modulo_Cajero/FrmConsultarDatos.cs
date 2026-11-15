@@ -83,5 +83,10 @@ namespace ElectroHogar.Modulo_Cajero
         {
             AbrirSubVentana(new Consultas.FrmCInventario());
         }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

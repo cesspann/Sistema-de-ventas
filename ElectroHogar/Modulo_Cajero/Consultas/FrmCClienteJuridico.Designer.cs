@@ -33,6 +33,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnsubmenu = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -40,7 +41,6 @@
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.btnBusqueda = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnsubmenu = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -114,6 +114,17 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Cliente Juridico";
             // 
+            // btnsubmenu
+            // 
+            this.btnsubmenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnsubmenu.Location = new System.Drawing.Point(631, 3);
+            this.btnsubmenu.Name = "btnsubmenu";
+            this.btnsubmenu.Size = new System.Drawing.Size(160, 33);
+            this.btnsubmenu.TabIndex = 3;
+            this.btnsubmenu.Text = "Menu Principal";
+            this.btnsubmenu.UseVisualStyleBackColor = true;
+            this.btnsubmenu.Click += new System.EventHandler(this.btnsubmenu_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -141,12 +152,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(254, 32);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.14379F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.85621F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(386, 306);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 350);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -161,7 +173,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(380, 73);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(794, 85);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // txtBusqueda
@@ -175,9 +187,9 @@
             // btnBusqueda
             // 
             this.btnBusqueda.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBusqueda.Location = new System.Drawing.Point(267, 3);
+            this.btnBusqueda.Location = new System.Drawing.Point(556, 3);
             this.btnBusqueda.Name = "btnBusqueda";
-            this.btnBusqueda.Size = new System.Drawing.Size(110, 67);
+            this.btnBusqueda.Size = new System.Drawing.Size(235, 79);
             this.btnBusqueda.TabIndex = 1;
             this.btnBusqueda.Text = "Buscar";
             this.btnBusqueda.UseVisualStyleBackColor = true;
@@ -188,23 +200,12 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 82);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 94);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(380, 221);
+            this.dataGridView1.Size = new System.Drawing.Size(794, 253);
             this.dataGridView1.TabIndex = 1;
-            // 
-            // btnsubmenu
-            // 
-            this.btnsubmenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnsubmenu.Location = new System.Drawing.Point(631, 3);
-            this.btnsubmenu.Name = "btnsubmenu";
-            this.btnsubmenu.Size = new System.Drawing.Size(160, 33);
-            this.btnsubmenu.TabIndex = 3;
-            this.btnsubmenu.Text = "Menu Principal";
-            this.btnsubmenu.UseVisualStyleBackColor = true;
-            this.btnsubmenu.Click += new System.EventHandler(this.btnsubmenu_Click);
             // 
             // FrmCClienteJuridico
             // 
