@@ -10,28 +10,22 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero
 {
-    public partial class InicioCajero : Form
+    public partial class InicioCajero : FormBase
     {
         private void AbrirSubVentana(Form ventanaHija)
         {
-            ventanaHija.FormClosed += (s, args) => this.Show();
+            ventanaHija.FormClosed += (s, args) => this.Show();      
             ventanaHija.Show();
             this.Hide();
         }
-
         public InicioCajero()
         {
             InitializeComponent();
-
-            // Recuperamos el usuario de la sesión activa y la hora exacta del sistema
-            labelUser.Text = "👤 Cajero: " + SesionUsuario.NombreEmpleado;
-            labelDate.Text = "🕒 " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
         }
 
-        // Evento opcional si agregaste un Timer para actualizar la hora cada segundo
-        private void timer1_Tick(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
-            labelDate.Text = "🕒 " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,7 +40,7 @@ namespace ElectroHogar.Modulo_Cajero
 
         private void button3_Click(object sender, EventArgs e)
         {
-            AbrirSubVentana(new FrmConsultarDatos());
+            AbrirSubVentana(new FrmConsultarDatos()) ;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -59,10 +53,22 @@ namespace ElectroHogar.Modulo_Cajero
             AbrirSubVentana(new FrmDatosCajero());
         }
 
-        private void labelDate_Click(object sender, EventArgs e) { }
-        private void labelUser_Click(object sender, EventArgs e) { }
-        private void panel2_Paint(object sender, PaintEventArgs e) { }
-        private void label1_Click(object sender, EventArgs e) { }
-        private void label2_Click(object sender, EventArgs e) { }
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegresar_Click(object sender, EventArgs e)
+        {
+            SesionUsuario.CerrarSesion();
+            Form1 loginForm = new Form1();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

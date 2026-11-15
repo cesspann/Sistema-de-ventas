@@ -210,10 +210,13 @@
             this.Name = "InicioSupervisor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ElectroHogar - Menú Supervisor";
+            this.Controls.SetChildIndex(this.pnlLateral, 0);
+            this.Controls.SetChildIndex(this.pnlContenido, 0);
             this.pnlLateral.ResumeLayout(false);
             this.pnlContenido.ResumeLayout(false);
             this.pnlContenido.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         #endregion

@@ -161,5 +161,10 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
         {
             this.Close();
         }
+
+        private void clbProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

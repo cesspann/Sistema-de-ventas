@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor
 {
-    public partial class GestionarPerfilSupervisor : Form
+    public partial class GestionarPerfilSupervisor : FormBase
     {
         private int idEmpleadoActual;
         private string nombreUsuarioActual;

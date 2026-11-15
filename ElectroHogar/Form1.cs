@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar
 {
-    public partial class Form1 : Form
+    public partial class Form1 :   FormBase
     {
         public Form1()
         {
@@ -133,10 +133,8 @@ namespace ElectroHogar
                         return;
                     }
 
-                    // 3. Guardar datos globales en SesionUsuario
                     SesionUsuario.CargarDatosEmpleado(usuario, idSucursal, rolUsuario);
 
-                    // 4. Abrir el panel correspondiente según el rol
                     if (rolUsuario == 1)
                     {
                         InicioCajero pantallaCajero = new InicioCajero();
@@ -172,5 +170,6 @@ namespace ElectroHogar
         {
 
         }
+
     }
 }

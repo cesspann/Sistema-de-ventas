@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
-    public partial class Reporte_Inventario : Form
+    public partial class Reporte_Inventario : FormBase
     {
         private const string PlaceholderText = "Buscar por ID, producto, categoría o sucursal...";
         private DataTable dtReporteInventario;

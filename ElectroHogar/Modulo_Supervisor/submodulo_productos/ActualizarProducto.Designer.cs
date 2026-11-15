@@ -26,8 +26,11 @@
             this.numNuevoPrecio = new System.Windows.Forms.NumericUpDown();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.masStock = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNuevoPrecio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.masStock)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlSuperior
@@ -37,7 +40,7 @@
             this.pnlSuperior.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSuperior.Location = new System.Drawing.Point(0, 0);
             this.pnlSuperior.Name = "pnlSuperior";
-            this.pnlSuperior.Size = new System.Drawing.Size(440, 60);
+            this.pnlSuperior.Size = new System.Drawing.Size(544, 60);
             this.pnlSuperior.TabIndex = 0;
             // 
             // lblTitulo
@@ -47,7 +50,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(20, 15);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(277, 30);
+            this.lblTitulo.Size = new System.Drawing.Size(290, 30);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Actualizar Precio Producto";
             // 
@@ -58,7 +61,7 @@
             this.lblProductoInfo.ForeColor = System.Drawing.Color.Teal;
             this.lblProductoInfo.Location = new System.Drawing.Point(25, 75);
             this.lblProductoInfo.Name = "lblProductoInfo";
-            this.lblProductoInfo.Size = new System.Drawing.Size(164, 21);
+            this.lblProductoInfo.Size = new System.Drawing.Size(168, 21);
             this.lblProductoInfo.TabIndex = 1;
             this.lblProductoInfo.Text = "Producto Seleccionado";
             // 
@@ -67,9 +70,9 @@
             this.lblPrecioActual.AutoSize = true;
             this.lblPrecioActual.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblPrecioActual.ForeColor = System.Drawing.Color.DimGray;
-            this.lblPrecioActual.Location = new System.Drawing.Point(25, 110);
+            this.lblPrecioActual.Location = new System.Drawing.Point(25, 101);
             this.lblPrecioActual.Name = "lblPrecioActual";
-            this.lblPrecioActual.Size = new System.Drawing.Size(119, 23);
+            this.lblPrecioActual.Size = new System.Drawing.Size(120, 23);
             this.lblPrecioActual.TabIndex = 2;
             this.lblPrecioActual.Text = "Precio Actual:";
             // 
@@ -77,20 +80,21 @@
             // 
             this.txtPrecioActual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.txtPrecioActual.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.txtPrecioActual.Location = new System.Drawing.Point(25, 136);
+            this.txtPrecioActual.Location = new System.Drawing.Point(25, 127);
             this.txtPrecioActual.Name = "txtPrecioActual";
             this.txtPrecioActual.ReadOnly = true;
-            this.txtPrecioActual.Size = new System.Drawing.Size(385, 31);
+            this.txtPrecioActual.Size = new System.Drawing.Size(465, 31);
             this.txtPrecioActual.TabIndex = 3;
+            this.txtPrecioActual.TextChanged += new System.EventHandler(this.txtPrecioActual_TextChanged);
             // 
             // lblNuevoPrecio
             // 
             this.lblNuevoPrecio.AutoSize = true;
             this.lblNuevoPrecio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblNuevoPrecio.ForeColor = System.Drawing.Color.DimGray;
-            this.lblNuevoPrecio.Location = new System.Drawing.Point(25, 185);
+            this.lblNuevoPrecio.Location = new System.Drawing.Point(25, 161);
             this.lblNuevoPrecio.Name = "lblNuevoPrecio";
-            this.lblNuevoPrecio.Size = new System.Drawing.Size(166, 23);
+            this.lblNuevoPrecio.Size = new System.Drawing.Size(155, 23);
             this.lblNuevoPrecio.TabIndex = 4;
             this.lblNuevoPrecio.Text = "Nuevo Precio ($):*";
             // 
@@ -98,10 +102,14 @@
             // 
             this.numNuevoPrecio.DecimalPlaces = 2;
             this.numNuevoPrecio.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.numNuevoPrecio.Location = new System.Drawing.Point(25, 211);
-            this.numNuevoPrecio.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+            this.numNuevoPrecio.Location = new System.Drawing.Point(29, 187);
+            this.numNuevoPrecio.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
             this.numNuevoPrecio.Name = "numNuevoPrecio";
-            this.numNuevoPrecio.Size = new System.Drawing.Size(385, 31);
+            this.numNuevoPrecio.Size = new System.Drawing.Size(465, 31);
             this.numNuevoPrecio.TabIndex = 5;
             // 
             // btnGuardar
@@ -111,7 +119,7 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(280, 270);
+            this.btnGuardar.Location = new System.Drawing.Point(364, 386);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(130, 38);
             this.btnGuardar.TabIndex = 6;
@@ -126,7 +134,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnCancelar.ForeColor = System.Drawing.Color.DimGray;
-            this.btnCancelar.Location = new System.Drawing.Point(145, 270);
+            this.btnCancelar.Location = new System.Drawing.Point(207, 386);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(120, 38);
             this.btnCancelar.TabIndex = 7;
@@ -134,12 +142,40 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // masStock
+            // 
+            this.masStock.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.masStock.Location = new System.Drawing.Point(29, 302);
+            this.masStock.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.masStock.Name = "masStock";
+            this.masStock.Size = new System.Drawing.Size(465, 31);
+            this.masStock.TabIndex = 8;
+            this.masStock.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.DimGray;
+            this.label1.Location = new System.Drawing.Point(25, 237);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(391, 46);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Ingrese el nuevo stock del producto \r\n(si no desea modificar no ingrese ningun va" +
+    "lor):";
+            // 
             // ActualizarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(440, 330);
+            this.ClientSize = new System.Drawing.Size(544, 447);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.masStock);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.numNuevoPrecio);
@@ -157,8 +193,10 @@
             this.pnlSuperior.ResumeLayout(false);
             this.pnlSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNuevoPrecio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.masStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -172,5 +210,7 @@
         private System.Windows.Forms.NumericUpDown numNuevoPrecio;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.NumericUpDown masStock;
+        private System.Windows.Forms.Label label1;
     }
 }

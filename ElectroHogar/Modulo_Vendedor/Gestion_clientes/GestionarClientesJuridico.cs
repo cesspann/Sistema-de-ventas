@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 {
-    public partial class GestionarClientesJuridico : Form
+    public partial class GestionarClientesJuridico : FormBase
     {
         private const string PlaceholderText = "Buscar por ID, razón social, NIT o representante legal...";
         private DataTable dtClientesJuridicos;

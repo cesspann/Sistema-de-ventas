@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
-    public partial class ventas_proveedor : Form
+    public partial class ventas_proveedor : FormBase
     {
         private const string PlaceholderText = "Filtrar resultados por ID o nombre del proveedor...";
         private DataTable dtReporteProveedor;

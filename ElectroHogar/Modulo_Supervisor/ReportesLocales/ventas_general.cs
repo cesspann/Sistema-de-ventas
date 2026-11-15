@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.ReportesLocales
 {
-    public partial class ventas_general : Form
+    public partial class ventas_general : FormBase
     {
         private const string PlaceholderText = "Buscar por ID factura, número de factura o cliente...";
         private DataTable dtFacturas;
