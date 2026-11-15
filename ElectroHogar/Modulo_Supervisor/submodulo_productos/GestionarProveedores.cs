@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
-    public partial class GestionarProveedores : Form
+    public partial class GestionarProveedores : FormBase
     {
         private DataTable dtProveedores;
         private int idEmpleadoActual;

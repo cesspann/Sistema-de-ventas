@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor
 {
-    public partial class GestionPerfil : Form
+    public partial class GestionPerfil : FormBase
     {
         private int idEmpleadoActual;
         private string nombreUsuarioActual;

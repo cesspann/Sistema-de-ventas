@@ -62,5 +62,13 @@ namespace ElectroHogar.Modulo_Cajero
         {
 
         }
+
+        private void btnRegresar_Click(object sender, EventArgs e)
+        {
+            SesionUsuario.CerrarSesion();
+            Form1 loginForm = new Form1();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

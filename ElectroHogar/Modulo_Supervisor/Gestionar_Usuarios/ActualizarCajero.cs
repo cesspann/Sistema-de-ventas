@@ -1,11 +1,11 @@
-﻿using System;
+﻿ using System;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
 {
-    public partial class ActualizarCajero : Form
+    public partial class ActualizarCajero : FormBase
     {
         private int idEmpleado;
 

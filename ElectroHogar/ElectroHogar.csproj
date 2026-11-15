@@ -592,6 +592,9 @@
     <EmbeddedResource Include="Modulo_Supervisor\ReportesLocales\ventas_vendedor.resx">
       <DependentUpon>ventas_vendedor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\ActualizarProducto.resx">
+      <DependentUpon>ActualizarProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionarCategorias.resx">
       <DependentUpon>GestionarCategorias.cs</DependentUpon>
     </EmbeddedResource>
@@ -603,6 +606,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\GestionProductosSupervisor.resx">
       <DependentUpon>GestionProductosSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modulo_Supervisor\submodulo_productos\RegistrarPromocion.resx">
+      <DependentUpon>RegistrarPromocion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Vendedor\Gestion_clientes\GestionarClientesJuridico.resx">
       <DependentUpon>GestionarClientesJuridico.cs</DependentUpon>

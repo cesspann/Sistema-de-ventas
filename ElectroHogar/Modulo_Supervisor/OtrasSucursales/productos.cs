@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.OtrasSucursales
 {
-    public partial class productos : Form
+    public partial class productos : FormBase
     {
         private const string PlaceholderText = "Buscar por ID, categoría, producto, stock, precio, estado o descuento...";
         private DataTable dtProductosSucursal;

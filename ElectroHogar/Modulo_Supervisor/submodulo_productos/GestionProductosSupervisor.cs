@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
-    public partial class GestionProductosSupervisor : Form
+    public partial class GestionProductosSupervisor : FormBase
     {
         private const string PlaceholderText = "Buscar por ID, categoría, producto, stock, precio, estado o descuento...";
         private DataTable dtProductos;
@@ -103,7 +103,6 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             dgvProductos.Columns["PORCENTAJE_DESCUENTO"].FillWeight = 55;
         }
 
-        // --- BOTONES SUPERIORES ---
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             RegistrarProducto modalProducto = new RegistrarProducto();
@@ -137,7 +136,6 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             ventanaProveedores.ShowDialog();
         }
 
-        // --- BOTONES INFERIORES ---
         private void btnActualizarProducto_Click(object sender, EventArgs e)
         {
             if (dgvProductos.SelectedRows.Count == 0)
@@ -149,8 +147,10 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
             int idProducto = Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["ID_PRODUCTO"].Value);
             string nombreProducto = dgvProductos.SelectedRows[0].Cells["NOMBRE_PRODUCTO"].Value.ToString();
             decimal precioActual = Convert.ToDecimal(dgvProductos.SelectedRows[0].Cells["PRECIO_VENTA"].Value);
+            int stockActual = Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["STOCK"].Value);
 
-            ActualizarProducto modalActualizar = new ActualizarProducto(idProducto, nombreProducto, precioActual);
+            ActualizarProducto modalActualizar = new ActualizarProducto(
+                idProducto, nombreProducto, precioActual, this.idEmpleadoActual, stockActual);
             if (modalActualizar.ShowDialog() == DialogResult.OK)
             {
                 CargarProductos();
@@ -225,7 +225,7 @@ namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 
                 nombreProducto = dgvProductos.SelectedRows[0].Cells["NOMBRE_PRODUCTO"].Value.ToString();
             }
-            // Verifica antes si existen registros en la bitácora de precios
+          
             if (!TieneHistorialPrecios(idProducto))
             {
                 string mensaje = idProducto > 0

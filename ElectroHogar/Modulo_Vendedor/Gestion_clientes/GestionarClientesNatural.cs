@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Gestion_clientes
 {
-    public partial class GestionarClientesNatural : Form
+    public partial class GestionarClientesNatural : FormBase
     {
         private const string PlaceholderText = "Buscar por ID, nombre del cliente o DUI...";
         private DataTable dtClientesNaturales;

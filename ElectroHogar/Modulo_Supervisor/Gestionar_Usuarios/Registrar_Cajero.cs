@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
 {
-    public partial class Registrar_Cajero : Form
+    public partial class Registrar_Cajero : FormBase
     {
         private int idSucursalActual;
         private int? idSupervisorActual;
@@ -23,8 +23,7 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             cmbTurno.Items.AddRange(new object[] { "Matutino", "Vespertino", "Completo" });
             cmbTurno.SelectedIndex = 0;
 
-            cmbTipoEmpleado.Items.AddRange(new object[] { "Tiempo Completo", "Medio Tiempo" });
-            cmbTipoEmpleado.SelectedIndex = 0;
+            
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -36,7 +35,7 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
             string correo = txtCorreo.Text.Trim();
             string direccion = txtDireccion.Text.Trim();
             string telefono = txtTelefono.Text.Trim();
-            string tipoEmpleado = cmbTipoEmpleado.SelectedItem?.ToString() ?? "Tiempo Completo";
+            
             int numeroCaja = (int)numCaja.Value;
             string turno = cmbTurno.SelectedItem?.ToString() ?? "Matutino";
 
@@ -80,11 +79,11 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        // 1. Usuario
+                        
                         cmd.Parameters.AddWithValue("P_NOMBRE_USUARIO", nombreUsuario);
                         cmd.Parameters.AddWithValue("P_CLAVE", clave);
 
-                        // 2. Empleado
+                        
                         cmd.Parameters.AddWithValue("P_ID_SUCURSAL", this.idSucursalActual);
                         cmd.Parameters.AddWithValue("P_ID_SUPERVISOR", this.idSupervisorActual.HasValue ? (object)this.idSupervisorActual.Value : DBNull.Value);
                         cmd.Parameters.AddWithValue("P_NOMBRE_EMPLEADO", nombreEmpleado);
@@ -92,18 +91,19 @@ namespace ElectroHogar.Modulo_Supervisor.Gestionar_Usuarios
                         cmd.Parameters.AddWithValue("P_CORREO_ELECTRONICO", string.IsNullOrWhiteSpace(correo) ? (object)DBNull.Value : correo);
                         cmd.Parameters.AddWithValue("P_DIRECCION_EMPLEADO", string.IsNullOrWhiteSpace(direccion) ? (object)DBNull.Value : direccion);
                         cmd.Parameters.AddWithValue("P_TELEFONO_EMPLEADO", string.IsNullOrWhiteSpace(telefono) ? (object)DBNull.Value : telefono);
-                        cmd.Parameters.AddWithValue("P_TIPO_EMPLEADO", tipoEmpleado);
+                       
 
-                        // 3. Rol específico
+                        
                         cmd.Parameters.AddWithValue("P_ROL_ESPECIFICO", "CAJERO");
 
-                        // 4. Parámetros de Vendedor en NULL y Cajero con sus valores
+                        
                         cmd.Parameters.AddWithValue("P_PORCENTAJE_COMISION", DBNull.Value);
                         cmd.Parameters.AddWithValue("P_META_MENSUAL", DBNull.Value);
                         cmd.Parameters.AddWithValue("P_NUMERO_CAJA", numeroCaja);
+
                         cmd.Parameters.AddWithValue("P_TURNO", turno);
 
-                        // 5. Salida
+                        
                         MySqlParameter paramId = new MySqlParameter("ID_GENERADO_OUT", MySqlDbType.Int32);
                         paramId.Direction = ParameterDirection.Output;
                         cmd.Parameters.Add(paramId);

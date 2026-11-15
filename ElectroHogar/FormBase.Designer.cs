@@ -34,7 +34,7 @@
             // lblFecha
             // 
             this.lblFecha.AutoSize = true;
-            this.lblFecha.Location = new System.Drawing.Point(561, 9);
+            this.lblFecha.Location = new System.Drawing.Point(549, 9);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(44, 16);
             this.lblFecha.TabIndex = 0;
@@ -48,6 +48,7 @@
             this.Controls.Add(this.lblFecha);
             this.Name = "FormBase";
             this.Text = "FormBase";
+            this.Load += new System.EventHandler(this.FormBase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

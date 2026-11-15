@@ -53,7 +53,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(20, 14);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(232, 31);
+            this.lblTitulo.Size = new System.Drawing.Size(234, 31);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Registrar Promoción";
             // 
@@ -74,6 +74,58 @@
             this.grpCondiciones.TabStop = false;
             this.grpCondiciones.Text = "Vigencia y Descuento";
             // 
+            // numPorcentaje
+            // 
+            this.numPorcentaje.DecimalPlaces = 2;
+            this.numPorcentaje.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.numPorcentaje.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numPorcentaje.Location = new System.Drawing.Point(335, 53);
+            this.numPorcentaje.Name = "numPorcentaje";
+            this.numPorcentaje.Size = new System.Drawing.Size(130, 29);
+            this.numPorcentaje.TabIndex = 5;
+            // 
+            // lblPorcentaje
+            // 
+            this.lblPorcentaje.AutoSize = true;
+            this.lblPorcentaje.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblPorcentaje.ForeColor = System.Drawing.Color.DimGray;
+            this.lblPorcentaje.Location = new System.Drawing.Point(335, 30);
+            this.lblPorcentaje.Name = "lblPorcentaje";
+            this.lblPorcentaje.Size = new System.Drawing.Size(123, 20);
+            this.lblPorcentaje.TabIndex = 4;
+            this.lblPorcentaje.Text = "Descuento (%):*";
+            // 
+            // dtpFechaFin
+            // 
+            this.dtpFechaFin.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.dtpFechaFin.Location = new System.Drawing.Point(175, 53);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(145, 29);
+            this.dtpFechaFin.TabIndex = 3;
+            // 
+            // lblFechaFin
+            // 
+            this.lblFechaFin.AutoSize = true;
+            this.lblFechaFin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblFechaFin.ForeColor = System.Drawing.Color.DimGray;
+            this.lblFechaFin.Location = new System.Drawing.Point(175, 30);
+            this.lblFechaFin.Name = "lblFechaFin";
+            this.lblFechaFin.Size = new System.Drawing.Size(85, 20);
+            this.lblFechaFin.TabIndex = 2;
+            this.lblFechaFin.Text = "Fecha Fin:*";
+            // 
+            // dtpFechaInicio
+            // 
+            this.dtpFechaInicio.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.dtpFechaInicio.Location = new System.Drawing.Point(15, 53);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(145, 29);
+            this.dtpFechaInicio.TabIndex = 1;
+            // 
             // lblFechaInicio
             // 
             this.lblFechaInicio.AutoSize = true;
@@ -84,54 +136,6 @@
             this.lblFechaInicio.Size = new System.Drawing.Size(102, 20);
             this.lblFechaInicio.TabIndex = 0;
             this.lblFechaInicio.Text = "Fecha Inicio:*";
-            // 
-            // dtpFechaInicio
-            // 
-            this.dtpFechaInicio.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.dtpFechaInicio.Location = new System.Drawing.Point(15, 53);
-            this.dtpFechaInicio.Name = "dtpFechaInicio";
-            this.dtpFechaInicio.Size = new System.Drawing.Size(145, 29);
-            this.dtpFechaInicio.TabIndex = 1;
-            // 
-            // lblFechaFin
-            // 
-            this.lblFechaFin.AutoSize = true;
-            this.lblFechaFin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblFechaFin.ForeColor = System.Drawing.Color.DimGray;
-            this.lblFechaFin.Location = new System.Drawing.Point(175, 30);
-            this.lblFechaFin.Name = "lblFechaFin";
-            this.lblFechaFin.Size = new System.Drawing.Size(84, 20);
-            this.lblFechaFin.TabIndex = 2;
-            this.lblFechaFin.Text = "Fecha Fin:*";
-            // 
-            // dtpFechaFin
-            // 
-            this.dtpFechaFin.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.dtpFechaFin.Location = new System.Drawing.Point(175, 53);
-            this.dtpFechaFin.Name = "dtpFechaFin";
-            this.dtpFechaFin.Size = new System.Drawing.Size(145, 29);
-            this.dtpFechaFin.TabIndex = 3;
-            // 
-            // lblPorcentaje
-            // 
-            this.lblPorcentaje.AutoSize = true;
-            this.lblPorcentaje.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblPorcentaje.ForeColor = System.Drawing.Color.DimGray;
-            this.lblPorcentaje.Location = new System.Drawing.Point(335, 30);
-            this.lblPorcentaje.Name = "lblPorcentaje";
-            this.lblPorcentaje.Size = new System.Drawing.Size(120, 20);
-            this.lblPorcentaje.TabIndex = 4;
-            this.lblPorcentaje.Text = "Descuento (%):*";
-            // 
-            // numPorcentaje
-            // 
-            this.numPorcentaje.DecimalPlaces = 2;
-            this.numPorcentaje.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.numPorcentaje.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            this.numPorcentaje.Location = new System.Drawing.Point(335, 53);
-            this.numPorcentaje.Name = "numPorcentaje";
-            this.numPorcentaje.Size = new System.Drawing.Size(130, 29);
-            this.numPorcentaje.TabIndex = 5;
             // 
             // grpProductos
             // 
@@ -154,6 +158,7 @@
             this.clbProductos.Name = "clbProductos";
             this.clbProductos.Size = new System.Drawing.Size(450, 196);
             this.clbProductos.TabIndex = 0;
+            this.clbProductos.SelectedIndexChanged += new System.EventHandler(this.clbProductos_SelectedIndexChanged);
             // 
             // btnGuardar
             // 
@@ -183,11 +188,10 @@
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            //
+            // 
             // RegistrarPromocion
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -210,6 +214,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPorcentaje)).EndInit();
             this.grpProductos.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
         #endregion
         private System.Windows.Forms.Panel pnlSuperior;

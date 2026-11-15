@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Vendedor.Modulo_consultasVendedor
 {
-    public partial class ConsultarProductosPromocion : Form
+    public partial class ConsultarProductosPromocion : FormBase
     {
         private const string PlaceholderText = "Buscar por ID, categoría, producto, stock, precio, estado o descuento...";
         private DataTable dtProductos;
