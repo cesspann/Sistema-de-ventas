@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar
 {
-    public partial class InicioSupervisor : Form
+    public partial class InicioSupervisor : FormBase
     {
         private const string PlaceholderText = "Buscar herramientas...";
         private ListBox listaResultadosBusqueda;
@@ -309,7 +309,8 @@ namespace ElectroHogar
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
-            Form1 loginForm = new Form1();
+            SesionUsuario.CerrarSesion();
+            Form1 loginForm = new Form1(); 
             loginForm.Show();
             this.Close();
         }

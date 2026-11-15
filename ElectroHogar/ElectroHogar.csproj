@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\tirsa\AppData\Local\Temp\vs8485.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Saa Vasquez\AppData\Local\Temp\vsD43E.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\tirsa\AppData\Local\Temp\vs8485.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Saa Vasquez\AppData\Local\Temp\vsD43E.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -102,6 +102,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBase.Designer.cs">
+      <DependentUpon>FormBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.cs">
       <SubType>Form</SubType>
@@ -468,6 +474,9 @@
     <Compile Include="SesionUsuario.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBase.resx">
+      <DependentUpon>FormBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.resx">
       <DependentUpon>FrmCBitacoraFactura.cs</DependentUpon>

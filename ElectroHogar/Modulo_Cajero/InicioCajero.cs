@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero
 {
-    public partial class InicioCajero : Form
+    public partial class InicioCajero : FormBase
     {
         private void AbrirSubVentana(Form ventanaHija)
         {

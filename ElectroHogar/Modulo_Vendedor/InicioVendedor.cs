@@ -6,7 +6,7 @@ using ElectroHogar.Modulo_Vendedor.Gestion_clientes;
 
 namespace ElectroHogar.Modulo_Vendedor
 {
-    public partial class InicioVendedor : Form
+    public partial class InicioVendedor : FormBase
     {
         private const string PlaceholderText = "Buscar herramientas...";
         private ListBox listaResultadosBusqueda;
@@ -169,6 +169,7 @@ namespace ElectroHogar.Modulo_Vendedor
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
+            SesionUsuario.CerrarSesion();
             Form1 loginForm = new Form1();
             loginForm.Show();
             this.Close();
