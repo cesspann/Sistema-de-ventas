@@ -165,5 +165,15 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {
         }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -60,6 +60,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -110,6 +111,7 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -125,72 +127,82 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.92345F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.92346F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.92345F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22964F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(800, 350);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(105, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 16);
+            this.label3.Size = new System.Drawing.Size(189, 90);
             this.label3.TabIndex = 0;
             this.label3.Text = "Ingresar el ID de credito";
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 124);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(117, 90);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 16);
+            this.label4.Size = new System.Drawing.Size(166, 90);
             this.label4.TabIndex = 1;
             this.label4.Text = "ingresar ID de cuota:";
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 248);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(86, 180);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(179, 16);
+            this.label5.Size = new System.Drawing.Size(227, 90);
             this.label5.TabIndex = 2;
             this.label5.Text = "Ingresar el monto a cancelar:";
             // 
             // txtIDCredito
             // 
+            this.txtIDCredito.BackColor = System.Drawing.SystemColors.MenuBar;
             this.txtIDCredito.Location = new System.Drawing.Point(403, 3);
             this.txtIDCredito.Name = "txtIDCredito";
-            this.txtIDCredito.Size = new System.Drawing.Size(310, 22);
+            this.txtIDCredito.Size = new System.Drawing.Size(394, 22);
             this.txtIDCredito.TabIndex = 3;
             this.txtIDCredito.TextChanged += new System.EventHandler(this.txtIDCredito_TextChanged);
             // 
             // txtIDCuota
             // 
-            this.txtIDCuota.Location = new System.Drawing.Point(403, 127);
+            this.txtIDCuota.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtIDCuota.Location = new System.Drawing.Point(403, 93);
             this.txtIDCuota.Name = "txtIDCuota";
-            this.txtIDCuota.Size = new System.Drawing.Size(310, 22);
+            this.txtIDCuota.Size = new System.Drawing.Size(394, 22);
             this.txtIDCuota.TabIndex = 4;
             this.txtIDCuota.TextChanged += new System.EventHandler(this.txtIDCuota_TextChanged);
             // 
             // txtMonto
             // 
-            this.txtMonto.Location = new System.Drawing.Point(403, 251);
+            this.txtMonto.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.txtMonto.Location = new System.Drawing.Point(403, 183);
             this.txtMonto.Name = "txtMonto";
-            this.txtMonto.Size = new System.Drawing.Size(310, 22);
+            this.txtMonto.Size = new System.Drawing.Size(394, 22);
             this.txtMonto.TabIndex = 5;
             this.txtMonto.TextChanged += new System.EventHandler(this.txtMonto_TextChanged);
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.SteelBlue;
+            this.button1.BackColor = System.Drawing.Color.Teal;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(403, 297);
+            this.button1.Location = new System.Drawing.Point(403, 273);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(264, 50);
+            this.button1.Size = new System.Drawing.Size(394, 74);
             this.button1.TabIndex = 6;
             this.button1.Text = "Pagar";
             this.button1.UseVisualStyleBackColor = false;
@@ -198,13 +210,13 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.SteelBlue;
+            this.button2.BackColor = System.Drawing.Color.Teal;
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(3, 297);
+            this.button2.Location = new System.Drawing.Point(3, 273);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(394, 50);
+            this.button2.Size = new System.Drawing.Size(394, 74);
             this.button2.TabIndex = 7;
             this.button2.Text = "Menu Principal";
             this.button2.UseVisualStyleBackColor = false;

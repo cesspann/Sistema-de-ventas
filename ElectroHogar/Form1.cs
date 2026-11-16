@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar
 {
-    public partial class Form1 :   FormBase
+    public partial class Form1 :   Form
     {
         public Form1()
         {

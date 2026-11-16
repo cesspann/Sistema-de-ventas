@@ -41,6 +41,7 @@
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.btnBusqueda = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -62,6 +63,7 @@
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
@@ -79,8 +81,8 @@
             // 
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 166F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 245F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 262F));
             this.tableLayoutPanel3.Controls.Add(this.button1, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnsubmenu, 2, 0);
@@ -94,13 +96,16 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.Teal;
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(468, 3);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button1.Location = new System.Drawing.Point(290, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 33);
+            this.button1.Size = new System.Drawing.Size(239, 33);
             this.button1.TabIndex = 0;
             this.button1.Text = "Menu de consultas";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
@@ -116,13 +121,16 @@
             // 
             // btnsubmenu
             // 
+            this.btnsubmenu.BackColor = System.Drawing.Color.Teal;
             this.btnsubmenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnsubmenu.Location = new System.Drawing.Point(631, 3);
+            this.btnsubmenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnsubmenu.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnsubmenu.Location = new System.Drawing.Point(535, 3);
             this.btnsubmenu.Name = "btnsubmenu";
-            this.btnsubmenu.Size = new System.Drawing.Size(160, 33);
+            this.btnsubmenu.Size = new System.Drawing.Size(256, 33);
             this.btnsubmenu.TabIndex = 3;
             this.btnsubmenu.Text = "Menu Principal";
-            this.btnsubmenu.UseVisualStyleBackColor = true;
+            this.btnsubmenu.UseVisualStyleBackColor = false;
             this.btnsubmenu.Click += new System.EventHandler(this.btnsubmenu_Click);
             // 
             // label1
@@ -163,11 +171,14 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.73684F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.26316F));
-            this.tableLayoutPanel4.Controls.Add(this.txtBusqueda, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btnBusqueda, 1, 0);
+            this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.9661F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.0339F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 203F));
+            this.tableLayoutPanel4.Controls.Add(this.btnBusqueda, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.txtBusqueda, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -175,24 +186,29 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(794, 85);
             this.tableLayoutPanel4.TabIndex = 0;
+            this.tableLayoutPanel4.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel4_Paint);
             // 
             // txtBusqueda
             // 
-            this.txtBusqueda.Location = new System.Drawing.Point(3, 3);
+            this.txtBusqueda.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.txtBusqueda.Location = new System.Drawing.Point(286, 3);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(258, 22);
+            this.txtBusqueda.Size = new System.Drawing.Size(301, 22);
             this.txtBusqueda.TabIndex = 0;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.btnBusqueda_TextChanged);
             // 
             // btnBusqueda
             // 
+            this.btnBusqueda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.btnBusqueda.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBusqueda.Location = new System.Drawing.Point(556, 3);
+            this.btnBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBusqueda.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnBusqueda.Location = new System.Drawing.Point(593, 3);
             this.btnBusqueda.Name = "btnBusqueda";
-            this.btnBusqueda.Size = new System.Drawing.Size(235, 79);
+            this.btnBusqueda.Size = new System.Drawing.Size(198, 79);
             this.btnBusqueda.TabIndex = 1;
             this.btnBusqueda.Text = "Buscar";
-            this.btnBusqueda.UseVisualStyleBackColor = true;
+            this.btnBusqueda.UseVisualStyleBackColor = false;
             this.btnBusqueda.Click += new System.EventHandler(this.button2_Click);
             // 
             // dataGridView1
@@ -206,6 +222,17 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(794, 253);
             this.dataGridView1.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(16, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(250, 85);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Ingrese el Criterio de Busqueda:";
             // 
             // FrmCClienteJuridico
             // 
@@ -245,5 +272,6 @@
         private System.Windows.Forms.Button btnBusqueda;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnsubmenu;
+        private System.Windows.Forms.Label label3;
     }
 }

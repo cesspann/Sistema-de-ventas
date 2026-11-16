@@ -24,15 +24,15 @@ namespace ElectroHogar.Modulo_Cajero
         public FrmNuevaVenta()
         {
             InitializeComponent();
-            InicializarGrilla(); // Asegura que la grilla tenga las columnas listas
+            InicializarGrilla(); 
         }
 
         private void FrmNuevaVenta_Load(object sender, EventArgs e)
         {
-            // Opcional al cargar la ventana
+            
         }
 
-        // Método para configurar las columnas de la grilla por código si no están creadas en el diseñador
+      
         private void InicializarGrilla()
         {
             if (dataProductos.Columns.Count == 0)
@@ -42,7 +42,7 @@ namespace ElectroHogar.Modulo_Cajero
             }
         }
 
-        // Botón para añadir productos a la grilla usando las cajas de texto (txtAñadirProducto y txtcantidad)
+        
         private void btnAñadirProducto_Click(object sender, EventArgs e)
         {
             string textoId = txtAñadirProducto.Text.Trim();
@@ -54,7 +54,6 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            // Validamos que el ID sea un número entero válido
             if (int.TryParse(textoId, out int idProducto))
             {
                 int cantidad = 1;
@@ -67,10 +66,8 @@ namespace ElectroHogar.Modulo_Cajero
                     }
                 }
 
-                // Añadimos el producto y su cantidad a la grilla visual
                 dataProductos.Rows.Add(idProducto, cantidad);
 
-                // Limpiamos los campos y regresamos el cursor al campo de ID para agilizar
                 txtAñadirProducto.Clear();
                 txtcantidad.Clear();
                 txtAñadirProducto.Focus();
@@ -81,17 +78,14 @@ namespace ElectroHogar.Modulo_Cajero
             }
         }
 
-        // Botón principal para procesar, serializar en JSON y cobrar la venta completa
-        private void btnProcesarVenta_Click(object sender, EventArgs e)
+        private void btnView_Click(object sender, EventArgs e)
         {
-            // 1. Recorrer el DataGridView para armar la lista de productos
             List<DetalleVentaJson> listaProductos = new List<DetalleVentaJson>();
 
             foreach (DataGridViewRow row in dataProductos.Rows)
             {
                 if (row.IsNewRow) continue;
 
-                // Se lee por índice (0 y 1) para evitar errores si los nombres de columna del diseñador difieren
                 int idProducto = Convert.ToInt32(row.Cells[0].Value);
                 int cantidad = Convert.ToInt32(row.Cells[1].Value);
 
@@ -108,10 +102,9 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            // 2. Serializar la lista de objetos a formato JSON plano
+            
             string jsonProductos = JsonConvert.SerializeObject(listaProductos);
 
-            // 3. Capturar datos generales desde los controles de la interfaz
             int idCliente;
             if (!int.TryParse(txtIDCliente.Text.Trim(), out idCliente))
             {
@@ -119,13 +112,12 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            int idEmpleado = SesionUsuario.IdEmpleado; // Obtenido de tu sesión activa
-            int idSucursal = 1; // Ajustar según la sucursal del empleado
+            int idEmpleado = SesionUsuario.IdEmpleado; 
+            int idSucursal = 1; 
 
-            // Captura dinámica desde txtPago (si está vacío, usa "Efectivo" por defecto)
             string metodoPago = string.IsNullOrWhiteSpace(txtPago.Text) ? "Efectivo" : txtPago.Text.Trim();
 
-            // Valores de crédito opcionales con validación segura
+            
             decimal montoPrima = 0.00m;
             if (!string.IsNullOrWhiteSpace(txtPrima.Text) && !decimal.TryParse(txtPrima.Text.Trim(), out montoPrima))
             {
@@ -147,7 +139,7 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            // 4. Ejecutar el procedimiento almacenado principal SP_REALIZAR_VENTA en MySQL
+            
             using (MySqlConnection conexion = Conexion.ObtenerConexion())
             {
                 if (conexion == null)
@@ -162,20 +154,17 @@ namespace ElectroHogar.Modulo_Cajero
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        // Parámetros de Entrada (IN)
                         cmd.Parameters.Add("@P_ID_CLIENTE", MySqlDbType.Int32).Value = idCliente;
                         cmd.Parameters.Add("@P_ID_EMPLEADO", MySqlDbType.Int32).Value = idEmpleado;
                         cmd.Parameters.Add("@P_ID_SUCURSAL", MySqlDbType.Int32).Value = idSucursal;
                         cmd.Parameters.Add("@P_METODO_PAGO", MySqlDbType.VarChar).Value = metodoPago;
 
-                        // Enviamos el JSON como VarChar para máxima compatibilidad con el conector
                         cmd.Parameters.Add("@P_PRODUCTOS", MySqlDbType.VarChar).Value = jsonProductos;
 
                         cmd.Parameters.Add("@P_MONTO_PRIMA", MySqlDbType.Decimal).Value = montoPrima;
                         cmd.Parameters.Add("@P_TASA_INTERES", MySqlDbType.Decimal).Value = tasaInteres;
                         cmd.Parameters.Add("@P_NUMERO_CUOTAS", MySqlDbType.Int32).Value = numeroCuotas;
 
-                        // Parámetros de Salida (OUT)
                         MySqlParameter outIdFactura = new MySqlParameter("@P_ID_FACTURA", MySqlDbType.Int32);
                         outIdFactura.Direction = ParameterDirection.Output;
                         cmd.Parameters.Add(outIdFactura);
@@ -188,10 +177,9 @@ namespace ElectroHogar.Modulo_Cajero
                         outIdCredito.Direction = ParameterDirection.Output;
                         cmd.Parameters.Add(outIdCredito);
 
-                        // Ejecutar la transacción completa en la base de datos
                         cmd.ExecuteNonQuery();
 
-                        // Capturar resultados devueltos por el SP
+                        
                         string numFacturaGen = outNumFactura.Value.ToString();
                         string mensaje = $"¡Venta registrada con éxito!\nFactura N°: {numFacturaGen}";
 
@@ -207,13 +195,13 @@ namespace ElectroHogar.Modulo_Cajero
                 }
                 catch (Exception ex)
                 {
-                    // Atrapa cualquier validación o error de inventario insuficiente lanzado por MySQL
+                    
                     MessageBox.Show("Error al procesar la venta: " + ex.Message, "Validación de Negocio", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        // Métodos auxiliares y eventos secundarios
+        
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -228,10 +216,9 @@ namespace ElectroHogar.Modulo_Cajero
         private void txtIDCliente_TextChanged(object sender, EventArgs e) { }
         private void txtPrima_TextChanged(object sender, EventArgs e) { }
         private void txtPago_TextChanged(object sender, EventArgs e) { }
-        private void txtInteres_TextChanged(object sender, EventArgs e) { }
+        private void txtInteres_TextChanged(object senter, EventArgs e) { }
         private void txtCuotas_TextChanged(object sender, EventArgs e) { }
         private void dataProductos_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-        private void btnView_Click(object sender, EventArgs e) { }
         private void txtAñadirProducto_TextChanged(object sender, EventArgs e) { }
         private void txtcantidad_TextChanged(object sender, EventArgs e) { }
     }
