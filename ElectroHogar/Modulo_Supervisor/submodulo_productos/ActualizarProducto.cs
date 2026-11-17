@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
-    public partial class ActualizarProducto : Form
+    public partial class ActualizarProducto : FormBase
     {
         private int idProducto;
         private int idEmpleadoSupervisor;

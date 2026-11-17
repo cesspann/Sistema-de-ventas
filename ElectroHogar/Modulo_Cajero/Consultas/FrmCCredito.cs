@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCCredito : Form
+    public partial class FrmCCredito : FormBase
     {
         public FrmCCredito()
         {
@@ -24,17 +24,10 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
             CargarCreditos();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos c1 = new FrmConsultarDatos();
-            c1.Show();
+            
             this.Close();
         }
 
@@ -102,6 +95,11 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
                     MessageBox.Show("Error al consultar los créditos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCClienteNatural : Form
+    public partial class FrmCClienteNatural : FormBase
     {
         public FrmCClienteNatural()
         {
@@ -24,19 +24,11 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
             CargarClientesNaturales("");
         }
 
-        // Botón para regresar al menú principal
-        private void button1_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
+
 
         // Botón para ir a la otra ventana de consultas
         private void button2_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos cd = new FrmConsultarDatos();
-            cd.Show();
             this.Close();
         }
 

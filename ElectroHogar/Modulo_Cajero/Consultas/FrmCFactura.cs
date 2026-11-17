@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCFactura : Form
+    public partial class FrmCFactura : FormBase
     {
         public FrmCFactura()
         {
@@ -21,28 +21,15 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
             CargarFacturas("");
         }
 
-        // Botón para regresar a InicioCajero
-        private void button1_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
 
         // Botón para ir a la otra ventana de consultas
         private void button2_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos c1 = new FrmConsultarDatos();
-            c1.Show();
+            
             this.Close();
         }
 
         // Evento del botón de búsqueda (Ejecuta el filtro al hacer clic)
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            string filtro = txtBuscar.Text.Trim();
-            CargarFacturas(filtro);
-        }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
@@ -96,6 +83,12 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
                     MessageBox.Show("Error al consultar las facturas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnBuscar_Click_1(object sender, EventArgs e)
+        {
+            string filtro = txtBuscar.Text.Trim();
+            CargarFacturas(filtro);
         }
     }
 }

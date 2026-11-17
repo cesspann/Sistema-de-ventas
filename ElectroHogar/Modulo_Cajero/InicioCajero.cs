@@ -10,8 +10,8 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero
 {
-    public partial class InicioCajero : Form
-    {
+    public partial class InicioCajero : FormBase
+    { 
         private void AbrirSubVentana(Form ventanaHija)
         {
             ventanaHija.FormClosed += (s, args) => this.Show();      
@@ -31,27 +31,27 @@ namespace ElectroHogar.Modulo_Cajero
         private void button1_Click(object sender, EventArgs e)
         {
             AbrirSubVentana(new FrmNuevaVenta());
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             AbrirSubVentana(new FrmPagoCredito());
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             AbrirSubVentana(new FrmConsultarDatos()) ;
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             AbrirSubVentana(new FrmEliminarFactura());
+            this.Hide();
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            AbrirSubVentana(new FrmDatosCajero());
-        }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -69,6 +69,11 @@ namespace ElectroHogar.Modulo_Cajero
             Form1 loginForm = new Form1();
             loginForm.Show();
             this.Close();
+        }
+
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using ElectroHogar.Modulo_Cajero.Consultas;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,11 +12,18 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero
 {
-    public partial class FrmEliminarFactura : Form
+    public partial class FrmEliminarFactura : FormBase
     {
         public FrmEliminarFactura()
         {
             InitializeComponent();
+        }
+
+        private void AbrirSubVentana(Form ventanaHija)
+        {
+            ventanaHija.FormClosed += (s, args) => this.Show();
+            ventanaHija.Show();
+            this.Hide();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -28,8 +36,7 @@ namespace ElectroHogar.Modulo_Cajero
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
+            
             this.Close();
         }
 
@@ -134,5 +141,13 @@ namespace ElectroHogar.Modulo_Cajero
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AbrirSubVentana(new Consultas.FrmCFactura());
+            
+        }
+
+
     }
 }

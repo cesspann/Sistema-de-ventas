@@ -11,20 +11,14 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCLimiteCredito : Form
+    public partial class FrmCLimiteCredito : FormBase
     {
         public FrmCLimiteCredito()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
-
+    
         // Evento del botón de búsqueda vinculado a tu diseño
         private void btnBuscar(object sender, EventArgs e)
         {
@@ -62,8 +56,7 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
 
         private void button3_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos c1 = new FrmConsultarDatos();
-            c1.Show();
+            
             this.Close();
         }
 
@@ -132,6 +125,11 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
                     MessageBox.Show("Error al consultar el límite de crédito: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void FrmCLimiteCredito_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

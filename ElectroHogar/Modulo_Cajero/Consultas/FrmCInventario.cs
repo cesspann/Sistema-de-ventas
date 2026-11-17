@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCInventario : Form
+    public partial class FrmCInventario : FormBase
     {
         public FrmCInventario()
         {
@@ -19,22 +19,13 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
 
             // Cargamos los datos automáticamente al iniciar el formulario desde el código,
             // sin depender de que el evento Load esté enlazado en el diseñador.
-            CargarInventario();
+            CargarInventario(null); 
         }
 
-        // Botón para regresar a InicioCajero
-        private void button2_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
 
         // Botón para ir a la otra ventana de consultas
         private void button3_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos c1 = new FrmConsultarDatos();
-            c1.Show();
             this.Close();
         }
 
@@ -50,8 +41,13 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
         {
         }
 
-        // Método centralizado para conectar y ejecutar el Procedimiento Almacenado SP_CONSULTAR_INVENTARIO
-        private void CargarInventario()
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarInventario(txtBusqueda.Text);
+        }
+
+        // Consulta el inventario de la sucursal usando SP_CONSULTAR_PRODUCTOS_SUCURSAL.
+        private void CargarInventario(string busqueda)
         {
             using (MySqlConnection conexion = Conexion.ObtenerConexion())
             {
@@ -63,20 +59,22 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
 
                 try
                 {
-                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_INVENTARIO", conexion))
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_PRODUCTOS_SUCURSAL", conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        // Pasamos el ID de la sucursal del usuario logueado automáticamente
-                        cmd.Parameters.Add("@P_ID_SUCURSAL", MySqlDbType.Int32).Value = SesionUsuario.IdSucursal;
+                        int idSucursal = SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1;
+                        string criterio = string.IsNullOrWhiteSpace(busqueda) ? null : busqueda.Trim();
+
+                        cmd.Parameters.AddWithValue("P_ID_EMPLEADO", SesionUsuario.IdEmpleado);
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", criterio == null ? (object)DBNull.Value : criterio);
+                        cmd.Parameters.AddWithValue("ID_SUCURSAL", idSucursal);
 
                         using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                         {
                             DataTable dt = new DataTable();
                             da.Fill(dt);
 
-                            // Mostramos los resultados en el DataGridView de manera forzada y limpia
-                            dataGridView1.DataSource = null;
                             dataGridView1.DataSource = dt;
                         }
                     }

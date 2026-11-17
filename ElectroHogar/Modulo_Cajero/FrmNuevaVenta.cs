@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ElectroHogar.Modulo_Cajero.Consultas;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 
 namespace ElectroHogar.Modulo_Cajero
 {
-    public partial class FrmNuevaVenta : Form
+    public partial class FrmNuevaVenta : FormBase
     {
         // Estructura auxiliar para serializar los productos a JSON que espera SP_REALIZAR_VENTA
         public class DetalleVentaJson
@@ -24,15 +25,50 @@ namespace ElectroHogar.Modulo_Cajero
         public FrmNuevaVenta()
         {
             InitializeComponent();
-            InicializarGrilla(); 
+            InicializarGrilla();
         }
 
         private void FrmNuevaVenta_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-      
+        private void FrmNuevaVenta_Load_1(object sender, EventArgs e)
+        {
+            FrmNuevaVenta_Load(sender, e);
+        }
+
+        private void AbrirConsulta(Form consulta)
+        {
+            consulta.FormClosed += (s, args) => this.Show();
+            consulta.Show();
+            this.Hide();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            AbrirConsulta(new FrmCInventario());
+        }
+
+        private void consultarCliente_Click(object sender, EventArgs e)
+        {
+            AbrirConsulta(new FrmCClienteJuridico());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AbrirConsulta(new FrmCClienteNatural());
+        }
+
+
         private void InicializarGrilla()
         {
             if (dataProductos.Columns.Count == 0)
@@ -42,7 +78,7 @@ namespace ElectroHogar.Modulo_Cajero
             }
         }
 
-        
+
         private void btnAñadirProducto_Click(object sender, EventArgs e)
         {
             string textoId = txtAñadirProducto.Text.Trim();
@@ -102,7 +138,7 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            
+
             string jsonProductos = JsonConvert.SerializeObject(listaProductos);
 
             int idCliente;
@@ -112,12 +148,12 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            int idEmpleado = SesionUsuario.IdEmpleado; 
-            int idSucursal = 1; 
+            int idEmpleado = SesionUsuario.IdEmpleado;
+            int idSucursal = 1;
 
             string metodoPago = string.IsNullOrWhiteSpace(txtPago.Text) ? "Efectivo" : txtPago.Text.Trim();
 
-            
+
             decimal montoPrima = 0.00m;
             if (!string.IsNullOrWhiteSpace(txtPrima.Text) && !decimal.TryParse(txtPrima.Text.Trim(), out montoPrima))
             {
@@ -139,7 +175,7 @@ namespace ElectroHogar.Modulo_Cajero
                 return;
             }
 
-            
+
             using (MySqlConnection conexion = Conexion.ObtenerConexion())
             {
                 if (conexion == null)
@@ -179,7 +215,7 @@ namespace ElectroHogar.Modulo_Cajero
 
                         cmd.ExecuteNonQuery();
 
-                        
+
                         string numFacturaGen = outNumFactura.Value.ToString();
                         string mensaje = $"¡Venta registrada con éxito!\nFactura N°: {numFacturaGen}";
 
@@ -195,13 +231,13 @@ namespace ElectroHogar.Modulo_Cajero
                 }
                 catch (Exception ex)
                 {
-                    
+
                     MessageBox.Show("Error al procesar la venta: " + ex.Message, "Validación de Negocio", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();

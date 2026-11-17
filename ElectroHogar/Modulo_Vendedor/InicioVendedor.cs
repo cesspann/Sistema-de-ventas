@@ -24,14 +24,14 @@ namespace ElectroHogar.Modulo_Vendedor
 
         private void InicializarOpcionesVentanillas()
         {
-            // --- OPCIONES PARA GESTIONAR CLIENTE ---
+            
             menuClientes = new ContextMenuStrip();
             menuClientes.ImageScalingSize = new Size(20, 20);
             menuClientes.Items.Add(" Cliente Jurídico", null, (s, e) => AccionOpcion("Cliente Jurídico"));
             menuClientes.Items.Add(" Cliente Natural", null, (s, e) => AccionOpcion("Cliente Natural"));
         }
 
-        // Método centralizado para abrir los módulos del vendedor
+        
         private void AccionOpcion(string nombreOpcion)
         {
             if (nombreOpcion == "Cliente Jurídico")
@@ -61,7 +61,6 @@ namespace ElectroHogar.Modulo_Vendedor
             }
         }
 
-        // --- BOTONES PRINCIPALES ---
         private void btnConsultarCliente_Click(object sender, EventArgs e)
         {
             menuClientes.Show(btnConsultarCliente, new Point(0, btnConsultarCliente.Height));
@@ -72,7 +71,6 @@ namespace ElectroHogar.Modulo_Vendedor
             AccionOpcion("Consultar Productos");
         }
 
-        // --- VENTANA DE PERFIL ---
         private void btnPerfil_Click(object sender, EventArgs e)
         {
             GestionPerfil ventanaPerfil = new GestionPerfil();
@@ -85,7 +83,7 @@ namespace ElectroHogar.Modulo_Vendedor
         }
 
 
-        // --- BÚSQUEDA DINÁMICA ---
+       
         private void ConfigurarListaBusquedaDinamica()
         {
             listaResultadosBusqueda = new ListBox();

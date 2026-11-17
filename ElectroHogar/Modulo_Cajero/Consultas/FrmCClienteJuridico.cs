@@ -11,16 +11,17 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCClienteJuridico : Form
+    public partial class FrmCClienteJuridico : FormBase
     {
         public FrmCClienteJuridico()
         {
             InitializeComponent();
+            CargarClientesJuridicos(null);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string filtro = btnBusqueda.Text.Trim();
+            string filtro = txtBusqueda.Text.Trim();
             CargarClientesJuridicos(filtro);
         }
 
@@ -45,7 +46,7 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         // Enviamos el parámetro al procedimiento almacenado
-                        cmd.Parameters.AddWithValue("@P_BUSQUEDA", string.IsNullOrEmpty(busqueda) ? (object)DBNull.Value : busqueda);
+                        cmd.Parameters.AddWithValue("@P_BUSQUEDA", string.IsNullOrWhiteSpace(busqueda) ? (object)DBNull.Value : busqueda.Trim());
 
                         using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                         {
@@ -67,7 +68,7 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
 
 private void button1_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos consultarDatos = new FrmConsultarDatos();
+
             this.Close();
         }
 
@@ -76,12 +77,6 @@ private void button1_Click(object sender, EventArgs e)
 
         }
 
-        private void btnsubmenu_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            this.Close();
-           
-        }
 
         private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
         {

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCCuota : Form
+    public partial class FrmCCuota : FormBase
     {
         public FrmCCuota()
         {
@@ -24,17 +24,10 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
             CargarCuotas();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos c1 = new FrmConsultarDatos();
-            c1.Show();
+            
             this.Close();
         }
 

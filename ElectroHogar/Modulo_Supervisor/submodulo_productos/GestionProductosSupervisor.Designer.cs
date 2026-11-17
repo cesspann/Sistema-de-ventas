@@ -71,6 +71,9 @@
             // 
             // pnlPrincipal
             // 
+            this.pnlPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPrincipal.BackColor = System.Drawing.Color.White;
             this.pnlPrincipal.Controls.Add(this.btnHistorialPrecios);
             this.pnlPrincipal.Controls.Add(this.btnDesactivarProducto);
@@ -82,7 +85,6 @@
             this.pnlPrincipal.Controls.Add(this.btnGestionarCategorias);
             this.pnlPrincipal.Controls.Add(this.btnAgregarProducto);
             this.pnlPrincipal.Controls.Add(this.txtBuscar);
-            this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPrincipal.Location = new System.Drawing.Point(0, 75);
             this.pnlPrincipal.Name = "pnlPrincipal";
             this.pnlPrincipal.Size = new System.Drawing.Size(1438, 690);
@@ -107,7 +109,7 @@
             // 
             // btnDesactivarProducto
             // 
-            this.btnDesactivarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDesactivarProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnDesactivarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.btnDesactivarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDesactivarProducto.FlatAppearance.BorderSize = 0;
@@ -124,7 +126,7 @@
             // 
             // btnActivarProducto
             // 
-            this.btnActivarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnActivarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnActivarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.btnActivarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActivarProducto.FlatAppearance.BorderSize = 0;
@@ -141,7 +143,7 @@
             // 
             // btnActualizarProducto
             // 
-            this.btnActualizarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnActualizarProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnActualizarProducto.BackColor = System.Drawing.Color.Teal;
             this.btnActualizarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarProducto.FlatAppearance.BorderSize = 0;
@@ -170,7 +172,7 @@
             // 
             // btnGestionarProveedores
             // 
-            this.btnGestionarProveedores.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGestionarProveedores.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnGestionarProveedores.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.btnGestionarProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGestionarProveedores.FlatAppearance.BorderSize = 0;
@@ -187,7 +189,7 @@
             // 
             // btnGestionarPromociones
             // 
-            this.btnGestionarPromociones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGestionarPromociones.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnGestionarPromociones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.btnGestionarPromociones.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGestionarPromociones.FlatAppearance.BorderSize = 0;
@@ -204,7 +206,7 @@
             // 
             // btnGestionarCategorias
             // 
-            this.btnGestionarCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGestionarCategorias.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnGestionarCategorias.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.btnGestionarCategorias.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGestionarCategorias.FlatAppearance.BorderSize = 0;
@@ -221,7 +223,7 @@
             // 
             // btnAgregarProducto
             // 
-            this.btnAgregarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAgregarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAgregarProducto.BackColor = System.Drawing.Color.Teal;
             this.btnAgregarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarProducto.FlatAppearance.BorderSize = 0;
@@ -257,12 +259,15 @@
             this.Name = "GestionProductosSupervisor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ElectroHogar - Gestión de Inventario";
+            this.Controls.SetChildIndex(this.pnlSuperior, 0);
+            this.Controls.SetChildIndex(this.pnlPrincipal, 0);
             this.pnlSuperior.ResumeLayout(false);
             this.pnlSuperior.PerformLayout();
             this.pnlPrincipal.ResumeLayout(false);
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         private System.Windows.Forms.Panel pnlSuperior;

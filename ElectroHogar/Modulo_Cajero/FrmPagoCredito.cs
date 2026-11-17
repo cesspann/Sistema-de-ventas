@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using ElectroHogar.Modulo_Cajero.Consultas;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero
 {
-    public partial class FrmPagoCredito : Form
+    public partial class FrmPagoCredito : FormBase
     {
         public FrmPagoCredito()
         {
@@ -66,8 +67,7 @@ namespace ElectroHogar.Modulo_Cajero
         // Botón para regresar al menú principal del cajero
         private void button2_Click(object sender, EventArgs e)
         {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
+            
             this.Close();
         }
 
@@ -122,6 +122,24 @@ namespace ElectroHogar.Modulo_Cajero
                     MessageBox.Show("No se pudo procesar el pago: " + ex.Message, "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FrmCFactura facturaV = new FrmCFactura();
+            facturaV.FormClosed += (s, args) => this.Show();
+            facturaV.Show();
+            this.Hide();
         }
     }
 }

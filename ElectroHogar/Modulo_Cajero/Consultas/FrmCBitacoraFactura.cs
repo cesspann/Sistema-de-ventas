@@ -1,86 +1,65 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCBitacoraFactura : Form
+    public partial class FrmCBitacoraFactura : FormBase
     {
+        
+        private bool _cargando = true;
+
         public FrmCBitacoraFactura()
         {
             InitializeComponent();
+
+            
+            dateDesde.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            dateHasta.Value = DateTime.Today;
+
+            Load += FrmCBitacoraFactura_Load;
         }
 
         private void FrmCBitacoraFactura_Load(object sender, EventArgs e)
         {
-            // Al abrir la ventana, aplicamos los filtros automáticamente usando la sesión
+            _cargando = false;
             AplicarFiltros();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void btnMain_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
         }
 
         private void btnsecond_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos consultarDatos = new FrmConsultarDatos();
-            consultarDatos.Show();
             this.Close();
         }
 
-        // Búsqueda de texto
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            AplicarFiltros();
+            if (!_cargando) AplicarFiltros();
         }
 
-        // FECHA DESDE (Usando dateDesde)
         private void dateDesde_ValueChanged(object sender, EventArgs e)
         {
-            AplicarFiltros();
+            if (!_cargando) AplicarFiltros();
         }
 
-        // FECHA HASTA (Usando dateHasta)
         private void dateHasta_ValueChanged(object sender, EventArgs e)
+        {
+            if (!_cargando) AplicarFiltros();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             AplicarFiltros();
         }
 
         private void AplicarFiltros()
         {
-            // 1. Obtenemos el ID de la sucursal directamente desde el login (SesionUsuario)
-            int idSucursal = SesionUsuario.IdSucursal;
-
-            if (idSucursal == 0)
-            {
-                // Si por alguna razón no hay sesión activa o es 0, alertamos o limpiamos
-                return;
-            }
-
-            // 2. Texto de búsqueda
+            int idSucursal = SesionUsuario.IdSucursal > 0 ? SesionUsuario.IdSucursal : 1;
             string busqueda = textBox1.Text.Trim();
 
-            // 3. Fecha Desde
-            DateTime? fechaDesde = dateDesde.Value.Date;
+            DateTime fechaDesde = dateDesde.Value.Date;
+            DateTime fechaHasta = dateHasta.Value.Date.AddDays(1).AddSeconds(-1);
 
-            // 4. Fecha Hasta (abarcando hasta el final del día)
-            DateTime? fechaHasta = dateHasta.Value.Date.AddDays(1).AddSeconds(-1);
-
-            // Llamamos a la consulta directa con la sucursal del login
             CargarBitacoraDirecta(idSucursal, busqueda, fechaDesde, fechaHasta);
         }
 
@@ -96,61 +75,22 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
 
                 try
                 {
-                    // Armamos la consulta SQL directamente en C# sin alterar procedimientos almacenados
-                    string query = @"SELECT B.ID_BITACORA_FACTURA, B.ID_FACTURA, B.ID_EMPLEADO, B.FECHA_CREACION, B.MOTIVO_DE_CANCELACION
-                                     FROM BITACORAFACTURACANCELADA B
-                                     INNER JOIN FACTURA F ON B.ID_FACTURA = F.ID_FACTURA
-                                     WHERE F.ID_SUCURSAL = @P_ID_SUCURSAL";
-
-                    // Si escribieron algo en la búsqueda de texto
-                    if (!string.IsNullOrEmpty(busqueda))
+                    using (MySqlCommand cmd = new MySqlCommand("SP_CONSULTAR_BITACORA_FACTURA_ANULADA", conexion))
                     {
-                        query += @" AND (
-                                      CAST(B.ID_BITACORA_FACTURA AS CHAR) LIKE @P_BUSQUEDA
-                                      OR CAST(B.ID_FACTURA AS CHAR) LIKE @P_BUSQUEDA
-                                      OR CAST(B.ID_EMPLEADO AS CHAR) LIKE @P_BUSQUEDA
-                                      OR B.MOTIVO_DE_CANCELACION LIKE @P_BUSQUEDA
-                                   )";
-                    }
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Filtro de fecha desde
-                    if (fechaDesde.HasValue)
-                    {
-                        query += " AND B.FECHA_CREACION >= @P_FECHA_DESDE";
-                    }
-
-                    // Filtro de fecha hasta
-                    if (fechaHasta.HasValue)
-                    {
-                        query += " AND B.FECHA_CREACION <= @P_FECHA_HASTA";
-                    }
-
-                    query += " ORDER BY B.FECHA_CREACION DESC;";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@P_ID_SUCURSAL", idSucursal);
-
-                        if (!string.IsNullOrEmpty(busqueda))
-                        {
-                            cmd.Parameters.AddWithValue("@P_BUSQUEDA", "%" + busqueda + "%");
-                        }
-
-                        if (fechaDesde.HasValue)
-                        {
-                            cmd.Parameters.AddWithValue("@P_FECHA_DESDE", fechaDesde.Value);
-                        }
-
-                        if (fechaHasta.HasValue)
-                        {
-                            cmd.Parameters.AddWithValue("@P_FECHA_HASTA", fechaHasta.Value);
-                        }
+                        // Verifica que estos nombres coincidan exactamente con los de tu SP en MySQL
+                        cmd.Parameters.AddWithValue("P_ID_SUCURSAL", idSucursal);
+                        cmd.Parameters.AddWithValue("P_BUSQUEDA", string.IsNullOrWhiteSpace(busqueda) ? (object)DBNull.Value : busqueda);
+                        cmd.Parameters.AddWithValue("P_FECHA_DESDE", fechaDesde.HasValue ? (object)fechaDesde.Value : DBNull.Value);
+                        cmd.Parameters.AddWithValue("P_FECHA_HASTA", fechaHasta.HasValue ? (object)fechaHasta.Value : DBNull.Value);
 
                         using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                         {
                             DataTable dt = new DataTable();
                             da.Fill(dt);
 
+                            dataGridView1.AutoGenerateColumns = true;
                             dataGridView1.DataSource = dt;
                         }
                     }
@@ -162,16 +102,13 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
             }
         }
 
-        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        // Eventos vacíos del diseñador (puedes dejarlos o eliminarlos desde la vista de propiedades)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e) { }
+        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e) { }
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e) { }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

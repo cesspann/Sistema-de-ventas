@@ -11,20 +11,13 @@ using System.Windows.Forms;
 
 namespace ElectroHogar.Modulo_Cajero.Consultas
 {
-    public partial class FrmCPromocion : Form
+    public partial class FrmCPromocion : FormBase
     {
         public FrmCPromocion()
         {
             InitializeComponent();
         }
 
-        // Botón para regresar a InicioCajero
-        private void button2_Click(object sender, EventArgs e)
-        {
-            InicioCajero inicioCajero = new InicioCajero();
-            inicioCajero.Show();
-            this.Close();
-        }
 
         // Botón de búsqueda
         private void button1_Click(object sender, EventArgs e)
@@ -42,8 +35,7 @@ namespace ElectroHogar.Modulo_Cajero.Consultas
         // Botón para regresar a FrmConsultarDatos
         private void button3_Click(object sender, EventArgs e)
         {
-            FrmConsultarDatos c1 = new FrmConsultarDatos();
-            c1.Show();
+            
             this.Close();
         }
 

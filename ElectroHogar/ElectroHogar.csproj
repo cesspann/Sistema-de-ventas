@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\tirsa\AppData\Local\Temp\vs9B51.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Saa Vasquez\AppData\Local\Temp\vsCC98.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\tirsa\AppData\Local\Temp\vs9B51.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Saa Vasquez\AppData\Local\Temp\vsCC98.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -118,12 +118,6 @@
     <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.Designer.cs">
       <DependentUpon>FrmCBitacoraFactura.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraProducto.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modulo_Cajero\Consultas\FrmCBitacoraProducto.Designer.cs">
-      <DependentUpon>FrmCBitacoraProducto.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modulo_Cajero\Consultas\FrmCClienteJuridico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,12 +177,6 @@
     </Compile>
     <Compile Include="Modulo_Cajero\FrmConsultarDatos.Designer.cs">
       <DependentUpon>FrmConsultarDatos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modulo_Cajero\FrmDatosCajero.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modulo_Cajero\FrmDatosCajero.Designer.cs">
-      <DependentUpon>FrmDatosCajero.cs</DependentUpon>
     </Compile>
     <Compile Include="Modulo_Cajero\FrmEliminarFactura.cs">
       <SubType>Form</SubType>
@@ -478,9 +466,6 @@
     <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCBitacoraFactura.resx">
       <DependentUpon>FrmCBitacoraFactura.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCBitacoraProducto.resx">
-      <DependentUpon>FrmCBitacoraProducto.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\Consultas\FrmCClienteJuridico.resx">
       <DependentUpon>FrmCClienteJuridico.cs</DependentUpon>
     </EmbeddedResource>
@@ -510,9 +495,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\FrmConsultarDatos.resx">
       <DependentUpon>FrmConsultarDatos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modulo_Cajero\FrmDatosCajero.resx">
-      <DependentUpon>FrmDatosCajero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modulo_Cajero\FrmEliminarFactura.resx">
       <DependentUpon>FrmEliminarFactura.cs</DependentUpon>

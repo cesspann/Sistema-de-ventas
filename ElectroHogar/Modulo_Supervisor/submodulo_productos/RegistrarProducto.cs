@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace ElectroHogar.Modulo_Supervisor.submodulo_productos
 {
-    public partial class RegistrarProducto : Form
+    public partial class RegistrarProducto : FormBase
     {
         private int idSucursalActual;
 
