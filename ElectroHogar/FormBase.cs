@@ -10,6 +10,7 @@ namespace ElectroHogar
         public FormBase()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         protected override void OnLoad(EventArgs e)

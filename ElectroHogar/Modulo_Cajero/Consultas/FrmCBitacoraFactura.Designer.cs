@@ -91,7 +91,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.21505F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.78495F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel4.Controls.Add(this.btnsecond, 2, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 53);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -102,11 +102,11 @@
             // 
             // btnsecond
             // 
+            this.btnsecond.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnsecond.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.btnsecond.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnsecond.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnsecond.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnsecond.Location = new System.Drawing.Point(953, 3);
+            this.btnsecond.Location = new System.Drawing.Point(952, 3);
             this.btnsecond.Name = "btnsecond";
             this.btnsecond.Size = new System.Drawing.Size(133, 38);
             this.btnsecond.TabIndex = 1;
@@ -158,7 +158,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 283F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 281F));
             this.tableLayoutPanel3.Controls.Add(this.btnBuscar, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.dateDesde, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.dateHasta, 5, 1);
@@ -177,7 +177,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscar.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnBuscar.BackColor = System.Drawing.Color.Teal;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -192,7 +192,7 @@
             // dateDesde
             // 
             this.dateDesde.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateDesde.Location = new System.Drawing.Point(491, 64);
+            this.dateDesde.Location = new System.Drawing.Point(490, 64);
             this.dateDesde.Name = "dateDesde";
             this.dateDesde.Size = new System.Drawing.Size(277, 22);
             this.dateDesde.TabIndex = 1;
@@ -200,9 +200,9 @@
             // dateHasta
             // 
             this.dateHasta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateHasta.Location = new System.Drawing.Point(794, 64);
+            this.dateHasta.Location = new System.Drawing.Point(793, 64);
             this.dateHasta.Name = "dateHasta";
-            this.dateHasta.Size = new System.Drawing.Size(275, 22);
+            this.dateHasta.Size = new System.Drawing.Size(276, 22);
             this.dateHasta.TabIndex = 6;
             // 
             // label4
@@ -210,7 +210,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(491, 12);
+            this.label4.Location = new System.Drawing.Point(490, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(277, 20);
             this.label4.TabIndex = 4;
@@ -218,14 +218,12 @@
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(794, 0);
+            this.label5.Location = new System.Drawing.Point(793, 12);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(275, 44);
+            this.label5.Size = new System.Drawing.Size(59, 20);
             this.label5.TabIndex = 5;
             this.label5.Text = "Hasta:";
             // 
@@ -245,7 +243,7 @@
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(116, 11);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(344, 22);
+            this.textBox1.Size = new System.Drawing.Size(343, 22);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -286,6 +284,8 @@
             this.Controls.Add(this.panel1);
             this.Name = "FrmCBitacoraFactura";
             this.Text = "FrmCBitacoraFactura";
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -297,6 +297,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

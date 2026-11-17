@@ -36,16 +36,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.txtEstado = new System.Windows.Forms.TextBox();
-            this.dateInicio = new System.Windows.Forms.DateTimePicker();
-            this.dateFin = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.dateFin = new System.Windows.Forms.DateTimePicker();
+            this.dateInicio = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -94,7 +94,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.88868F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.80917F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             this.tableLayoutPanel2.Controls.Add(this.button3, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(23, 53);
@@ -106,11 +106,11 @@
             // 
             // button3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.button3.BackColor = System.Drawing.Color.Teal;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button3.Location = new System.Drawing.Point(886, 3);
+            this.button3.Location = new System.Drawing.Point(885, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(159, 38);
             this.button3.TabIndex = 1;
@@ -136,7 +136,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Location = new System.Drawing.Point(23, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 42);
+            this.label1.Size = new System.Drawing.Size(164, 41);
             this.label1.TabIndex = 1;
             this.label1.Text = "Consultas";
             // 
@@ -170,20 +170,6 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1118, 629);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Snow;
-            this.button1.Location = new System.Drawing.Point(886, 119);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 43);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Buscar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -197,7 +183,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 151F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel4.Controls.Add(this.txtBusqueda, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.txtEstado, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 1, 0);
@@ -221,7 +207,7 @@
             this.txtBusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.Location = new System.Drawing.Point(160, 18);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(530, 22);
+            this.txtBusqueda.Size = new System.Drawing.Size(529, 22);
             this.txtBusqueda.TabIndex = 0;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
             // 
@@ -230,71 +216,85 @@
             this.txtEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEstado.Location = new System.Drawing.Point(160, 76);
             this.txtEstado.Name = "txtEstado";
-            this.txtEstado.Size = new System.Drawing.Size(530, 22);
+            this.txtEstado.Size = new System.Drawing.Size(529, 22);
             this.txtEstado.TabIndex = 1;
             this.txtEstado.TextChanged += new System.EventHandler(this.txtEstado_TextChanged);
             // 
-            // dateInicio
-            // 
-            this.dateInicio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateInicio.Location = new System.Drawing.Point(718, 76);
-            this.dateInicio.Name = "dateInicio";
-            this.dateInicio.Size = new System.Drawing.Size(145, 22);
-            this.dateInicio.TabIndex = 2;
-            this.dateInicio.ValueChanged += new System.EventHandler(this.dateInicio_ValueChanged);
-            // 
-            // dateFin
-            // 
-            this.dateFin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateFin.Location = new System.Drawing.Point(886, 76);
-            this.dateFin.Name = "dateFin";
-            this.dateFin.Size = new System.Drawing.Size(162, 22);
-            this.dateFin.TabIndex = 3;
-            this.dateFin.ValueChanged += new System.EventHandler(this.dateFin_ValueChanged);
-            // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(24, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(130, 40);
+            this.label3.Size = new System.Drawing.Size(127, 40);
             this.label3.TabIndex = 4;
             this.label3.Text = "Ingrese palabra clave:";
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(24, 67);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 40);
+            this.label4.Size = new System.Drawing.Size(98, 40);
             this.label4.TabIndex = 5;
             this.label4.Text = "Ingrese el Estado:";
             // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(885, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(124, 20);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Fecha de Fin:";
+            // 
+            // dateFin
+            // 
+            this.dateFin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateFin.Location = new System.Drawing.Point(885, 76);
+            this.dateFin.Name = "dateFin";
+            this.dateFin.Size = new System.Drawing.Size(162, 22);
+            this.dateFin.TabIndex = 3;
+            this.dateFin.ValueChanged += new System.EventHandler(this.dateFin_ValueChanged);
+            // 
+            // dateInicio
+            // 
+            this.dateInicio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateInicio.Location = new System.Drawing.Point(717, 76);
+            this.dateInicio.Name = "dateInicio";
+            this.dateInicio.Size = new System.Drawing.Size(145, 22);
+            this.dateInicio.TabIndex = 2;
+            this.dateInicio.ValueChanged += new System.EventHandler(this.dateInicio_ValueChanged);
+            // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(718, 19);
+            this.label5.Location = new System.Drawing.Point(717, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(145, 20);
+            this.label5.Size = new System.Drawing.Size(143, 20);
             this.label5.TabIndex = 6;
             this.label5.Text = "Fecha de Inicio:";
             // 
-            // label6
+            // button1
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(886, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(162, 20);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Fecha de Fin:";
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Snow;
+            this.button1.Location = new System.Drawing.Point(885, 119);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(162, 43);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Buscar";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 

@@ -100,8 +100,8 @@
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.button1.BackColor = System.Drawing.Color.Teal;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button1.Location = new System.Drawing.Point(915, 3);
@@ -167,15 +167,13 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tableLayoutPanel4.ColumnCount = 4;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.97362F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.02638F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 147F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 9F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.txtBusqueda, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnBusqueda, 2, 0);
@@ -194,7 +192,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(295, 20);
+            this.label3.Size = new System.Drawing.Size(294, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "Ingrese el Criterio de Busqueda:";
             // 
@@ -202,7 +200,7 @@
             // 
             this.txtBusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.txtBusqueda.Location = new System.Drawing.Point(304, 14);
+            this.txtBusqueda.Location = new System.Drawing.Point(303, 14);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(605, 22);
             this.txtBusqueda.TabIndex = 0;
@@ -210,7 +208,7 @@
             // 
             // btnBusqueda
             // 
-            this.btnBusqueda.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnBusqueda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(82)))), ((int)(((byte)(209)))));
             this.btnBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBusqueda.ForeColor = System.Drawing.SystemColors.ControlLightLight;

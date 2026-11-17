@@ -103,7 +103,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.81013F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.18987F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 121F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
@@ -158,7 +158,7 @@
             this.txtIDFactura.BackColor = System.Drawing.SystemColors.MenuBar;
             this.txtIDFactura.Location = new System.Drawing.Point(201, 3);
             this.txtIDFactura.Name = "txtIDFactura";
-            this.txtIDFactura.Size = new System.Drawing.Size(366, 22);
+            this.txtIDFactura.Size = new System.Drawing.Size(365, 22);
             this.txtIDFactura.TabIndex = 5;
             this.txtIDFactura.TextChanged += new System.EventHandler(this.txtIDFactura_TextChanged);
             // 
@@ -167,7 +167,7 @@
             this.txtIDEmpleado.BackColor = System.Drawing.SystemColors.MenuBar;
             this.txtIDEmpleado.Location = new System.Drawing.Point(201, 103);
             this.txtIDEmpleado.Name = "txtIDEmpleado";
-            this.txtIDEmpleado.Size = new System.Drawing.Size(366, 22);
+            this.txtIDEmpleado.Size = new System.Drawing.Size(365, 22);
             this.txtIDEmpleado.TabIndex = 6;
             this.txtIDEmpleado.TextChanged += new System.EventHandler(this.txtIDEmpleado_TextChanged);
             // 
@@ -176,7 +176,7 @@
             this.txtMotivo.BackColor = System.Drawing.SystemColors.MenuBar;
             this.txtMotivo.Location = new System.Drawing.Point(201, 203);
             this.txtMotivo.Name = "txtMotivo";
-            this.txtMotivo.Size = new System.Drawing.Size(366, 22);
+            this.txtMotivo.Size = new System.Drawing.Size(365, 22);
             this.txtMotivo.TabIndex = 7;
             this.txtMotivo.TextChanged += new System.EventHandler(this.txtMotivo_TextChanged);
             // 
@@ -256,8 +256,11 @@
             this.ClientSize = new System.Drawing.Size(902, 513);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.Name = "FrmEliminarFactura";
             this.Text = "FrmEliminarFactura";
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -265,6 +268,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
