@@ -94,6 +94,7 @@
             // 
             // btnConsultasLocales
             // 
+            this.btnConsultasLocales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnConsultasLocales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnConsultasLocales.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnConsultasLocales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -109,6 +110,7 @@
             // 
             // btnOtrasSucursales
             // 
+            this.btnOtrasSucursales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOtrasSucursales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnOtrasSucursales.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnOtrasSucursales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -124,6 +126,7 @@
             // 
             // btnGestionarUsuarios
             // 
+            this.btnGestionarUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGestionarUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnGestionarUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnGestionarUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -139,6 +142,7 @@
             // 
             // btnVerReportes
             // 
+            this.btnVerReportes.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnVerReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnVerReportes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnVerReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -169,6 +173,7 @@
             // 
             // lblIconoBuscar
             // 
+            this.lblIconoBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblIconoBuscar.AutoSize = true;
             this.lblIconoBuscar.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.lblIconoBuscar.ForeColor = System.Drawing.Color.Teal;
@@ -180,6 +185,8 @@
             // 
             // txtBuscar
             // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
             this.txtBuscar.Location = new System.Drawing.Point(92, 56);

@@ -24,6 +24,7 @@ namespace ElectroHogar
             ConfigurarPlaceholder();
             InicializarOpcionesVentanillas();
             ConfigurarListaBusquedaDinamica();
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             btnPerfil.Click += btnPerfil_Click;
         }

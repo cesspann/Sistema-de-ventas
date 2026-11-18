@@ -19,7 +19,8 @@ namespace ElectroHogar.Modulo_Vendedor
             ConfigurarPlaceholder();
             InicializarOpcionesVentanillas();
             ConfigurarListaBusquedaDinamica();
-            
+            this.StartPosition = FormStartPosition.CenterScreen;
+
         }
 
         private void InicializarOpcionesVentanillas()

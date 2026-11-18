@@ -69,6 +69,7 @@
             // 
             // btnPerfil
             // 
+            this.btnPerfil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPerfil.BackColor = System.Drawing.Color.Transparent;
             this.btnPerfil.FlatAppearance.BorderSize = 0;
             this.btnPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -97,6 +98,8 @@
             // 
             // txtBuscar
             // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
             this.txtBuscar.Location = new System.Drawing.Point(50, 40);
@@ -107,6 +110,7 @@
             // 
             // lblBuscarIcono
             // 
+            this.lblBuscarIcono.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBuscarIcono.AutoSize = true;
             this.lblBuscarIcono.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.lblBuscarIcono.ForeColor = System.Drawing.Color.Teal;
@@ -118,12 +122,14 @@
             // 
             // btnConsultarCliente
             // 
+            this.btnConsultarCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.btnConsultarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnConsultarCliente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnConsultarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultarCliente.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
             this.btnConsultarCliente.ForeColor = System.Drawing.Color.Teal;
-            this.btnConsultarCliente.Location = new System.Drawing.Point(80, 220);
+            this.btnConsultarCliente.Location = new System.Drawing.Point(77, 220);
             this.btnConsultarCliente.Name = "btnConsultarCliente";
             this.btnConsultarCliente.Size = new System.Drawing.Size(260, 190);
             this.btnConsultarCliente.TabIndex = 2;
@@ -133,6 +139,9 @@
             // 
             // btnConsultarProductos
             // 
+            this.btnConsultarProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConsultarProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
             this.btnConsultarProductos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(214)))), ((int)(((byte)(229)))));
             this.btnConsultarProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -157,11 +166,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ElectroHogar - Panel de Vendedor";
             this.Load += new System.EventHandler(this.InicioVendedor_Load);
+            this.Controls.SetChildIndex(this.pnlLateral, 0);
+            this.Controls.SetChildIndex(this.pnlContenido, 0);
             this.pnlLateral.ResumeLayout(false);
             this.pnlLateral.PerformLayout();
             this.pnlContenido.ResumeLayout(false);
             this.pnlContenido.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
